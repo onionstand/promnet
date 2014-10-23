@@ -1,0 +1,335 @@
+/*! normalize.css v3.0.1 | MIT License | git.io/normalize */
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+body{margin:0}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+audio,canvas,progress,video{display:inline-block;vertical-align:baseline}
+audio:not([controls]){display:none;height:0}
+[hidden],template{display:none}
+a{background:0 0; color:#414141; }
+a:active,a:hover{outline:0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:700}
+dfn{font-style:italic}
+h1{font-size:2em;margin:.67em 0}
+mark{background:#ff0;color:#000}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:1em 40px}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+pre{overflow:auto}
+code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}
+button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}
+button{overflow:visible}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+input{line-height:normal}
+input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}
+input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}
+input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}
+table{border-collapse:collapse;border-spacing:0}
+td,th{padding:0}
+
+
+body {padding:0; color:#414141; background-color: #F5F5F5; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 16px;}
+
+.cf:before, .cf:after {content:"";display:table}
+.cf:after {clear:both}
+.cf {zoom:1}
+
+
+.sadrzaj_index {background:url("../images/headpoz.jpg") repeat-x scroll 0 0; font-size: 14px; margin:0; padding:0; }
+
+#tabele, .tabele {padding: 0; margin:15px 0px 15px 0px; border-collapse:collapse; width:100%;}
+.tabele_nowidth {padding: 0;	margin: 15px 0px 15px 0px; border-collapse:collapse;}
+
+th {
+	font-size: 14px;
+	border: 1px solid #E0E0E0;
+	text-align: left;
+	padding: 6px 6px 6px 6px;
+	font-weight:bold;
+}
+td {
+	font-size: 12px;
+	border: 1px solid #E0E0E0;
+	padding: 2px;
+}
+td.celdes {
+	border-bottom: 0px;
+	border-right: 0px;
+}
+td.cellev {
+	border-bottom: 0px;
+	border-left: 0px;
+}
+.tabk3,.nobordertd{
+border:0px;
+padding-bottom:10px;
+}
+#head{
+width:820px;
+height:180px;
+margin:0 auto;
+padding:0;
+}
+.navi{
+float:left;
+padding:4px 11px 20px 14px;
+z-index:100;
+}
+.navi:hover{
+background:url("../images/navihover.jpg") repeat-x scroll center top transparent;
+}
+
+
+/* meni */
+
+.navi ul ul {display: none;}
+.navi ul li:hover > ul {display: block;}
+.navi ul {padding:0px; list-style: none; position: relative; margin: 0px; float: left;}
+.navi ul:after {content: ""; clear: both; display: block;}
+.navi ul li {float: left; clear: both; }
+.navi ul li:hover {		}
+.navi ul li:hover a {color: #B0B0B0;}
+.navi ul li a {display: block; padding: 0px; color: #B0B0B0; text-decoration: none;}
+.navi ul ul {padding: 0; position: absolute; left: 0px; margin:0px; border: 1px solid #CCCCCC; background-color: #414141; z-index: 9999; width: 120px;}
+.navi ul ul li {float: none; position: relative;}
+.navi ul ul li a {padding: 2px; color: #B0B0B0;}	
+.navi ul ul li a:hover {color: #ffffff;}	
+.navi ul ul ul {position: absolute; left: 100%; top:0;}
+.strelica_podmeni{background: url("../images/menu_downarrow.png") no-repeat right 9px; padding-right: 10px; }
+
+.menibank{border:0px; background:000000; color:#B0B0B0; cursor:pointer; margin-left:0px; padding-left:0px;}
+.menibank:hover{color:#ffffff;}
+/* meni kraj */
+h2{font-size:1.5em;margin:.50em 0; text-align: center;;}
+h4{
+color:#B0B0B0;
+margin:3px 0px 10px 0px; 
+padding:0;
+}
+
+h5{
+color:#F58466;
+font-size: 9px;
+margin:10px 5px 20px 0px;
+}
+
+
+h6{
+color:#414141;
+font-size: 16px;
+margin:10px 5px 10px 0px;
+}
+
+.nosac_glavni_400{padding:30px; margin:10px auto; max-width: 400px; border: 1px solid #E5E5E5; background-color:#ffffff; box-shadow:0 1px 2px rgba(0, 0, 0, 0.05);}
+
+
+@media print {
+	input#btnPrint {
+	display: none;
+	}
+	#divdugme{display: none;}
+	#formpoz3m{
+	margin:0 auto;
+	}
+	button.button3{
+	display: none;
+	}
+	.tabelas{display: none;}
+	.dugme_roba{display: none;}
+
+	#fakheadlogo{
+	width:100%;
+	float:left;
+	clear:both;
+	border-bottom:3px solid #E0E0E0;
+	font-size: 12px;
+	color: #414141;
+	padding:0px 5px 10px 5px;
+	}
+	.print_logo{width:200px; height:50px; float:left;display:block;}
+	.print_p{float:left; margin:0 0 0 10px;display:block; }
+	#formpoz2{
+	margin:0 auto;
+	padding:0;
+	height:auto;
+	font-size: 14px;
+	color: #414141;
+	background-color:none;
+	}
+	.dugme1{display:none;}
+	#formpoz3{
+	margin:0 auto;
+	height:auto;
+	font-size: 14px;
+	color: #414141;
+	}
+	.button_unesi, .button_ponisti, .button_nova, .button_lupa, .button_print , .button_kuci, .button_nazad, .button_partner {display:none;}
+	td{color:#414141;}
+	.trazi_proizvod{display:none}
+}
+@media screen{
+	.potpis1{
+	display: none;
+	}
+	.potpis2{
+	display: none;
+	}
+	#faktekst {
+	display: none;
+	}
+	#formpoz3m{
+	padding:5px 40px 90px 70px;
+	margin:0 auto;
+	width:500px;
+	height:auto;
+	font-size: 14px;
+	border: 1px solid #E5E5E5;
+	background-color:#ffffff;
+	box-shadow:0 1px 2px rgba(0, 0, 0, 0.05);
+	}
+	#fakheadlogo{display:none;}
+	#formpoz2{
+	padding:5%;
+	margin:5% auto;
+	width:70%;
+	font-size: 14px;
+	border: 1px solid #E5E5E5;
+	background-color:#ffffff;
+	box-shadow:0 1px 2px rgba(0, 0, 0, 0.05);
+	}
+	.print_logo{width:200px; height:50px; float:left;display:block;}
+	.print_p{float:left; margin:0 0 0 10px;display:block; }
+}
+
+#potpis0{ float:left; clear:both; width:100%;}
+.potpis1{ font-size: 13px; color: #414141; float:left; padding-bottom:25px; border-bottom:1px solid #414141; width:120px; text-align:center;}
+.potpis2{ font-size: 13px; color: #414141; float:right; padding-bottom:25px; border-bottom:1px solid #414141; width:120px; text-align:center;}
+
+#fakheadmain{
+width:100%;
+height:auto;
+float:left;
+clear:both;
+}
+#fakhead{
+float:left;
+padding:10px 15px 10px 15px;
+width:45%;
+font-size: 11px;
+color: #414141;
+}
+#fakhead2{
+float:right;
+padding:10px 5px 10px 5px;
+width:45%;
+font-size: 11px;
+color: #414141;
+}
+#faktekst{
+float:left;
+clear:both;
+padding:10px 5px 10px 5px;
+width:auto;
+font-size: 11px;
+color: #414141;
+}
+/* forma */
+#formpoz{
+padding:30px;
+margin:10px auto;
+max-width: 590px;
+font-size: 14px;
+border: 1px solid #E5E5E5;
+background-color:#ffffff;
+box-shadow:0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+#kalkizv1{
+float:left;
+padding:10px 5px 10px 5px;
+width:auto;
+font-size: 11px;
+color: #414141;
+}
+#kalkizv2{
+float:left;
+padding:10px 5px 10px 5px;
+width:100%;
+font-size: 11px;
+color: #414141;
+border-bottom:1px solid #E0E0E0;
+}
+
+
+.polje_80{width: 100%;padding: 0.5em 0.6em; border: 1px solid #D2D2D2; color: #A3A09E;}
+.polje_80:hover{box-shadow: 0.1rem 0.1rem 0.238rem rgba(0, 0, 0, 0.15) inset; outline: 0 none;}
+
+.input2{border: 1px solid #D2D2D2; font-size: 14px;	color: #A3A09E; float: left; height: 18px;}
+.input2btn{border: 1px solid #D2D2D2; height: 22px;background: url('../images/ico_black_lupa.png') no-repeat 2px 2px; padding-left: 16px; margin-left: -1px;cursor:pointer; color: #A3A09E;}
+.input2btn:hover{background-color: #F0F0F0;}
+.input:hover, .input2:hover{
+    box-shadow: 0.1rem 0.1rem 0.238rem rgba(0, 0, 0, 0.15) inset; outline: 0 none;
+}
+
+/*dugmici */
+.dugme_zeleno,.dugme_crveno{width: 100%; padding: 0.5em 0.6em; border: none; margin: 1em 0 0 0; color: #ffffff; }
+.dugme_zeleno{background-color: #4DAF7C;}
+.dugme_crveno{background-color: #E96F48;}
+
+.button_unesi{border: 1px solid #D2D2D2; background: url('../images/mini1.png') no-repeat 4px 3px #ffffff; padding: 0.5em 0.6em;
+ margin:10px 0 10px 0; cursor:pointer; color:#A3A09E; float:left; text-decoration:none;}
+.button_ponisti{border: 1px solid #D2D2D2; background: url('../images/mini2.png') no-repeat 4px 3px #ffffff; padding:5px 10px 5px 20px;
+ margin:10px 10px 10px 0px; cursor:pointer; color:#A3A09E; float:left; text-decoration:none;}
+.button_nova{border: 1px solid #D2D2D2; background: url('../images/mini3.png') no-repeat 4px 3px #ffffff; padding:5px 10px 5px 20px;
+ margin:10px 10px 10px 0px; cursor:pointer; color:#A3A09E; float:left; text-decoration:none;}
+ .button_lupa{border: 1px solid #D2D2D2; background: url('../images/mini4.png') no-repeat 4px 3px #ffffff; padding:5px 10px 5px 20px;
+ margin:10px 10px 10px 0px; cursor:pointer; color:#A3A09E; float:left; text-decoration:none;}
+ .button_print{border: 1px solid #D2D2D2; background: url('../images/mini5.png') no-repeat 4px 3px #ffffff; padding:5px 10px 5px 22px;
+ margin:10px 10px 10px 0px; cursor:pointer; color:#A3A09E; float:left; text-decoration:none;}
+ .button_kuci{border: 1px solid #D2D2D2; background: url('../images/mini6.png') no-repeat 4px 3px #ffffff; padding:5px 10px 5px 22px;
+ margin:10px 10px 10px 0px; cursor:pointer; color:#A3A09E; float:left; text-decoration:none;}
+ .button_nazad{border: 1px solid #D2D2D2; background: url('../images/mini7.png') no-repeat 4px 3px #ffffff; padding:5px 10px 5px 22px;
+ margin:10px 10px 10px 0px; cursor:pointer; color:#A3A09E; float:left; text-decoration:none;}
+ .button_partner{border: 1px solid #D2D2D2; background: url('../images/mini9.png') no-repeat 4px 3px #ffffff; padding:5px 10px 5px 22px;
+ margin:10px 10px 10px 0px; cursor:pointer; color:#A3A09E; float:left; text-decoration:none;}
+ .button_unesi:hover, .button_ponisti:hover, .button_nova:hover, .button_lupa:hover, .button_print:hover, .button_kuci:hover, .button_nazad:hover,.button_partner:hover {background-color: #F0F0F0;}
+
+label {display: block; margin: 2px 4px 6px 4px;}
+br { clear: left; }
+/* gadget */
+#gadget {position:relative;}
+#kalendarg {float:left; margin:15px;}
+#dokumenta {float:left; margin:15px;}
+
+#txt1 {border: 0px; background-color:#F7F7F7;}
+.velikaslova{font-size: 18px;}
+/* kartica */
+.karticazag1 {width:100%;}
+.karticazaglev {float:left; display:block;margin-bottom: 10px;}
+.karticazagdes {float:left; display:block; margin:5px 0 10px 0;}
+.karticatabela {float:left;}
+/* kartica kraj*/
+.clear{clear: both;}
+.error{color:red; width:100%; font-size:10px;}
+/* podsetnik */
+.podsetnik_nosac{position:relative; }
+#loadpodsetnik {position:absolute; left:12px; width:159px; height:25px; padding-top:14px; top: 0px;}
+.podsetnik_ceo{border-bottom:1px solid #CCCCCC; font-size:12px;}
+.podsetnik_polje{float:left; border-right:1px solid #CCCCCC; margin:3px 2px 3px 2px; padding-right:6px;}
+
+#pp{float:left;width:100%}
+.portalkol{float:left; width:90%; margin-left:4%; margin-right: 4%;}
+.portalkol2{float:left; width:400px; margin-left:1%; margin-right: 1%;}
+
+.slicica_uredi_tabela{margin-left: 4px;}

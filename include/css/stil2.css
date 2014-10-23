@@ -1,0 +1,97 @@
+/*! normalize.css v3.0.1 | MIT License | git.io/normalize */
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+body{margin:0}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+audio,canvas,progress,video{display:inline-block;vertical-align:baseline}
+audio:not([controls]){display:none;height:0}
+[hidden],template{display:none}
+a{background:0 0; text-decoration: none;}
+a:active,a:hover{outline:0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:700}
+dfn{font-style:italic}
+h1{font-size:2em;margin:.67em 0}
+mark{background:#ff0;color:#000}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:1em 40px}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+pre{overflow:auto}
+code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}
+button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}
+button{overflow:visible}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+/*button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}*/
+input{line-height:normal}
+input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}
+input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}
+input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}
+table{border-collapse:collapse;border-spacing:0}
+td,th{padding:0}
+
+p{margin: 1em 0 1em 0;}
+body {padding:0; color:#414141; background-color: #F5F5F5; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 16px;}
+h2{font-size:1.5em;margin:.50em 0; text-align: center;;}
+
+th {border: 1px solid #E0E0E0; text-align: center; padding: 0.2em; font-weight:bold;}
+td {border: 1px solid #E0E0E0; padding: 0.2em; text-align: right;}
+
+.cf:before, .cf:after {content:"";display:table}
+.cf:after {clear:both}
+.cf {zoom:1}
+label{margin: 0.6em 0 0.2em 0; display: block;}
+
+.polje_100 {width: 100%;padding: 0.5em 4%; border: 1px solid #D2D2D2; color: #A3A09E;}
+.polje_100_92plus4 {width: 92%;padding: 0.5em 4%; border: 1px solid #D2D2D2; color: #A3A09E;}
+.polje_100_92plus4:hover, .polje_100:hover {box-shadow: 0.1rem 0.1rem 0.238rem rgba(0, 0, 0, 0.15) inset; outline: 0 none;}
+
+.dugme_zeleno,.dugme_crveno,.dugme_plavo {width: 100%; padding: 0.5em 4%; border: none; margin: 1em 0 0 0; color: #ffffff; display: block; }
+.dugme_zeleno_92plus4, .dugme_crveno_92plus4, .dugme_plavo_92plus4 {width: 92%; padding: 0.5em 4%; border: none; margin: 1em 0 0 0; color: #ffffff; display: block; text-align: center; }
+.dugme_zeleno:hover,.dugme_crveno:hover,.dugme_plavo:hover,.dugme_zeleno_92plus4:hover, .dugme_crveno_92plus4:hover, .dugme_plavo_92plus4:hover{background-color: #B1A599;}
+.dugme_zeleno, .dugme_zeleno_92plus4 {background-color: #4DAF7C;}
+.dugme_crveno, .dugme_crveno_92plus4 {background-color: #E96F48;}
+.dugme_plavo, .dugme_plavo_92plus4 {background-color: #5F90B0;}
+
+.nosac_zaglavlja_fakture {width:100%; height:auto; float:left; clear:both;}
+.zaglavlje_fakture_desni{float:right; padding:10px 5px 10px 5px; width:45%;}
+.zaglavlje_fakture_levi{float:left; padding:10px 15px 10px 15px; width:45%;}
+/*.podnozje_fakture_tekst{float:left;clear:both; padding:10px 5px 10px 5px; width:auto; font-size: 11px; color: #414141;}*/
+
+
+.memorandum{width:100%; float:left; clear:both; border-bottom:3px solid #E0E0E0; font-size: 12px; color: #414141; padding:0px 5px 10px 5px;}
+.memorandum_logo{width:200px; height:50px; float:left;display:block;}
+.memorandum_tekst{float:left; margin:0 0 0 10px;display:block; }
+
+@media only screen and (max-width: 700px) {
+	th,td{font-size: 12px;}  
+}
+
+@media print {
+	.nosac_sa_tabelom, .nosac_glavni_400{ margin:0 auto; padding:0; height:auto; color: #414141; background-color:none;}
+	.td_za_brisanje, .print_hide{display: none;}
+	th,td{font-size: 12px;}
+	.polje_100_92plus4 {width: 92%;padding: 0; border: 1px solid #D2D2D2; color: #A3A09E;}
+	#potpis0{ float:left; clear:both; width:100%;}
+	.potpis1{ font-size: 13px; color: #414141; float:left; padding-bottom:25px; border-bottom:1px solid #414141; width:120px; text-align:center;}
+	.potpis2{ font-size: 13px; color: #414141; float:right; padding-bottom:25px; border-bottom:1px solid #414141; width:120px; text-align:center;}
+	table{width: 100%;}
+	.zaglavlje_fakture_desni,.zaglavlje_fakture_levi{font-size: 11px;}
+}
+
+@media screen{
+	.screen_hide{display: none;}
+	.nosac_glavni_400 {padding:2em; margin:2em auto; max-width: 400px; border: 1px solid #E5E5E5; background-color:#ffffff; box-shadow:0 1px 2px rgba(0, 0, 0, 0.05);}
+	.nosac_sa_tabelom{padding:2em; margin:2em auto; max-width:760px; border: 1px solid #E5E5E5; background-color:#ffffff; box-shadow:0 1px 2px rgba(0, 0, 0, 0.05);}
+	#potpis0{display: none;}
+	.potpis1{display: none;}
+	.potpis2{display: none;}
+}

@@ -1,0 +1,69 @@
+
+body { font-size:11px; margin: 0; min-height: 100%; -webkit-font-smoothing:antialiased; font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+.cf:before, .cf:after {content:"";display:table}
+.cf:after {clear:both}
+.cf {zoom:1}
+h6 {margin:0; padding:0; font-size:10px; font-weight:normal;}
+p {margin:0; padding:0;}
+u {background-color:#ffffff;}
+.a1{float:left;text-align:center;}
+.a2{float:right;}
+.b1{background-color:rgb(204, 255, 204); margin-top:10px;}
+.b1 p{text-align:center;}
+.b2, .c1 {background-color:rgb(255, 204, 153); margin-top:10px; padding:8px 0px 8px 0px;}
+.b2a{width:240px; margin:0 auto;}
+.b2godina{float:right;}
+.c1a{float:left; margin-left:15px;}
+.c1b{float:right; margin-right:15px; min-width:250px;}
+.polje_adresa{background-color:#ffffff; border:2px solid #000000; padding:3px;}
+.c1b h6 {text-align:center;}
+.u_dinarima_bez{float:right; margin:3px 30px 3px 0px;}
+.d1{background-color:rgb(255, 204, 153); padding:5px 0px 0px 0px;}
+
+.g1,.g2,.g3,.g4,.g5,.g6,.g7,.g8,.g9,.g10{ display:block; position: relative; float: left}
+.centralni_elementi{float:left; margin:6px 0px 6px 0px; width:98%; padding:0 1% 0 1%;}
+.g1{width:5%;}
+.g2{width:38%; margin-right:2%;}
+.g3{width:5%;}
+.g4{width:22%;}
+.g5{width:5%;}
+.g6{width:22%;}
+.polje_tekst{width:80%; height:16px; background-color:#ffffff; border:1px solid #000000; padding:3px;text-align: right; }
+.e1{background-color:rgb(255, 204, 153); padding:0px 0px 0px 0px; margin-top:10px;}
+.g7{width:11%;}
+.g8{width:11%;}
+.g9{width:77%;}
+.g10{width:20%;}
+big {background-color:#ffffff; padding:2px; font-size:11px;}
+.f1{border:2px solid #000000; margin-top:5px; border-top:none;}
+h5{ border-bottom:2px solid #000000; border-top:2px solid #000000; margin:0px 0px 3px 0px; padding: 3px 0 3px 10px; background-color:silver; font-size:11px;}
+.poreski_sav{margin:3px 0px 15px 10px;}
+table{border-collapse: collapse;}
+table, td{border:1px solid #000000;}
+td {width: 15px; background-color:#ffffff;}
+.potpis_por_sav{width:32%; float:left;}
+.potpis_por_sav2{width:80%; float:left; border-bottom:1px solid #000000; margin-left:10%; }
+.tabela_div{width:32%; float:left;}
+.mesto{width:32%; float:left; text-align:center;}
+.datum{width:32%; float:left;}
+.jmbg{width:32%; float:left;}
+
+.krivicnom{margin:3px 0px 25px 10px;}
+
+.potpis_mesto {width:18%; float:left; text-align:center; border-top:1px solid #000000; margin:0 5% 0 5%; }
+.potpis_datum {width:18%; float:left; text-align:center; border-top:1px solid #000000; margin:0 5% 0 5%;}
+.potpis_lice {width:30%; float:left; text-align:center; border-top:1px solid #000000; margin:0 5% 0 5%;}
+.poslednji{margin-bottom:22px; margin-left:10px;}
+.mp{width:96%; float:left;}
+.mp2{float:left; margin-left:58%;}
+
+.button {border: 1px solid #D2D2D2; background: url('../images/mini1.png') no-repeat 4px 3px #ffffff; padding:5px 10px 5px 20px; margin:10px 0px 10px 0px; cursor:pointer; color:#A3A09E; float:left;}
+#formpoz3m{	margin:5% auto; width:70%; font-size:13px; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: #A3A09E;	border-color:#414141; border-width:6px; border-style:solid; background-color:#F8F8F8;}
+.nosac{margin:3px;padding:1%; }
+.date{border: 1px solid #D2D2D2; margin:10px 0 10px 0;}
+.button_kuci{border: 1px solid #D2D2D2; background: url('../images/mini6.png') no-repeat 4px 3px #ffffff; padding:5px 10px 5px 22px;
+ margin:10px 10px 10px 10px; cursor:pointer; color:#A3A09E; float:left; text-decoration:none;}
+ @media print {
+	.button_unesi, .button_ponisti, .button_nova, .button_lupa, .button_print , .button_kuci, .button_nazad {display:none;}
+}
