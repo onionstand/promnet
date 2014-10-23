@@ -1,4 +1,4 @@
-promnet
+Promnet
 =======
 
 Knjigovodstveni program za veleprodaju
