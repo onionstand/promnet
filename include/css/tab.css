@@ -39,4 +39,5 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  { /*--Makes sure that th
 .tab_content {
 	padding: 20px;
 	border:1px solid #D2D2D2;
+	height: 220px;
 }
