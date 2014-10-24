@@ -57,7 +57,7 @@ if (isset($_POST['datumod'])&& ($_POST['datumdo']))
 			<th>Datum</th>
 		</tr>
 	<?php
-	$upit = mysql_query("SELECT * FROM blagajna WHERE datum >= '$datumod' AND datum <= '$datumdo'");
+	$upit = mysql_query("SELECT * FROM blagajna WHERE datum >= '$datumod' AND datum <= '$datumdo' ORDER BY datum ASC");
 	while($niz = mysql_fetch_array($upit))
 	{	$br_blag=$niz['br_blag'];
 		$datumrad=strtotime( $niz['datum'] );
