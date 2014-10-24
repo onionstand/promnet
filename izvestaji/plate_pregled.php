@@ -18,23 +18,15 @@
 				id_usluge_nezap_rad,
 				id_usluge_pio_pred,
 				id_usluge_zdrav_pred,
-				id_usluge_nezap_pred,
-				id_usluge_porez_m,
-		 		id_usluge_pio_rad_m,
-		 		id_usluge_zdrav_rad_m,
-		 		id_usluge_nezap_rad_m,
-		 		id_usluge_pio_pred_m,
-		 		id_usluge_zdrav_pred_m,
-		 		id_usluge_nezap_pred_m,
-		 		id_usluge_zbirni_doprinosi
+				id_usluge_nezap_pred
 				FROM plate WHERE id_plate='$id_plate_brisanje'";
 
 				$result_iz_plate_za_usl = $baza_pdo->query($upit_iz_plate_za_usl);
 				$row_iz_plate_za_usl = $result_iz_plate_za_usl->fetch();
 
 
-				$upit_brisi_iz_usluga = 'DELETE FROM usluge WHERE br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR
-					br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ?';
+				$upit_brisi_iz_usluga = 'DELETE FROM usluge
+					WHERE br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ?';
 				$stmt_brisi_iz_usluga = $baza_pdo->prepare($upit_brisi_iz_usluga);
 				$stmt_brisi_iz_usluga->execute(
 						array(
@@ -44,15 +36,7 @@
 								$row_iz_plate_za_usl['id_usluge_nezap_rad'],
 								$row_iz_plate_za_usl['id_usluge_pio_pred'],
 								$row_iz_plate_za_usl['id_usluge_zdrav_pred'],
-								$row_iz_plate_za_usl['id_usluge_nezap_pred'],
-								$row_iz_plate_za_usl['id_usluge_porez_m'],
-								$row_iz_plate_za_usl['id_usluge_pio_rad_m'],
-								$row_iz_plate_za_usl['id_usluge_zdrav_rad_m'],
-								$row_iz_plate_za_usl['id_usluge_nezap_rad_m'],
-								$row_iz_plate_za_usl['id_usluge_pio_pred_m'],
-								$row_iz_plate_za_usl['id_usluge_zdrav_pred_m'],
-								$row_iz_plate_za_usl['id_usluge_nezap_pred_m'],
-								$row_iz_plate_za_usl['id_usluge_zbirni_doprinosi']
+								$row_iz_plate_za_usl['id_usluge_nezap_pred']
 							)
 					);
 				
