@@ -155,64 +155,83 @@
 					</tr>
 					<tr>
 						<td>Bruto zarada:</td>
-						<td><?php echo $red['bruto_zarada'];?></td>
+						<td><?php echo number_format($red['bruto_zarada'], 0, '.', '');?></td>
 					</tr>
 					<tr>
 						<td>Poresko umanjenje:</td>
-						<td><?php echo $red['poresko_umanj'];?></td>
+						<td><?php echo number_format($red['poresko_umanj'], 0, '.', '');?></td>
 					</tr>
 					<tr>
 						<td>Osnovica za obracun poreza:</td>
-						<td><?php echo $red['osnovica_za_porez'];?></td>
+						<td><?php echo number_format($red['osnovica_za_porez'], 0, '.', '');?></td>
 					</tr>
 					<tr><td></td><td></td></tr>
 					<tr>
 						<td>Porez na licna primanja za uplatu:</td>
-						<td><?php echo $red['porez_na_licna_prim'];?></td>
+						<td><?php echo number_format($red['porez_na_licna_prim'], 0, '.', '');?></td>
 					</tr>
 					<tr>
 						<td>PIO osiguranje na teret radnika za uplatu:</td>
-						<td><?php echo $red['pio_radnik_uplat'];?></td>
+						<td><?php echo number_format($red['pio_radnik_uplat'], 0, '.', '');?></td>
 					</tr>
 					<tr>
 						<td>Zdravstveno osiguranje na teret radnika za uplatu:</td>
-						<td><?php echo $red['zdrav_radnik_upl'];?></td>
+						<td><?php echo number_format($red['zdrav_radnik_upl'], 0, '.', '');?></td>
 					</tr>
 					<tr>
 						<td>Zaposljavanje na teret radnika za uplatu:</td>
-						<td><?php echo $red['zaposl_radnik_upl'];?></td>
+						<td><?php echo number_format($red['zaposl_radnik_upl'], 0, '.', '');?></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>
 							<b>
-								<?php echo $red['porez_na_licna_prim']+$red['pio_radnik_uplat']+$red['zdrav_radnik_upl']+$red['zaposl_radnik_upl'];?>
+								<?php
+								$ukupno_ter_tadnika=
+								number_format($red['porez_na_licna_prim'], 0, '.', '')+
+								number_format($red['pio_radnik_uplat'], 0, '.', '')+
+								number_format($red['zdrav_radnik_upl'], 0, '.', '')+
+								number_format($red['zaposl_radnik_upl'], 0, '.', '');
+								echo $ukupno_ter_tadnika;
+								?>
 							</b>
 						</td>
 					</tr>
 					<tr>
 						<td>PIO osiguranje na teret preduzeca za uplatu:</td>
-						<td><?php echo $red['pio_preduz_uplat'];?></td>
+						<td><?php echo number_format($red['pio_preduz_uplat'], 0, '.', '');?></td>
 					</tr>
 					<tr>
 						<td>Zdravstveno osiguranje na teret preduzeca za uplatu:</td>
-						<td><?php echo $red['zdravstv_preduz_upl'];?></td>
+						<td><?php echo number_format($red['zdravstv_preduz_upl'], 0, '.', '');?></td>
 					</tr>
 					<tr>
 						<td>Zaposljavanje na teret preduzeca za uplatu:</td>
-						<td><?php echo $red['zaposlj_preduz_upl'];?></td>
+						<td><?php echo number_format($red['zaposlj_preduz_upl'], 0, '.', '');?></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td>
 							<b>
-								<?php echo $red['pio_preduz_uplat']+$red['zdravstv_preduz_upl']+$red['zaposlj_preduz_upl'];?>
+								<?php
+								$ukupno_ter_poslodavca=
+								number_format($red['pio_preduz_uplat'], 0, '.', '')+
+								number_format($red['zdravstv_preduz_upl'], 0, '.', '')+
+								number_format($red['zaposlj_preduz_upl'], 0, '.', '');
+								echo $ukupno_ter_poslodavca;
+								?>
 							</b>
 						</td>
 					</tr>
 					<tr>
 						<td>Ukupni doprinosi i porez za uplatu:</td>
-						<td><strong><?php echo $red['ukupni_doprinosi'];?></strong></td>
+						<td>
+							<strong>
+								<?php //echo $red['ukupni_doprinosi'];
+								echo $ukupno_ter_poslodavca + $ukupno_ter_tadnika;
+								?>
+							</strong>
+						</td>
 					</tr>
 				</table>
 				<button onClick='window.print()' type='button' class='dugme_plavo print_hide'>Stampaj</button>
