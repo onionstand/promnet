@@ -151,7 +151,7 @@
 					</tr>
 					<tr>
 						<td>Neto zarada:</td>
-						<td><?php echo $red['neto_zarada'];?></td>
+						<td><?php echo number_format($red['neto_zarada'], 0, '.', '');?></td>
 					</tr>
 					<tr>
 						<td>Bruto zarada:</td>
