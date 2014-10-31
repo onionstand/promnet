@@ -2,6 +2,12 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
+		<script type="text/javascript" src="../include/jquery/jquery-1.6.2.min.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function() {
+				$("#polje_trazi").focus();
+			});
+		</script>
 		<title>Profaktura</title>
 	</head>
 	<body>
@@ -97,7 +103,7 @@
 					<option value='naziv_robe'>naziv robe</option>
 					<option value='sifra'>sifra robe</option>
 				</select>
-				<input type='text' name='search' size='25' class='polje_100_92plus4' style='margin-top:0.3em;'>
+				<input type='text' name='search' size='25' id='polje_trazi' class='polje_100_92plus4' style='margin-top:0.3em;'>
 				<button type='submit' class='dugme_plavo'>Trazi</button>
 			</form>
 			<form action='profak_brisi1.php' method='post'>

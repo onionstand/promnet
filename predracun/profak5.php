@@ -2,7 +2,7 @@
 <?php
 require("../include/DbConnection.php");
 function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
-	$pdv_na_osnovicu_10 = mysql_query("SELECT SUM(((koli_profak*((cena_profak/100)*(100-rab_dos))/100)*(100+
+	$pdv_na_osnovicu_upit = mysql_query("SELECT SUM(((koli_profak*((cena_profak/100)*(100-rab_dos))/100)*(100+
 					(SELECT porez_procenat FROM poreske_stope
 					WHERE porez_datum = (SELECT MAX(porez_datum) FROM poreske_stope WHERE tarifa_stope = porez)
 					AND tarifa_stope = porez
@@ -13,22 +13,22 @@ function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
 			FROM profakrob
 			WHERE br_profak='$brojfak'
 			AND porez='$tarifa_osnovice'");
-	$row_pdv_na_osnovicu_10 = (mysql_fetch_array($pdv_na_osnovicu_10));
-	IF ($row_pdv_na_osnovicu_10['ukupporez']>0){
+	$pdv_na_osnovicu_red = (mysql_fetch_array($pdv_na_osnovicu_upit));
+	IF ($pdv_na_osnovicu_red['ukupporez']>0){
 		?>
 		<tr>
 			<td colspan='3' style="border:none;">
 				<?php
 				$upit_za_procenat_osnovice=mysql_query("SELECT porez_procenat FROM poreske_stope
 							WHERE porez_datum = (SELECT MAX(porez_datum) 
-							FROM poreske_stope WHERE tarifa_stope = ". $row_pdv_na_osnovicu_10['porez_za_osnovicu'].")
-							AND tarifa_stope = ". $row_pdv_na_osnovicu_10['porez_za_osnovicu']."
+							FROM poreske_stope WHERE tarifa_stope = ". $pdv_na_osnovicu_red['porez_za_osnovicu'].")
+							AND tarifa_stope = ". $pdv_na_osnovicu_red['porez_za_osnovicu']."
 							AND porez_datum <= '$datumzaporez'");
 				$red_za_procenat_osnovice = (mysql_fetch_array($upit_za_procenat_osnovice));
-				echo $red_za_procenat_osnovice['porez_procenat'];?>% PDV na osnovicu <?php echo number_format($row_pdv_na_osnovicu_10['osnovica_za_osnovicu'], 2,".",",");?> :
+				echo $red_za_procenat_osnovice['porez_procenat'];?>% PDV na osnovicu <?php echo number_format($pdv_na_osnovicu_red['osnovica_za_osnovicu'], 2,".",",");?> :
 			</td>
 			<td>
-				<?php echo number_format($row_pdv_na_osnovicu_10['ukupporez'], 2,".",",");?>
+				<?php echo number_format($pdv_na_osnovicu_red['ukupporez'], 2,".",",");?>
 			</td>
 		</tr>
 	<?php 

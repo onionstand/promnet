@@ -27,6 +27,9 @@
 			<br>
 			<a href="../index.php" class="dugme_zeleno_92plus4">Pocetna strana</a>
 			<div class="cf"></div>
+			<script type="text/javascript">
+				window.location = "../index.php"
+			</script>
 		</div>
 	</body>
 </html>
