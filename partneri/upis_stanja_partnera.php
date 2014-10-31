@@ -31,7 +31,6 @@
 				<?php 
 				require("../include/DbConnection.php");
 				$upit=mysql_query("SELECT * FROM dob_kup");
-
 				while ($niz=mysql_fetch_array($upit))
 				{
 				$sifra=$niz['sif_kup'];
@@ -45,7 +44,19 @@
 					<td><?php echo $pib; ?></td>
 					<td><form action=""><input type="text"  onblur="showHint(this.value,<?php echo $sifra; ?>)" value="<?php echo $stanje; ?>"/></form></td>
 				</tr>
-				<?php } ?>	
+				<?php } ?>
+				 <tr>
+				 	<td></td>
+				 	<td></td>
+				 	<td>Zbir:</td>
+				 	<td>
+				 		<?php
+				 		$total_zbir_upit=mysql_query("SELECT SUM(stanje) AS sum_stanje FROM dob_kup");
+				 		$total_zbir_red=mysql_fetch_array($total_zbir_upit);
+				 		echo $total_zbir_red['sum_stanje'];
+				 		?>
+				 	</td>
+				 </tr>
 			</table>
 			<div class="cf"></div>
 			<a href="../index.php" class="dugme_crveno_92plus4">Pocetna strana</a>
