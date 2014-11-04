@@ -27,6 +27,7 @@
 					<th>Ime partnera</th>
 					<th>PIB</th>
 					<th>Stanje</th>
+					<th>Stanje izmen.</th>
 				</tr>
 				<?php 
 				require("../include/DbConnection.php");
@@ -42,6 +43,7 @@
 					<td><?php echo $sifra; ?></td>
 					<td><?php echo $naziv_kup; ?></td>
 					<td><?php echo $pib; ?></td>
+					<td><?php echo $stanje; ?></td>
 					<td><form action=""><input type="text"  onblur="showHint(this.value,<?php echo $sifra; ?>)" value="<?php echo $stanje; ?>"/></form></td>
 				</tr>
 				<?php } ?>

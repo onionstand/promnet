@@ -125,7 +125,13 @@
 			<ul>
 				<li><a href="izvestaji/iz_nabavka.php">Nabavka</a></li>
 				<li><a href="izvestaji/iz_prodaja.php">Prodaja</a></li>
-				<li><a href="izvestaji/kartica0.php">Kartica</a></li>
+				<li class="strelica_podmeni"><a href="#">Kartica</a>
+					<ul>
+						<li><a href="izvestaji/kartica0.php">Kartica</a></li>
+						<li><a href="izvestaji/kartica_dobavljac0.php">Kartica dobavljaci</a></li>
+						<li><a href="izvestaji/kartica_kupac0.php">Kartica kupci</a></li>
+					</ul>
+				</li>
 				<li class="strelica_podmeni"><a href="#">PDV</a>
 					<ul>
 						<li><a href="izvestaji/iz_porez.php">PDV obracun</a></li>

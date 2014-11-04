@@ -34,15 +34,33 @@ $stanje_part=$niz3['stanje'];
 			<td>Pocetno s.</td>
 			<td></td>
 			<td></td>
-			<td></td>
-			<td></td>
+			<td>
+				<?php
+				if ($stanje_part>0){
+					echo number_format($stanje_part, 2,".",",");
+					$zbir_a4=$stanje_part;
+				}
+				else {
+					$zbir_a4=0;
+				}
+				?>
+			</td>
+			<td>
+				<?php
+				if ($stanje_part<0){
+					echo number_format(($stanje_part*-1), 2,".",",");
+					$zbir_a5=$stanje_part*-1;
+				}
+				else {
+					$zbir_a5=0;
+				}
+				?>
+			</td>
 			<td><?php echo number_format($stanje_part, 2,".",",");?></td>
 		</tr>
 		<?php 
 
 		$saldo=$stanje_part;
-		$zbir_a4=0;
-		$zbir_a5=0;
 		$upit=mysql_query(
 		"SELECT bankaupis.br_izvoda AS a1, 'UPL' AS a2, bankaupis.datum_izv AS a3, bankaupis.izlaz_novca AS a4, bankaupis.ulaz_novca AS a5 
 		FROM bankaupis
