@@ -124,7 +124,12 @@
 			<h4>Izvestaji</h4>
 			<ul>
 				<li><a href="izvestaji/iz_nabavka.php">Nabavka</a></li>
-				<li><a href="izvestaji/iz_prodaja.php">Prodaja</a></li>
+				<li class="strelica_podmeni"><a href="#">Prodaja</a>
+					<ul>
+						<li><a href="izvestaji/iz_prodaja.php">Po racunima</a></li>
+						<li><a href="izvestaji/iz_prodaja_grupisano.php">Po firmama</a></li>
+					</ul>
+				</li>
 				<li class="strelica_podmeni"><a href="#">Kartica</a>
 					<ul>
 						<li><a href="izvestaji/kartica0.php">Kartica</a></li>
