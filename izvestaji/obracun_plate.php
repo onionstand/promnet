@@ -258,25 +258,25 @@
 
 				}
 
-				$UbacivanjeDoprinosaUUsluge_porez_na_primanja=UbacivanjeDoprinosaUUsluge("6", "38041778", "POREZ NA ZARADE", "451", $_POST['porez_na_primanja_za_uplatu']);
+				$UbacivanjeDoprinosaUUsluge_porez_na_primanja=UbacivanjeDoprinosaUUsluge("6", "38041778", "POREZ NA ZARADE", "451", number_format($_POST['porez_na_primanja_za_uplatu'], 0, '.', ''));
 				$usluge_id_porez=$UbacivanjeDoprinosaUUsluge_porez_na_primanja;
 
-				$UbacivanjeDoprinosaUUsluge_pio_na_teret_radnika=UbacivanjeDoprinosaUUsluge("7", "38041778", "PENZIONO OSIGURANJE TERET RADNIKA", "452", $_POST['pio_na_teret_radnika_za_uplatu']);
+				$UbacivanjeDoprinosaUUsluge_pio_na_teret_radnika=UbacivanjeDoprinosaUUsluge("7", "38041778", "PENZIONO OSIGURANJE TERET RADNIKA", "452", number_format($_POST['pio_na_teret_radnika_za_uplatu'], 0, '.', ''));
 				$usluge_id_pio_na_teret_radnika=$UbacivanjeDoprinosaUUsluge_pio_na_teret_radnika;
 
-				$UbacivanjeDoprinosaUUsluge_zdravstveno_na_teret_radnika=UbacivanjeDoprinosaUUsluge("9", "38041778", "ZDRAVSTVENO OSIGURANJE RADNIKA", "453", $_POST['zdravstveno_na_teret_radnika_za_uplatu']);
+				$UbacivanjeDoprinosaUUsluge_zdravstveno_na_teret_radnika=UbacivanjeDoprinosaUUsluge("9", "38041778", "ZDRAVSTVENO OSIGURANJE RADNIKA", "453", number_format($_POST['zdravstveno_na_teret_radnika_za_uplatu'], 0, '.', ''));
 				$usluge_id_zdravstveno_na_teret_radnika=$UbacivanjeDoprinosaUUsluge_zdravstveno_na_teret_radnika;
 
-				$UbacivanjeDoprinosaUUsluge_nezap_rad=UbacivanjeDoprinosaUUsluge("11", "38041778", "ZAPOSLJAVANJE NA TERET RADNIKA", "454", $_POST['zaposljavanje_na_teret_radnika_za_uplatu']);
+				$UbacivanjeDoprinosaUUsluge_nezap_rad=UbacivanjeDoprinosaUUsluge("11", "38041778", "ZAPOSLJAVANJE NA TERET RADNIKA", "454", number_format($_POST['zaposljavanje_na_teret_radnika_za_uplatu'], 0, '.', ''));
 				$usluge_id_nezap_rad=$UbacivanjeDoprinosaUUsluge_nezap_rad;
 
-				$UbacivanjeDoprinosaUUsluge_pio_pred=UbacivanjeDoprinosaUUsluge("8", "38041778", "PENZIONO NA TERET PREDUZECA", "455", $_POST['pio_na_teret_preduzeca_za_uplatu']);
+				$UbacivanjeDoprinosaUUsluge_pio_pred=UbacivanjeDoprinosaUUsluge("8", "38041778", "PENZIONO NA TERET PREDUZECA", "455", number_format($_POST['pio_na_teret_preduzeca_za_uplatu'], 0, '.', ''));
 				$usluge_id_pio_pred=$UbacivanjeDoprinosaUUsluge_pio_pred;
 
-				$UbacivanjeDoprinosaUUsluge_zdravstveno_preduzeca=UbacivanjeDoprinosaUUsluge("10", "38041778", "ZDRAVSTVENO OSIGURANJE TERET PREDUZECA", "456", $_POST['zdravstveno_na_teret_preduzeca_za_uplatu']);
+				$UbacivanjeDoprinosaUUsluge_zdravstveno_preduzeca=UbacivanjeDoprinosaUUsluge("10", "38041778", "ZDRAVSTVENO OSIGURANJE TERET PREDUZECA", "456", number_format($_POST['zdravstveno_na_teret_preduzeca_za_uplatu'], 0, '.', ''));
 				$usluge_id_zdravstveno_preduzeca=$UbacivanjeDoprinosaUUsluge_zdravstveno_preduzeca;
 
-				$UbacivanjeDoprinosaUUsluge_nezap_preduzeca=UbacivanjeDoprinosaUUsluge("12", "38041778", "ZAPOSLJAVANJE NA TERET PREDUZECA", "457", $_POST['zaposljavanje_na_teret_preduzeca_za_uplatu']);
+				$UbacivanjeDoprinosaUUsluge_nezap_preduzeca=UbacivanjeDoprinosaUUsluge("12", "38041778", "ZAPOSLJAVANJE NA TERET PREDUZECA", "457", number_format($_POST['zaposljavanje_na_teret_preduzeca_za_uplatu'], 0, '.', ''));
 				$usluge_id_nezap_preduzeca=$UbacivanjeDoprinosaUUsluge_nezap_preduzeca;
 
 	 			$upit_plata="INSERT INTO plate (
