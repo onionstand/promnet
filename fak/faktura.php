@@ -28,10 +28,10 @@ function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
 							AND tarifa_stope = ". $row_pdv_na_osnovicu_10['porez_za_osnovicu']."
 							AND porez_datum <= '$datumzaporez'");
 				$red_za_procenat_osnovice = (mysql_fetch_array($upit_za_procenat_osnovice));
-				echo $red_za_procenat_osnovice['porez_procenat'];?>% PDV na osnovicu <?php echo number_format($row_pdv_na_osnovicu_10['osnovica_za_osnovicu'], 2,"."," ");?> :
+				echo $red_za_procenat_osnovice['porez_procenat'];?>% PDV na osnovicu <?php echo number_format($row_pdv_na_osnovicu_10['osnovica_za_osnovicu'], 2,".",",");?> :
 			</td>
 			<td>
-				<?php echo number_format($row_pdv_na_osnovicu_10['ukupporez'], 2,"."," ");?>
+				<?php echo number_format($row_pdv_na_osnovicu_10['ukupporez'], 2,".",",");?>
 			</td>
 		</tr>
 	<?php 
