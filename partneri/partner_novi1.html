@@ -8,7 +8,7 @@
 		<script type="text/javascript">
 		 jQuery(document).ready(function() {
 
-			$("form").validity(function() {
+			$("#form_partner_novi").validity(function() {
 		                    $("#naziv_kup")
 		                        .require("Popuni polje.");
 							$("#postbr")
@@ -28,7 +28,7 @@
 	</head>
 	<body>
 		<div class="nosac_glavni_400">
-			<form action="partner_novi2.php" method="post">
+			<form action="partner_novi2.php" method="post" id="form_partner_novi">
 				<label>Naziv kupca:</label>
 				<input type="text" name="naziv_kup" class="polje_100_92plus4" id="naziv_kup" />
 				<label>Postanski broj:</label>

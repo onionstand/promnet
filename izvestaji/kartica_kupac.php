@@ -29,6 +29,7 @@ $stanje_part=$niz3['stanje'];
 			<th>Duguje</th>
 			<th>Potrazuje</th>
 			<th>Saldo</th>
+			<th>Poziv</th>
 		</tr>
 		<tr>
 			<td>Pocetno s.</td>
@@ -57,21 +58,22 @@ $stanje_part=$niz3['stanje'];
 				?>
 			</td>
 			<td><?php echo number_format($stanje_part, 2,".",",");?></td>
+			<td></td>
 		</tr>
 		<?php 
 
 		$saldo=$stanje_part;
 		$upit=mysql_query(
-		"SELECT bankaupis.br_izvoda AS a1, 'UPL' AS a2, bankaupis.datum_izv AS a3, 0 AS a4, bankaupis.ulaz_novca AS a5 
+		"SELECT bankaupis.br_izvoda AS a1, 'UPL' AS a2, bankaupis.datum_izv AS a3, 0 AS a4, bankaupis.ulaz_novca AS a5, bankaupis.broj_dok AS a6
 		FROM bankaupis
 		RIGHT JOIN banke ON bankaupis.banka=banke.id_banke 
 		WHERE sifra_par ='$sif_kup'
 		UNION ALL
-		SELECT broj_dost AS a1,'DOS' AS a2,datum_d AS a3,izzad AS a4, 0 AS a5 
+		SELECT broj_dost AS a1,'DOS' AS a2,datum_d AS a3,izzad AS a4, 0 AS a5, 'X' AS a6 
 		FROM dosta 
 		WHERE sifra_fir='$sif_kup'
 		UNION ALL
-		SELECT broj_k AS a1,'PIS F' AS a2,dat_k AS a3,0 AS a4, iznos_f AS a5 
+		SELECT broj_k AS a1,'PIS F' AS a2,dat_k AS a3,0 AS a4, iznos_f AS a5, 'X' AS a6 
 		FROM k_pism_r 
 		WHERE sif_firme='$sif_kup' AND kod_p=2
 		ORDER BY a3 
@@ -94,6 +96,7 @@ $stanje_part=$niz3['stanje'];
 			echo "<td>" . number_format($niz['a4'], 2,".",",") . "</td>";
 			echo "<td>" . number_format($niz['a5'], 2,".",",") . "</td>";
 			echo "<td>" . number_format($saldo, 2,".",",") . "</td>";
+			echo "<td>" . $niz['a6'] . "</td>";
 			echo "</tr>";
 		}
 		?>
