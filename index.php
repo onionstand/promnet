@@ -173,7 +173,14 @@
 					</ul>
 				</li>
 				<li><a href="include/poreske_stope.php">Poreske stope</a></li>
-				<li><a href="zavrsni_r/knjiga1.php">Zavrsni r.</a></li>
+				<li class="strelica_podmeni"><a href="#">Zavrsni r.</a>
+					<ul>
+						<li><a href="zavrsni_r/knjiga1.php">Glavna knjiga</a></li>
+						<li><a href="zavrsni_r/knjiga_po_kontu.php">Glavna knjiga po kontu</a></li>
+						<li><a href="zavrsni_r/kontiranje_glk1.php">Kontiranje GLK</a></li>
+						<li><a href="zavrsni_r/kontni_plan.php">Kontni plan</a></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</div>

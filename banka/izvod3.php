@@ -19,6 +19,7 @@ jQuery(document).ready(function() {
 	$datum=$_POST['datum'];
 	$sif_kup=$_POST['partnersif'];
 	$broj_dok=$_POST['broj_dok'];
+	$svrha=$_POST['svrha'];
 
 	if (isset($_POST['uplata'])) {
 			if ($_POST['uplata']=="uplata_dobavljacu"){
@@ -62,6 +63,7 @@ jQuery(document).ready(function() {
 			<input type="hidden" name="izlaz_novca" value="<?php echo $izlaz_novca; ?>"/>
 			<input type="hidden" name="ulaz_novca" value="<?php echo $ulaz_novca; ?>"/>
 			<input type="hidden" name="datum" value="<?php echo $datum; ?>"/>
+			<input type="hidden" name="svrha" value="<?php echo $svrha; ?>"/>
 			<button type="submit" class="dugme_zeleno" id="unesi_dugme">Unesi</button>
 		</form>
 		<div class="cf"></div>

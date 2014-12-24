@@ -48,7 +48,7 @@ if (isset($_POST['datumod'])&& ($_POST['datumdo']))
 				<th>Dobavljac</th>
 			</tr>
 		<?php	
-		$upit = mysql_query("SELECT * FROM usluge WHERE datum >= '$datumod' AND datum <= '$datumdo'");
+		$upit = mysql_query("SELECT * FROM usluge WHERE datum >= '$datumod' AND datum <= '$datumdo' ORDER BY datum");
 		while($niz = mysql_fetch_array($upit))
 		{	
 			$br_usluge=$niz['br_usluge'];

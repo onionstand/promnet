@@ -122,8 +122,8 @@ $stanje_part=$niz3['stanje'];
 		</tr>
 	</table>
 <div class="cf"></div>
-<a href="kartica0.php" class="dugme_crveno_92plus4">Nazad</a>
-<a href="../index.php" class="dugme_zeleno_92plus4">Pocetna strana</a>
+<a href="kartica0.php" class="dugme_crveno_92plus4 print_hide">Nazad</a>
+<a href="../index.php" class="dugme_zeleno_92plus4 print_hide">Pocetna strana</a>
 <button class="dugme_plavo print_hide" onClick='window.print()' type='button'>Stampa</button>
 <div class="cf"></div>
 </div>

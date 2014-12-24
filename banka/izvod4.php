@@ -25,13 +25,14 @@
 	$izlaz_novca=number_format($_POST['izlaz_novca'], 2,".","");
 	$ulaz_novca=number_format($_POST['ulaz_novca'], 2,".","");
 	$ziro_r=$_POST['ziro_r'];
+	$svrha=$_POST['svrha'];
 
 
 	$sifra_par=$_POST['partnersif'];
 
-	$ubacivanje="INSERT INTO bankaupis (br_izvoda, datum_izv, sifra_par, broj_dok, ulaz_novca, izlaz_novca, ziro_rac, banka)
+	$ubacivanje="INSERT INTO bankaupis (br_izvoda, datum_izv, sifra_par, broj_dok, ulaz_novca, izlaz_novca, ziro_rac, banka, svrha)
 	VALUES
-	('$broj_izvoda','$datum_za_bazu','$sifra_par','$broj_dok','$ulaz_novca','$izlaz_novca','$ziro_r','$idbank')";
+	('$broj_izvoda','$datum_za_bazu','$sifra_par','$broj_dok','$ulaz_novca','$izlaz_novca','$ziro_r','$idbank','$svrha')";
 	if (!mysql_query($ubacivanje))
 	  {die('Greska: ' . mysql_error());}
 	echo "<p>Podaci su ubaceni...</p>";

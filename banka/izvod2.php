@@ -89,6 +89,14 @@
         <label>Iznos: </label>
         <input type="text" value="" name="iznos_novca" class='polje_100_92plus4' id='iznosa'/>
 
+        <label>Svrha: </label>
+        <select name="svrha" class="polje_100">
+          <option value="DOBAVLJAC">DOBAVLJAC</option>
+          <option value="KUPAC">KUPAC</option>
+          <option value="USLUGE">USLUGE</option>
+          <option value="GOTOVINA">GOTOVINA</option>
+        </select> 
+
         <input type="hidden" name="id_banke" value="<?php echo $idbank; ?>"/>
         <input type="hidden" name="datum" value="<?php echo $datum; ?>"/>
         <input type="hidden" name="broj_izvoda" value="<?php echo $broj_izvoda; ?>"/>

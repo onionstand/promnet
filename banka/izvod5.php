@@ -32,21 +32,34 @@
 			<tr>
 				<th>Sifra</th>
 				<th>Naziv partnera</th>
+				<th>Svrha</th>
 				<th>Ziro racun</th>
 				<th>Dokument</th>
 				<th>Potrazuje</th>
 				<th>Duguje</th>
 			</tr>
 	<?php
-	$resulta97 = mysql_query("SELECT bankaupis.id_upl, bankaupis.br_izvoda, bankaupis.datum_izv, bankaupis.sifra_par, bankaupis.broj_dok, bankaupis.ulaz_novca,
-	bankaupis.izlaz_novca, bankaupis.ziro_rac, bankaupis.banka, dob_kup.sif_kup, dob_kup.naziv_kup 
-	FROM bankaupis RIGHT JOIN dob_kup ON bankaupis.sifra_par=dob_kup.sif_kup WHERE br_izvoda='$broj_izvoda' AND banka='$idbank'");
+	$resulta97 = mysql_query("SELECT
+		bankaupis.id_upl,
+		bankaupis.br_izvoda,
+		bankaupis.datum_izv,
+		bankaupis.sifra_par,
+		bankaupis.broj_dok,
+		bankaupis.ulaz_novca,
+		bankaupis.izlaz_novca,
+		bankaupis.ziro_rac,
+		bankaupis.banka,
+		bankaupis.svrha,
+		dob_kup.sif_kup,
+		dob_kup.naziv_kup
+		FROM bankaupis RIGHT JOIN dob_kup ON bankaupis.sifra_par=dob_kup.sif_kup WHERE br_izvoda='$broj_izvoda' AND banka='$idbank'");
 	while($rowa97 = mysql_fetch_array($resulta97)) 
 	{
 		?>
 		<tr>
 			<td><?php echo $rowa97['id_upl'];?></td>
 			<td><?php echo $rowa97['naziv_kup'];?></td>
+			<td><?php echo $rowa97['svrha'];?></td>
 			<td><?php echo $rowa97['ziro_rac'];?></td>
 			<td><?php echo $rowa97['broj_dok'];?></td>
 			<td>
