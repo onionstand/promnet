@@ -32,7 +32,7 @@
 			</tr>
 		<?php 
 		require("../include/DbConnection.php");
-		$upit=mysql_query("SELECT * FROM roba");
+		$upit=mysql_query("SELECT * FROM roba ORDER BY naziv_robe");
 
 		while ($niz=mysql_fetch_array($upit)) {
 			$sifra=$niz['sifra'];

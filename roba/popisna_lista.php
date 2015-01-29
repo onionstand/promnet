@@ -20,15 +20,18 @@
 				<div class="cf"></div>
 				<table class='tabele'>
 					<tr>
+						<th>R.Br.</th>
 						<th>Sifra</th>
 						<th>Ime robe</th>
 						<th>Kolicina</th>
+						<th>Stanje<br />lager</th>
 						<th>Cena</th>
 						<th>Vrednost<br />Robe</th>
 					</tr>
 					
 					<?php 
-					$upit=mysql_query("SELECT * FROM roba");
+					$i=1;
+					$upit=mysql_query("SELECT * FROM roba WHERE stanje != 0 ORDER BY naziv_robe");
 					while ($niz=mysql_fetch_array($upit)){
 						$sifra=$niz['sifra'];
 						$naziv_robe=$niz['naziv_robe'];
@@ -38,9 +41,11 @@
 						?>
 					
 					<tr>
+						<td><?php echo $i++; ?></td>
 						<td><?php echo $sifra; ?></td>
 						<td><?php echo $naziv_robe; ?></td>
 						<td><?php echo $upisana_kolicina; ?></td>
+						<td><?php echo $stanje; ?></td>
 						<td><?php echo $cena_robe; ?></td>
 						<td><?php echo number_format(($cena_robe*$upisana_kolicina), 2, '.', ''); ?></td>
 					</tr>

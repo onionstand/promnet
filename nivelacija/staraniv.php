@@ -29,12 +29,6 @@
 			  				<input type="image" src="../include/images/olovka.png" title="Ispravi" />
 			  			</form>
 			  		</td>
-			  		<td>
-			  			<form action="sniv_brisi.php" method="post">
-			  				<input type="hidden" name="br_niv" value="<?php echo $niz['broj_niv'];?>"/>
-			  				<input type="image" src="../include/images/iks.png" title="Brisi" />
-			  			</form>
-			  		</td>
 			  	</tr>
 			  	<?php
 			  }

@@ -35,6 +35,8 @@
 			$iznos_razlika_u_ceni=($prod_cena*$niv_kol)-(($cena_s/100)*(100-$ruc_s)*$niv_kol);
 			$ruc=$iznos_razlika_u_ceni/(($prod_cena*$niv_kol)/100);
 
+			$iznos_nivelacije=($prod_cena*$niv_kol)-($cena_s-$niv_kol); //za bazu
+
 			$ubacir="INSERT INTO roba (naziv_robe, cena_robe, porez, stanje, jed_mere, ruc)
 			VALUES
 			('$_POST[ime_rob]','$prod_cena', '$_POST[porez_pdv]', '$niv_kol', '$_POST[jed_mere]','$ruc')";
@@ -42,7 +44,7 @@
 			$sifrarobe3 = mysql_insert_id();
 			/*dodavanje robe*/
 
-			mysql_query("INSERT INTO niv_robe (br_niv, srob, srob_niv, koli_niv) VALUES ('$br_niv', '$stara_sifra', '$sifrarobe3', '$niv_kol')");
+			mysql_query("INSERT INTO niv_robe (br_niv, srob, srob_niv, koli_niv, iznos_niv) VALUES ('$br_niv', '$stara_sifra', '$sifrarobe3', '$niv_kol', '$iznos_nivelacije')");
 
 			mysql_query("UPDATE roba SET stanje = '$umanjeno_stanje' WHERE sifra='$stara_sifra'");
 

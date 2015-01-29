@@ -15,17 +15,7 @@
 		<?php
 		$podatak="<?php
 		require('../../include/DbConnection.php');
-		mysql_query('DROP TABLE prenos_stan');
-		IF (mysql_query('
-				CREATE TABLE prenos_stan
-				(
-				naziv_robe varchar(64),
-				cena_robe decimal(12,2),
-				porez decimal(10,0),
-				jed_mere tinytext,
-				ruc decimal(10,0),
-				kolicina int(11)
-				)ENGINE=MyISAM DEFAULT CHARSET=utf8'))
+		IF (mysql_query('TRUNCATE TABLE prenos_stan'))
 		  {
 		  echo '<!DOCTYPE html>
 		  		<html>
@@ -43,7 +33,7 @@
 		  }
 		ELSE
 		  {
-			echo 'Greska pri kreiranju tabele: ' . mysql_error();
+			echo 'Greska pri formatiranju tabele: ' . mysql_error();
 		  }
 		  ";
 		fwrite($fh, $podatak);

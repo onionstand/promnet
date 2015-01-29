@@ -1,7 +1,13 @@
 <?php
-require("../include/DbConnection.php");
-$id=$_GET["id"];
-$kol=$_GET["kol"];
-mysql_query("UPDATE dob_kup SET stanje = '$kol'
-WHERE sif_kup='$id'");
+require("../include/DbConnectionPDO.php");
+$id=$_POST["id"];
+$stanje=$_POST["stanje"];
+$kupci=$_POST["kupci"];
+$dobavljaci=$_POST["dobavljaci"];
+
+$upit = 'UPDATE dob_kup SET stanje = ?, kupci = ?, dobavljaci = ?
+	  WHERE sif_kup = ?';
+$stmt = $baza_pdo->prepare($upit);
+$stmt->execute(array($stanje, $kupci, $dobavljaci, $id));
+$uradjeno = $stmt->rowCount();
 ?>

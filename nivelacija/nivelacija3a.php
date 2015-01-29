@@ -38,6 +38,8 @@
 
 			$novaruc=($iznos_razlika_u_ceni_nivel_s+$iznos_razlika_u_ceni_stanja)/((($cena_n*$niv_kol)+($cena_n*$stanje_n))/100);
 
+			$iznos_nivelacije=($prod_cena*$niv_kol)-($cena_s-$niv_kol);//za bazu
+
 
 
 			//$nabavna_cena=($cena_s/100)*(100-$ruc_s);
@@ -49,7 +51,7 @@
 			mysql_query("UPDATE roba SET stanje = '$umanjeno_stanje' WHERE sifra = '$satra_sifra'");
 			mysql_query("UPDATE roba SET stanje = '$uvecano_stanje' WHERE sifra = '$sifra_robe'");
 			mysql_query("UPDATE roba SET ruc = '$novaruc' WHERE sifra = '$sifra_robe'");
-			mysql_query("INSERT INTO niv_robe (br_niv, srob, srob_niv, koli_niv) VALUES ('$br_niv', '$satra_sifra', '$sifra_robe', '$niv_kol')");
+			mysql_query("INSERT INTO niv_robe (br_niv, srob, srob_niv, koli_niv, iznos_niv) VALUES ('$br_niv', '$satra_sifra', '$sifra_robe', '$niv_kol', '$iznos_nivelacije')");
 			?>
 			<form action="nivelacija4.php" method="post">
 				<input type="hidden" name="br_niv" value="<?php echo $br_niv; ?>"/>

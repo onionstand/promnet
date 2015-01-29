@@ -52,22 +52,25 @@ if (isset($_POST['datumod'])&& ($_POST['datumdo']))
 			<th>Opis</th>
 			<th>Ulaz</th>
 			<th>Izlaz</th>
+			<th>Od.PDV</th>
 			<th>Saldo</th>
 			<th>Konto</th>
 			<th>Datum</th>
 		</tr>
 	<?php
 	$upit = mysql_query("SELECT * FROM blagajna WHERE datum >= '$datumod' AND datum <= '$datumdo' ORDER BY datum ASC");
+	$pdv_izn_zbir=0;
 	while($niz = mysql_fetch_array($upit))
 	{	$br_blag=$niz['br_blag'];
 		$datumrad=strtotime( $niz['datum'] );
 		$datum=date('d-m-Y',$datumrad);
 		//stanje
-		$upit2 = mysql_query("SELECT SUM(blagulaz) AS aaa, SUM(blagizn) AS bbb FROM blagajna WHERE br_blag<='$br_blag'");
+		$upit2 = mysql_query("SELECT SUM(blagulaz) AS blagulaz_sum, SUM(blagizn) AS blagizn_sum FROM blagajna WHERE br_blag<='$br_blag'");
 		$niz2 = mysql_fetch_array($upit2);
-		$ulazzbir=$niz2['aaa'];
-		$izlazzbir=$niz2['bbb'];
+		$ulazzbir=$niz2['blagulaz_sum'];
+		$izlazzbir=$niz2['blagizn_sum'];
 		$saldo=$ulazzbir-$izlazzbir;
+		$pdv_izn_zbir+=$niz['pdv_izn'];
 		//stanje
 		?>
 		<tr>
@@ -75,6 +78,7 @@ if (isset($_POST['datumod'])&& ($_POST['datumdo']))
 			<td><?php echo $niz['opis_troska'] . " - ". $niz['napomena'];?></td>
 			<td><?php echo number_format($niz['blagulaz'], 2,".",",");?></td>
 			<td><?php echo number_format($niz['blagizn'], 2,".",",");?></td>
+			<td><?php echo number_format($niz['pdv_izn'], 2,".",",");?></td>
 			<td><?php echo number_format($saldo, 2,".",",");?></td>
 			<td><?php echo $niz['br_konta'];?></td>
 			<td><?php echo $datum;?></td>
@@ -104,7 +108,8 @@ if (isset($_POST['datumod'])&& ($_POST['datumdo']))
 		<td colspan='2'>Promet Blagajne:</td>
 		<td><?php echo number_format($blagulaz, 2,".",",");?></td>
 		<td><?php echo number_format($blagizn, 2,".",",");?></td>
-		<td colspan='3'></td>
+		<td><?php echo number_format($pdv_izn_zbir, 2,".",",");?></td>
+		<td colspan='2'></td>
 	</tr>
 	<tr>
 		<td colspan='2'>Ukupan izlaz:</td>
