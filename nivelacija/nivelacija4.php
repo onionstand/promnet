@@ -73,7 +73,7 @@
             <td><?php echo $niz3['iznos_niv'];?></td>
             <td class="print_hide">
               <form action='niv_brisi_stavku.php' method='post'>
-                <input type='hidden' name='br_niv' value='$br_niv'/>
+                <input type='hidden' name='br_niv' value='<?php echo $br_niv;?>'/>
                 <input type='hidden' name='id_niv_robe' value="<?php echo $niz2['id'];?>"/>
                 <input type='image' id='btnPrint' src='../include/images/iks.png' title='Ispravi'/>
               </form>

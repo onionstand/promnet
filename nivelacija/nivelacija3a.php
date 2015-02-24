@@ -38,7 +38,7 @@
 
 			$novaruc=($iznos_razlika_u_ceni_nivel_s+$iznos_razlika_u_ceni_stanja)/((($cena_n*$niv_kol)+($cena_n*$stanje_n))/100);
 
-			$iznos_nivelacije=($prod_cena*$niv_kol)-($cena_s-$niv_kol);//za bazu
+			$iznos_nivelacije=($cena_n*$niv_kol)-($cena_s-$niv_kol);//za bazu
 
 
 

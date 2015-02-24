@@ -72,9 +72,9 @@
 					<th>Sifra</th>
 					<th>Ime partnera</th>
 					<th>PIB</th>
-					<th>Stanje</th>
 					<th>Kupci</th>
 					<th>Dobavljaci</th>
+					<th>Stanje</th>
 				</tr>
 				<?php 
 				require("../include/DbConnectionPDO.php");
@@ -93,16 +93,16 @@
 					<td><?php echo $naziv_kup; ?></td>
 					<td><?php echo $pib; ?></td>
 					<td class="edit_td">
-						<span id="stanje_<?php echo $sifra; ?>" class="text"><?php echo $stanje; ?></span>
-						<input type="text" value="<?php echo $stanje; ?>" class="editbox" id="stanje_input_<?php echo $sifra; ?>" />
-					</td>
-					<td class="edit_td">
 						<span id="kupci_<?php echo $sifra; ?>" class="text"><?php echo $kupci; ?></span>
 						<input type="text" value="<?php echo $kupci; ?>" class="editbox" id="kupci_input_<?php echo $sifra; ?>" />
 					</td>
 					<td class="edit_td">
 						<span id="dobavljaci_<?php echo $sifra; ?>" class="text"><?php echo $dobavljaci; ?></span>
 						<input type="text" value="<?php echo $dobavljaci; ?>" class="editbox" id="dobavljaci_input_<?php echo $sifra; ?>" />
+					</td>
+					<td class="edit_td">
+						<span id="stanje_<?php echo $sifra; ?>" class="text"><?php echo $stanje; ?></span>
+						<input type="text" value="<?php echo $stanje; ?>" class="editbox" id="stanje_input_<?php echo $sifra; ?>" />
 					</td>
 				</tr>
 				<?php } ?>	
