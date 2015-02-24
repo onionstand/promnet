@@ -10,24 +10,24 @@
 		$br_niv=$_POST['br_niv'];
 		$id_niv_robe=$_POST['id_niv_robe'];
 
-		$prestanje=mysql_query("SELECT * FROM niv_robe WHERE id='$id_niv_robe'");
-		$prestanje2=mysql_fetch_array($prestanje);
-		$koli_niv=$prestanje2['koli_niv'];
-		$srob=$prestanje2['srob'];
-		$srob_niv=$prestanje2['srob_niv'];
+		$upit_nivelacija=mysql_query("SELECT * FROM niv_robe WHERE id='$id_niv_robe'");
+		$red_nivelacija=mysql_fetch_array($upit_nivelacija);
+		$koli_niv=$red_nivelacija['koli_niv'];
+		$srob=$red_nivelacija['srob'];
+		$srob_niv=$red_nivelacija['srob_niv'];
 
-		$robsta=mysql_query("SELECT * FROM roba WHERE sifra='$srob'");
-		$robsta2=mysql_fetch_array($robsta);
-		$robsta_dodavanje=$robsta2['stanje'];
-		$cena_robe_dodavanje=$robsta2['cena_robe'];
-		$ruc_dodavanje=$robsta2['ruc'];
+		$upit_roba_srob=mysql_query("SELECT * FROM roba WHERE sifra='$srob'");
+		$red_roba_srob=mysql_fetch_array($upit_roba_srob);
+		$robsta_dodavanje=$red_roba_srob['stanje'];
+		$cena_robe_dodavanje=$red_roba_srob['cena_robe'];
+		$ruc_dodavanje=$red_roba_srob['ruc'];
 		$izmenastanja=$robsta_dodavanje+$koli_niv;
 
-		$robsta4=mysql_query("SELECT * FROM roba WHERE sifra='$srob_niv'");
-		$robsta5=mysql_fetch_array($robsta4);
-		$robsta_oduzimanje=$robsta5['stanje'];
-		$cena_robe_oduzimanje=$robsta5['cena_robe'];
-		$ruc_oduzimanje=$robsta5['ruc'];
+		$upit_roba_srob_niv=mysql_query("SELECT * FROM roba WHERE sifra='$srob_niv'");
+		$red_roba_srob_niv=mysql_fetch_array($upit_roba_srob_niv);
+		$robsta_oduzimanje=$red_roba_srob_niv['stanje'];
+		$cena_robe_oduzimanje=$red_roba_srob_niv['cena_robe'];
+		$ruc_oduzimanje=$red_roba_srob_niv['ruc'];
 		$izmenastanja2=$robsta_oduzimanje-$koli_niv;
 
 		$novaruc=(($robsta_oduzimanje*$ruc_oduzimanje)-($koli_niv*$ruc_dodavanje))/($robsta_oduzimanje-$koli_niv);
@@ -37,8 +37,9 @@
 		?>
 		<h2>Izbrisano.</h2>
 		<p>
-			Iznos razlika u ceni nivel. <?php echo $iznos_razlika_u_ceni_nivel_s;?><br>
-			Iznos razlika u ceni stanja!<?php echo $iznos_razlika_u_ceni_stanja;?>
+			Nova RUC. <?php echo $novaruc;?><br>
+			Novo stanje <?php echo $red_roba_srob['naziv_robe']." - ".$red_roba_srob['sifra']." - ".$izmenastanja;?><br>
+			Novo stanje <?php echo $red_roba_srob_niv['naziv_robe']." - ".$red_roba_srob_niv['sifra']." - ".$izmenastanja2;?>
 		</p>
 		<?php
 		mysql_query("DELETE FROM niv_robe WHERE id='$id_niv_robe' AND br_niv='$br_niv'");

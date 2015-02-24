@@ -35,7 +35,7 @@
 			$iznos_razlika_u_ceni=($prod_cena*$niv_kol)-(($cena_s/100)*(100-$ruc_s)*$niv_kol);
 			$ruc=$iznos_razlika_u_ceni/(($prod_cena*$niv_kol)/100);
 
-			$iznos_nivelacije=($prod_cena*$niv_kol)-($cena_s-$niv_kol); //za bazu
+			$iznos_nivelacije=($prod_cena*$niv_kol)-($cena_s*$niv_kol); //za bazu
 
 			$ubacir="INSERT INTO roba (naziv_robe, cena_robe, porez, stanje, jed_mere, ruc)
 			VALUES
