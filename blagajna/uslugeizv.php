@@ -28,6 +28,7 @@ if (isset($_POST['datumod'])&& ($_POST['datumdo']))
 	$do=$_POST['datumdo'];
 	$do2=strtotime( $do );
 	$datumdo=date("Y-m-d",$do2);
+	$sortiranje=$_POST['sortiranje'];
 	?>
 	<div class="nosac_sa_tabelom">
 		<div class='memorandum screen_hide'>
@@ -47,8 +48,13 @@ if (isset($_POST['datumod'])&& ($_POST['datumdo']))
 				<th>PDV</th>
 				<th>Dobavljac</th>
 			</tr>
-		<?php	
-		$upit = mysql_query("SELECT * FROM usluge WHERE datum >= '$datumod' AND datum <= '$datumdo' ORDER BY datum");
+		<?php
+		if ($sortiranje=="broj") {
+			$upit = mysql_query("SELECT * FROM usluge WHERE datum >= '$datumod' AND datum <= '$datumdo' ORDER BY br_usluge");
+		}
+		else{
+			$upit = mysql_query("SELECT * FROM usluge WHERE datum >= '$datumod' AND datum <= '$datumdo' ORDER BY datum");
+		}	
 		while($niz = mysql_fetch_array($upit))
 		{	
 			$br_usluge=$niz['br_usluge'];
@@ -132,6 +138,11 @@ else
 			<input id="biracdatuma" type="text" name="datumod" value="" class="polje_100_92plus4" />
 			<label>Datum do:</label>
 			<input id="biracdatuma2" type="text" name="datumdo" value="" class="polje_100_92plus4" />
+			<label>Sortiraj po:</label>
+			<select id='sortiranje' name='sortiranje' size='1' class='polje_100'>
+				<option value='broj'>Po broju</option>
+				<option value='datum'>Po datumu</option>
+			</select>
 			<button type="submit" class="dugme_zeleno">Unesi</button>
 		</form>
 		<form action="../index.php" method="post">
