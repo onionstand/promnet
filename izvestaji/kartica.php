@@ -73,11 +73,11 @@ $stanje_part=$niz3['stanje'];
 		FROM dosta 
 		WHERE sifra_fir='$sif_kup'
 		UNION ALL
-		SELECT broj_kalk AS a1,'KAL' AS a2,datum AS a3,0 AS a4, nabav_vre AS a5, 'X' AS a6 
+		SELECT broj_kalk AS a1,'KAL' AS a2,datum AS a3,0 AS a4, nabav_vre AS a5, faktura AS a6 
 		FROM kalk 
 		WHERE sif_firme='$sif_kup'
 		UNION ALL
-		SELECT br_usluge AS a1,'USL' AS a2,datum AS a3,0 AS a4, iznosus AS a5, 'X' AS a6
+		SELECT br_usluge AS a1,'USL' AS a2,datum AS a3,0 AS a4, iznosus AS a5, br_dok_us AS a6
 		FROM usluge 
 		WHERE sifusluge='$sif_kup'
 		UNION ALL
