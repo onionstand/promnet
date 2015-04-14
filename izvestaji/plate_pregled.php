@@ -236,6 +236,7 @@
 				</table>
 				<button onClick='window.print()' type='button' class='dugme_plavo print_hide'>Stampaj</button>
 				<a href="plate_pregled.php" class="dugme_zeleno_92plus4 print_hide">Pregledaj plate</a>
+				<a href="plate_isplatni_list.php?id_plate=<?php echo $red['id_plate'];?>" class="dugme_zeleno_92plus4 print_hide">Isplatni list</a>
 				<a href="plate_pregled.php?id_plate_brisanje=<?php echo $red['id_plate'];?>" class="dugme_crveno_92plus4 print_hide">Obrisi platu</a>
 				<?php
 			}
@@ -279,7 +280,7 @@
 			<?php
 			}
 			?>
-			<a href="../index.php" class="dugme_zeleno_92plus4 print_hide">Odustani</a>
+			<a href="../index.php" class="dugme_zeleno_92plus4 print_hide">Pocetna</a>
 		</div>
 	</body>
 </html>
