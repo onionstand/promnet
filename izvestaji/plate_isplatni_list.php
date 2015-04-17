@@ -54,31 +54,31 @@ if (isset($_GET['id_plate'])) {
 			<th style="font-size:9px;">Bruto</th>
 		</tr>
 		<tr>
-			<td><?php echo $red['bruto_zarada'];?></td>
-			<td><?php echo $red['bruto_zarada'];?></td>
+			<td><?php echo number_format($red['bruto_zarada'], 0, '.', '');?></td>
+			<td><?php echo number_format($red['bruto_zarada'], 0, '.', '');?></td>
 		</tr>
 	</table>
 	<div class="cf"></div>
 	<table style="margin-top:20px;">
 		<tr>
 			<td><b>Bruto zarada:</b></td>
-			<td><b><?php echo $red['bruto_zarada'];?></b></td>
+			<td><b><?php echo number_format($red['bruto_zarada'], 0, '.', '');?></b></td>
 		</tr>
 		<tr>
 			<td>Doprinosi:</td>
-			<td><?php echo $red['ukupni_doprinosi'];?></td>
+			<td><?php echo number_format($red['ukupni_doprinosi']-$red['porez_na_licna_prim'], 0, '.', '');?></td>
 		</tr>
 		<tr>
 			<td style="border-bottom:1px solid #000000;">Porez:</td>
-			<td style="border-bottom:1px solid #000000;"><?php echo $red['porez_na_licna_prim'];?></td>
+			<td style="border-bottom:1px solid #000000;"><?php echo number_format($red['porez_na_licna_prim'], 0, '.', '');?></td>
 		</tr>
 		<tr>
 			<td style="border-bottom:1px solid #000000;"><b>Neto zarada:</b></td>
-			<td style="border-bottom:1px solid #000000;"><b><?php echo $red['neto_zarada'];?></b></td>
+			<td style="border-bottom:1px solid #000000;"><b><?php echo number_format($red['neto_zarada'], 0, '.', '');?></b></td>
 		</tr>
 		<tr>
 			<td><b>Za isplatu:</b></td>
-			<td><b><?php echo $red['neto_zarada'];?></b></td>
+			<td><b><?php echo number_format($red['neto_zarada'], 0, '.', '');?></b></td>
 		</tr>
 	</table>
 	<div class="cf"></div>
