@@ -20,14 +20,16 @@
 <body>
 <?php require("../include/DbConnection.php");
 require("../include/ConfigFirma.php");
-if (isset($_POST['datumod'])&& ($_POST['datumdo']))
-{ 
-	$od=$_POST['datumod'];
-	$od2=strtotime( $od );
-	$datumod=date("Y-m-d",$od2);
-	$do=$_POST['datumdo'];
-	$do2=strtotime( $do );
-	$datumdo=date("Y-m-d",$do2);
+if (isset($_POST['pretraga'])){
+	if (isset($_POST['datumod'])&& ($_POST['datumdo'])){ 
+		$od=$_POST['datumod'];
+		$od2=strtotime( $od );
+		$datumod=date("Y-m-d",$od2);
+
+		$do=$_POST['datumdo'];
+		$do2=strtotime( $do );
+		$datumdo=date("Y-m-d",$do2);
+	}
 	$sortiranje=$_POST['sortiranje'];
 	?>
 	<div class="nosac_sa_tabelom">
@@ -36,7 +38,10 @@ if (isset($_POST['datumod'])&& ($_POST['datumdo']))
 			echo $inkfirma;?>
 		</div>
 		<div class="cf"></div>
-		<h2>Izvestaj usluga za period od <?php echo date("d.m.Y",$od2);?> do <?php echo date("d.m.Y",$do2);?></h2>
+		<?php if (isset($_POST['datumod'])&& ($_POST['datumdo'])){ ?>
+			<h2>Izvestaj usluga za period od <?php echo date("d.m.Y",$od2);?> do <?php echo date("d.m.Y",$do2);?></h2>
+		<?php
+		}?>
 		<table>
 			<tr>
 				<th>Broj</th>
@@ -49,12 +54,23 @@ if (isset($_POST['datumod'])&& ($_POST['datumdo']))
 				<th>Dobavljac</th>
 			</tr>
 		<?php
-		if ($sortiranje=="broj") {
-			$upit = mysql_query("SELECT * FROM usluge WHERE datum >= '$datumod' AND datum <= '$datumdo' ORDER BY br_usluge");
+		if (isset($_POST['datumod'])&& ($_POST['datumdo'])){ 
+			if ($sortiranje=="broj") {
+				$upit = mysql_query("SELECT * FROM usluge WHERE datum >= '$datumod' AND datum <= '$datumdo' ORDER BY br_usluge");
+			}
+			else{
+				$upit = mysql_query("SELECT * FROM usluge WHERE datum >= '$datumod' AND datum <= '$datumdo' ORDER BY datum");
+			}
 		}
-		else{
-			$upit = mysql_query("SELECT * FROM usluge WHERE datum >= '$datumod' AND datum <= '$datumdo' ORDER BY datum");
-		}	
+		elseif (isset($_POST['brojusluge'])) {
+			$brojusluge = $_POST['brojusluge'];
+			$upit = mysql_query("SELECT * FROM usluge WHERE br_usluge='$brojusluge'");
+		}
+		else{ ?>
+			<h2>Greska</h2>
+		<?php }
+
+
 		while($niz = mysql_fetch_array($upit))
 		{	
 			$br_usluge=$niz['br_usluge'];
@@ -87,35 +103,38 @@ if (isset($_POST['datumod'])&& ($_POST['datumdo']))
 			</tr>
 			<?php
 		}
-		$upit3 = mysql_query("SELECT SUM(iznosus) AS aaa2, SUM(pdv) AS bbb2 FROM usluge WHERE datum >= '$datumod' AND datum <= '$datumdo'");
-		$niz3 = mysql_fetch_array($upit3);
-		$sumiznosus=$niz3['aaa2'];
-		$sumpdv=$niz3['bbb2'];
+		if (isset($_POST['datumod'])&& ($_POST['datumdo'])){ 
+			$upit3 = mysql_query("SELECT SUM(iznosus) AS aaa2, SUM(pdv) AS bbb2 FROM usluge WHERE datum >= '$datumod' AND datum <= '$datumdo'");
+			$niz3 = mysql_fetch_array($upit3);
+			$sumiznosus=$niz3['aaa2'];
+			$sumpdv=$niz3['bbb2'];
 
-		$upit4 = mysql_query("SELECT SUM(iznosus) AS prethsaldo FROM usluge WHERE datum < '$datumod'");
-		$niz4 = mysql_fetch_array($upit4);
-		$prethsaldo=$niz4['prethsaldo'];
+			$upit4 = mysql_query("SELECT SUM(iznosus) AS prethsaldo FROM usluge WHERE datum < '$datumod'");
+			$niz4 = mysql_fetch_array($upit4);
+			$prethsaldo=$niz4['prethsaldo'];
 
-		$upit5 = mysql_query("SELECT SUM(iznosus) AS novisaldo FROM usluge WHERE datum <= '$datumdo'");
-		$niz5 = mysql_fetch_array($upit5);
-		$novisaldo=$niz5['novisaldo'];
-		?>
-			<tr>
-				<td colspan='5'>Ukupno:</td>
-				<td><?php echo number_format($sumiznosus, 2,".",",");?></td>
-				<td><?php echo number_format($sumpdv, 2,".",",");?></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td colspan='2'>Prethodni saldo:</td>
-				<td colspan='5'><?php echo number_format($prethsaldo, 2,".",",");?></td>
-			</tr>
-			<tr>
-				<td colspan='2'>Saldo blagajne:</td>
-				<td colspan='5'><?php echo number_format($novisaldo, 2,".",",");?></td>
-			</tr>
+			$upit5 = mysql_query("SELECT SUM(iznosus) AS novisaldo FROM usluge WHERE datum <= '$datumdo'");
+			$niz5 = mysql_fetch_array($upit5);
+			$novisaldo=$niz5['novisaldo'];
+			?>
+				<tr>
+					<td colspan='5'>Ukupno:</td>
+					<td><?php echo number_format($sumiznosus, 2,".",",");?></td>
+					<td><?php echo number_format($sumpdv, 2,".",",");?></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan='2'>Prethodni saldo:</td>
+					<td colspan='5'><?php echo number_format($prethsaldo, 2,".",",");?></td>
+				</tr>
+				<tr>
+					<td colspan='2'>Saldo blagajne:</td>
+					<td colspan='5'><?php echo number_format($novisaldo, 2,".",",");?></td>
+				</tr>
+		<?php } ?>
 		</table>
 		<br>
+		<a href="uslugeizv.php" class="dugme_zeleno_92plus4 print_hide">Nazad</a>
 		<a href="../index.php" class="dugme_plavo_92plus4 print_hide">Pocetna strana</a>
 		<a href="#" onClick="window.print();return false" class="dugme_plavo_92plus4 print_hide">Stampaj</a>
 		<div id="potpis0">
@@ -143,7 +162,9 @@ else
 				<option value='broj'>Po broju</option>
 				<option value='datum'>Po datumu</option>
 			</select>
-			<button type="submit" class="dugme_zeleno">Unesi</button>
+			<label>Broj usluge:</label>
+			<input type="text" name="brojusluge" class="polje_100_92plus4"/>
+			<button name="pretraga" type="submit" value="pretraga" class="dugme_zeleno">Pretrazi</button>
 		</form>
 		<form action="../index.php" method="post">
 			<button type="submit" class="dugme_crveno">Ponisti</button>
