@@ -61,15 +61,15 @@ label{margin: 0.6em 0 0.2em 0; display: block;}
 .dugme_crveno, .dugme_crveno_92plus4 {background-color: #E96F48;}
 .dugme_plavo, .dugme_plavo_92plus4 {background-color: #5F90B0;}
 
-.nosac_zaglavlja_fakture {width:100%; height:auto; float:left; clear:both;}
+.nosac_zaglavlja_fakture {width:100%; height:auto; float:left; clear:both; padding-top: 3px;}
 .zaglavlje_fakture_desni{float:right; padding:10px 5px 10px 5px; width:45%;}
 .zaglavlje_fakture_levi{float:left; padding:10px 15px 10px 15px; width:45%;}
 /*.podnozje_fakture_tekst{float:left;clear:both; padding:10px 5px 10px 5px; width:auto; font-size: 11px; color: #414141;}*/
 
 
-.memorandum{width:100%; float:left; clear:both; border-bottom:3px solid #E0E0E0; font-size: 12px; color: #414141; padding:0px 5px 10px 5px;}
-.memorandum_logo{width:200px; height:50px; float:left;display:block;}
-.memorandum_tekst{float:left; margin:0 0 0 10px;display:block; }
+.memorandum{width:100%; float:left; clear:both; border-bottom:3px solid #E0E0E0; font-size: 12px; color: #414141; padding:0px 0px 10px 0px;}
+.memorandum_logo{height:60px; float:left;display:block;}
+.memorandum_tekst{float:right; text-align: right; margin:0; display:block; line-height: 19px;}
 
 @media only screen and (max-width: 700px) {
 	th,td{font-size: 12px;}  

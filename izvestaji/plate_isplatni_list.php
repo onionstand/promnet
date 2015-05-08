@@ -43,8 +43,21 @@ if (isset($_GET['id_plate'])) {
 				<option value="<?php echo $i;?>"><?php echo $i;?></option>
 				<?php
 			}?>
-			</select>
-			 god. 
+			</select> god.
+			<select>
+				<option>0</option>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+				<option>6</option>
+				<option>7</option>
+				<option>8</option>
+				<option>9</option>
+				<option>10</option>
+				<option>11</option>
+			</select> meseci
 		</div>
 	</div>
 	<h2 style="text-align:center;">Obračun za godinu <?php echo $godina;?>, mesec <?php echo $mesec;?> </h2>
