@@ -76,6 +76,11 @@ function PdvPoKalkulacijama($procenat_stope,$broj_kalkulacije,$sifra_poreza){
 	}
 }
 
+function proracunOsnoviceIzPdva($porez_stopa,$iznos_poreza){
+	$poreska_osnovica=($iznos_poreza/$porez_stopa)*100;
+	echo $poreska_osnovica;
+}
+
 ?>
 <!DOCTYPE html>
 <head>
@@ -310,6 +315,47 @@ if (isset($_POST['datumod'])&& ($_POST['datumdo']))
 			</tr>
 		</table>
 		<div class="cf"></div>
+		<form action="pdv_knizenje.php" method="post">
+			<input type="hidden" name="datum_od" value="<?php echo $datumod; ?>"/>
+			<input type="hidden" name="datum_do" value="<?php echo $datumdo; ?>"/>
+			<input type="hidden" name="promet_dob_opst_stopa_pdv" value="<?php echo $pdv_dostavnice_visastopa_zbir; ?>"/>
+			<input type="hidden" name="promet_dob_posebn_stopa_pdv" value="<?php echo $pdv_dostavnice_nizastopa_zbir; ?>"/>
+			<input type="hidden" name="promet_dob_opst_stopa" value="<?php proracunOsnoviceIzPdva($procenat_vise_stope,$pdv_dostavnice_visastopa_zbir); ?>"/>
+			<input type="hidden" name="promet_dob_posebn_stopa" value="<?php proracunOsnoviceIzPdva($procenat_nize_stope,$pdv_dostavnice_nizastopa_zbir); ?>"/>
+			<input type="hidden" name="promet_dob_pdv_zbir" value="<?php echo $pdv_dostavnice_visastopa_zbir+$pdv_dostavnice_nizastopa_zbir; ?>"/>
+			<input type="hidden" name="promet_dob_zbir" value="<?php echo $iznos_racuna_bez_pdv_zbir; ?>"/>
+			<?php
+				$prethodni_porez_pdv=$pdv_kalkulacije_zbir_zbir+$pdv_izn+$pdv_izn_usluge;
+
+				//kalk
+				$resultnab_vr = mysql_query("SELECT sum(nabav_vre) AS nabav_v FROM kalk WHERE datum >= '$datumod' AND datum <= '$datumdo'") or die ("resultnab_vr no query");
+				$niznab_vr = mysql_fetch_array($resultnab_vr);
+				$nabav_v=$niznab_vr['nabav_v'];
+				$nab_vred_bez_pdva=$nabav_v-$pdv_kalkulacije_zbir_zbir;
+
+				//blagajna
+				$blagresult = mysql_query("SELECT sum(pdv_izn) AS pdv_blagajna, sum(blagizn) AS blagiznos FROM blagajna WHERE datum >= '$datumod' AND datum <= '$datumdo' AND pdv_izn > '0' AND blagizn > '0'") or die ("blagresult no query");
+				$blagniz = mysql_fetch_array($blagresult);
+				$pdv_blagajna=$blagniz['pdv_blagajna'];
+				$blagiznos=$blagniz['blagiznos'];
+				$blagiznos_bez_pdv = $blagiznos - $pdv_blagajna;
+
+				//usluge
+				$uslugeresult = mysql_query("SELECT sum(iznosus) AS iznosusluge, sum(pdv) AS pdv_usluge FROM usluge WHERE datum >= '$datumod' AND datum <= '$datumdo' AND pdv > '0'") or die ("uslugeresult no query");
+				$uslugeniz = mysql_fetch_array($uslugeresult);
+				$pdv_usluge=$uslugeniz['pdv_usluge'];
+				$iznosusluge=$uslugeniz['iznosusluge'];
+				$iznosusluge_bez_pdv=$iznosusluge-$pdv_usluge;
+
+
+				$prethodni_porez_osnovica=$nab_vred_bez_pdva+$blagiznos_bez_pdv+$iznosusluge_bez_pdv;
+			?>
+			<input type="hidden" name="prethodni_porez_osnovica" value="<?php echo $prethodni_porez_osnovica; ?>"/>
+			<input type="hidden" name="prethodni_porez_pdv" value="<?php echo $prethodni_porez_pdv; ?>"/>
+
+			<input type="hidden" name="poreska_obaveza" value="<?php echo ($pdv_dostavnice_visastopa_zbir+$pdv_dostavnice_nizastopa_zbir)-$prethodni_porez_pdv; ?>"/>
+			<button value="knjizenje" name="knjizenje" class="dugme_zeleno print_hide" type="submit">Proknjizi PDV</button>
+		</form>
 		<a href="../index.php" class="dugme_crveno_92plus4 print_hide">Pocetna strana</a>
 	</div>
 	<?php

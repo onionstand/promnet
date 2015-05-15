@@ -140,6 +140,7 @@
 				<li class="strelica_podmeni"><a href="#">PDV</a>
 					<ul>
 						<li><a href="izvestaji/iz_porez.php">PDV obracun</a></li>
+						<li><a href="izvestaji/pdv_knizenje.php">PDV proknjizenja</a></li>
 						<li><a href="izvestaji/pdv.php">PDV obrazac</a></li>
 					</ul>
 				</li>
