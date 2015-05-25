@@ -36,8 +36,8 @@
 
     	
       });
-      </script>
-      <script type="text/javascript">
+    </script>
+    <script type="text/javascript">
         $(function() { 
           $("#izvod_forma").validity(function() {
             $("#firma")
@@ -49,7 +49,17 @@
     		  		.match("number","Mora biti broj.")
     	    });
         });
-      </script>
+    </script>
+    <script>
+      $(document).ready(function() {
+        $( "#uplata_dobavljacu" ).click(function() {
+          $( "#polja_svrha option" ).replaceWith( $( '<option value="DOBAVLJAC">DOBAVLJAC</option><option value="USLUGE">USLUGE</option><option value="GOTOVINA">GOTOVINA</option>' ) );
+        });
+        $( "#uplata_od_kupca" ).click(function() {
+          $( "#polja_svrha option" ).replaceWith( $( '<option value="KUPAC">KUPAC</option>' ) );
+        });
+      });
+    </script>
     <title>Izvod</title>
   </head>
   <body>
@@ -81,16 +91,16 @@
         <p>Uplata-isplata:</p>
         
         <label>Uplata dobavljacu: </label>
-        <input type="radio" name="uplata" value="uplata_dobavljacu" checked>
+        <input type="radio" name="uplata" value="uplata_dobavljacu" id="uplata_dobavljacu" checked>
         
         <label>Uplata od kupca: </label>
-        <input type="radio" name="uplata" value="uplata_od_kupca">
+        <input type="radio" name="uplata" value="uplata_od_kupca" id="uplata_od_kupca">
         
         <label>Iznos: </label>
         <input type="text" value="" name="iznos_novca" class='polje_100_92plus4' id='iznosa'/>
 
         <label>Svrha: </label>
-        <select name="svrha" class="polje_100">
+        <select name="svrha" class="polje_100" id="polja_svrha">
           <option value="DOBAVLJAC">DOBAVLJAC</option>
           <option value="KUPAC">KUPAC</option>
           <option value="USLUGE">USLUGE</option>
