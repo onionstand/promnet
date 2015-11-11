@@ -12,42 +12,34 @@
 				$id_plate_brisanje=$_GET['id_plate_brisanje'];
 
 				$upit_iz_plate_za_usl = "SELECT
-				id_usluge_porez,
-				id_usluge_pio_rad,
-				id_usluge_zdrav_rad,
-				id_usluge_nezap_rad,
-				id_usluge_pio_pred,
-				id_usluge_zdrav_pred,
-				id_usluge_nezap_pred
+				id_usluge_doprinosi
 				FROM plate WHERE id_plate='$id_plate_brisanje'";
 
 				$result_iz_plate_za_usl = $baza_pdo->query($upit_iz_plate_za_usl);
 				$row_iz_plate_za_usl = $result_iz_plate_za_usl->fetch();
+				$row_iz_plate_za_usl_niz=explode(",", $row_iz_plate_za_usl['id_usluge_doprinosi']);
 
-
-				$upit_brisi_iz_usluga = 'DELETE FROM usluge
-					WHERE br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ? OR br_usluge = ?';
-				$stmt_brisi_iz_usluga = $baza_pdo->prepare($upit_brisi_iz_usluga);
-				$stmt_brisi_iz_usluga->execute(
-						array(
-								$row_iz_plate_za_usl['id_usluge_porez'],
-								$row_iz_plate_za_usl['id_usluge_pio_rad'],
-								$row_iz_plate_za_usl['id_usluge_zdrav_rad'],
-								$row_iz_plate_za_usl['id_usluge_nezap_rad'],
-								$row_iz_plate_za_usl['id_usluge_pio_pred'],
-								$row_iz_plate_za_usl['id_usluge_zdrav_pred'],
-								$row_iz_plate_za_usl['id_usluge_nezap_pred']
-							)
-					);
+				foreach ($row_iz_plate_za_usl_niz as $id_za_brisanje) {
 				
-				$izbrisano_iz_usluga = $stmt_brisi_iz_usluga->rowCount();
-				if (!$izbrisano_iz_usluga) {
-					if ($stmt_brisi_iz_usluga->errorCode() == 'HY000') {
-						$error = 'That record has dependent files in a child table, and cannot be deleted.';
-					} else {
-						$error = 'There was a problem deleting the record.';
+					$upit_brisi_iz_usluga = 'DELETE FROM usluge WHERE br_usluge = ?';
+					$stmt_brisi_iz_usluga = $baza_pdo->prepare($upit_brisi_iz_usluga);
+					$stmt_brisi_iz_usluga->execute(
+							array(
+									$id_za_brisanje
+								)
+						);
+					
+					$izbrisano_iz_usluga = $stmt_brisi_iz_usluga->rowCount();
+					if (!$izbrisano_iz_usluga) {
+						if ($stmt_brisi_iz_usluga->errorCode() == 'HY000') {
+							$error = 'That record has dependent files in a child table, and cannot be deleted.';
+						} else {
+							$error = 'There was a problem deleting the record.';
+						}
 					}
 				}
+
+
 
 
 				$upit_brisi = 'DELETE FROM plate WHERE id_plate = ?';
