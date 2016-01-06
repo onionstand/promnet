@@ -80,7 +80,7 @@ if(isset($_POST['partnersif'])) { ?>
 		<script type="text/javascript">
 			jQuery(document).ready(function() {
 				$("#obaveznaf_prtraga").validity(function() {
-					$("#fokusiraj").require("Unesi tekst.")
+					$("#fokusiraj").require("Unesi tekst.");
 				});
 				
 			});
@@ -160,7 +160,7 @@ if (isset($_POST['metode'])&& ($_POST['search'])){
 		<script type="text/javascript">
 			jQuery(document).ready(function() {
 				$("#obaveznaf_prtraga").validity(function() {
-					$("#fokusiraj").require("Unesi tekst.")
+					$("#fokusiraj").require("Unesi tekst.");
 				});
 				
 			});
