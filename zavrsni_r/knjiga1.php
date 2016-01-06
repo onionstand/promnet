@@ -19,13 +19,7 @@ function UbacivanjePodatakaUGlknjiga($sifradok, $brdok, $brkonta, $datdok, $dugu
 
 	$stmt_za_glknjiga->execute();
 
-	//$OK_glknjiga = $stmt_za_glknjiga->rowCount();
-	//if (!$OK_glknjiga) {
-	//	$error = $stmt_za_glknjiga->errorInfo();
-	//	if (isset($error[2])) {
-	//		$error = $error[2];
-	//	}
-	//}
+
 }
 ?>
 <!DOCTYPE html>
