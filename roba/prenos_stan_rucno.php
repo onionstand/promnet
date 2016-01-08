@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
-<script type="text/javascript" src="../include/jquery/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="../include/form/jquery.validity.js"></script>
-<link rel="stylesheet" type="text/css" href="../include/form/jquery.validity.css">
-<script type="text/javascript">
- jQuery(document).ready(function() {
-	 $("#forma_prenos").validity(function() {
-                    $(".polje_100_92plus4")
-                        .require()
-                });
-	
-	});
- </script>
-<title>Prenos stanja - rucni</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
+	<script type="text/javascript" src="../include/jquery/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="../include/form/jquery.validity.js"></script>
+	<link rel="stylesheet" type="text/css" href="../include/form/jquery.validity.css">
+	<script type="text/javascript">
+	 jQuery(document).ready(function() {
+	 	$("#forma_prenos").validity(function() {
+	 		$(".polje_100_92plus4")
+	 		.require()
+	 	});
+	 });
+	</script>
+	<title>Prenos stanja - rucni</title>
 </head>
 <body>
 	<div class="nosac_sa_tabelom">

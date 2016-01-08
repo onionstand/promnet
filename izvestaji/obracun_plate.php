@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 		<title>Obracun Plate</title>
 		<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">

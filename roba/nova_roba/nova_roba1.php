@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html" />
+    <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../../include/css/stil2.css">
     <title>Unos Robe</title>
     <script type="text/javascript" src="../../include/jquery/jquery-1.6.2.min.js"></script>

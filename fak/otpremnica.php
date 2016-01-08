@@ -1,4 +1,3 @@
-
 <?php
 require("../include/DbConnection.php");
 function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
@@ -51,182 +50,11 @@ function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
 	<link rel="stylesheet" type="text/css" href="../include/form/jquery.validity.css">
 </head>
 <body>
-<?php
-//formiranje dost
-if(isset($_POST['partnersif'])) { ?>
-	<div class="nosac_glavni_400">
-		<script type="text/javascript">
-			jQuery(document).ready(function() {
-				$("#fokusiraj").focus();
-			});
-		</script>
-		<?php
-		/*zvanje sifre*/  
-		$upit = "SELECT * FROM dob_kup WHERE sif_kup='$_POST[partnersif]'"; 
-		$result = mysql_query($upit) or die(mysql_error());
-		$red = mysql_fetch_array($result) or die(mysql_error());
-		$part=$red['sif_kup'];
-		$rokpl=$_POST['rok_placanja'];
-		
-		mysql_query("INSERT INTO dosta (datum_d,sifra_fir, rok)
-		VALUES
-		(CURDATE(),'$part','$rokpl')");
-		/*prikaz broja fak*/
-		$brojfak=mysql_insert_id();
-		
-		/*datum*/
-		//$datfak = "SELECT date_format(datum_d , '%d.%m.%Y') as formatted_date FROM dosta WHERE broj_dost=$dosbr ";
-		?> 
-		<script type="text/javascript">
-			jQuery(document).ready(function() {
-				$("#obaveznaf_prtraga").validity(function() {
-					$("#fokusiraj").require("Unesi tekst.");
-				});
-				
-			});
-		</script>
-		<p>
-			Sifra kupca: <?php echo $part;?><br>
-			Partner: <?php echo $red['naziv_kup'];?><br>
-			Rok placanja: <?php echo $rokpl;?><br>
-			Broj fakture: <?php echo $brojfak;?>
-		</p>
-		<form method='post' id='obaveznaf_prtraga'>
-			<label>Trazi proizvod:</label>
-			<input type='hidden' name='broj_fak' value='<?php echo $brojfak;?>'/>
-			<select name='metode' size='1' class='polje_100'>
-				<option value='naziv_robe'>naziv robe</option>
-				<option value='sifra'>sifra robe</option>
-			</select>
-			<input type='text' name='search' class='polje_100_92plus4' id='fokusiraj' style="margin-top:0.3em;">
-			<button type='submit' class='dugme_zeleno'>Trazi</button>
-		</form>
-		<div class="cf"></div>
-	</div>
-<?php
-} ?>
 
-<?php
-if (isset($_POST['metode'])&& ($_POST['search'])){
-	$metode=$_POST['metode'];
-	$search=$_POST['search'];
-	$brojfak=$_POST['broj_fak'];
-	?>
-	<div class="nosac_sa_tabelom">
-		<table>
-			<tr>
-				<th>Sifra</th>
-				<th>Ime robe</th>
-				<th>Cena</th>
-				<th>Stanje</th>
-				<th>Porez</th>
-				<th>Kolicina</th>
-				<th>Rabat</th>
-			</tr>
-			<?php
-			$query = mysql_query("SELECT * FROM roba WHERE $metode LIKE '%$search%' ");
-			while ($row = mysql_fetch_array($query))
-			{
-			$ime=$row["naziv_robe"];
-			$sifra=$row["sifra"];
-			$cena=$row["cena_robe"];
-			$stanje=$row["stanje"];
-			$porez=$row["porez"];
-			?>
-			<tr>
-				<td><?php echo $sifra;?></td>
-				<td><?php echo $ime;?></td>
-				<td><?php echo $cena;?></td>
-				<td><?php echo $stanje;?></td>
-				<td><?php echo $porez;?></td>
-				<td>
-					<form method='post'>
-					<input type='hidden' name='broj_fak_pretraga' value='<?php echo $brojfak;?>'/>
-					<input type='hidden' name='sifra_r' value='<?php echo $sifra;?>'/>
-					<input type='hidden' name='cena_r' value='<?php echo $cena;?>'/>
-					<input type='text' name='fak_kol'  size='4'/>
-				</td>
-				<td>
-					<input type='text' name='fak_rab' size='4'/>
-				</td>
-				<td>
-					<input type='image' src='../include/images/plus.png' alt='Odaberi' />
-					</form>
-				</td>
-			</tr>
-			<?php } ?>
-		</table>
-		<div class="cf"></div>
-		<script type="text/javascript">
-			jQuery(document).ready(function() {
-				$("#obaveznaf_prtraga").validity(function() {
-					$("#fokusiraj").require("Unesi tekst.");
-				});
-				
-			});
-		</script>
-		<form method='post' id='obaveznaf_prtraga'>
-			<label>Trazi proizvod:</label>
-			<input type='hidden' name='broj_fak' value='<?php echo $brojfak;?>'/>
-			<select name='metode' size='1' class='polje_100'>
-				<option value='naziv_robe'>naziv robe</option>
-				<option value='sifra'>sifra robe</option>
-			</select>
-			<input type='text' name='search' size='25' class='polje_100_92plus4' id='fokusiraj' style="margin-top:0.3em;">
-			<button type='submit' class='dugme_zeleno'>Trazi</button>
-		</form>
-		<div class="cf"></div>
-	</div>
-<?php 
-	} ?>
-	
-<?php 
-if (isset($_POST['broj_fak_pretraga'])){
-	$brojfak=$_POST['broj_fak_pretraga'];
-	$sifrarob=$_POST['sifra_r'];
-	$fak_kol=$_POST['fak_kol'];
-	$fak_rab=$_POST['fak_rab'];
-	$cena_r=$_POST['cena_r'];
-	if (empty($fak_kol)){
-		$fak_kol=1;
-	}
-	if (empty($fak_rab)){
-		$fak_rab=0;
-	}
-	mysql_query("INSERT INTO izlaz (br_dos, srob_dos, koli_dos, cena_d, rab_dos)
-				VALUES
-				('$brojfak' , '$sifrarob','$fak_kol','$cena_r','$fak_rab')");
-	$dodrob=mysql_query("SELECT * FROM roba
-						WHERE sifra='$sifrarob'");
-	$row = mysql_fetch_array($dodrob);
-	$pretsta=$row['stanje'];
-	$robkon=$pretsta-$fak_kol;
-
-	mysql_query("UPDATE roba SET stanje = '$robkon'
-				WHERE sifra='$sifrarob'");
-	?>
-	<script type="text/javascript">
-		jQuery(document).ready(function() {
-			$("#dugme_novo_stanje_robe").focus();
-		});
-	</script>
-	<div class="nosac_glavni_400">
-		<p>Novo stanje robe: <?php echo $robkon;?></p>
-		<form  method="post">
-			<input type="hidden" name="broj_fak_stampa" value="<?php echo $brojfak; ?>"/>
-			<button type="submit" class="dugme_zeleno" id="dugme_novo_stanje_robe">Dalje</button>
-		</form>
-		<div class="cf"></div>
-	</div>
-<?php
-	} ?>
-	
-		
 <?php
 //dokument za stampu
-if (isset($_POST['broj_fak_stampa'])) {
-	
-	$brojfak=$_POST['broj_fak_stampa'];
+if (isset($_GET['broj_fak_stampa'])) {
+	$brojfak=$_GET['broj_fak_stampa'];
 
 	$siffirme_upit = mysql_query("SELECT sifra_fir FROM dosta WHERE broj_dost='$brojfak'");
 	while($siffirme_red = mysql_fetch_array($siffirme_upit)){
@@ -258,11 +86,11 @@ if (isset($_POST['broj_fak_stampa'])) {
 			<?php echo $inkfirma;?>
 		</div>
 		<div class="nosac_zaglavlja_fakture screen_hide">
-			<div class="zaglavlje_fakture_desni">RAČUN-DOSTAVNICA BR. <b><?php echo $brojfak;?></b>
+			<div class="zaglavlje_fakture_levi">OTPREMNICA BR. <b><?php echo $brojfak;?></b>
 				<br>Mesto i datum izdavanja računa: <b><?php echo $inkfirma_mir . ", " . $datumdos;?></b>
 				<br>Mesto i datum prometa robe: <b><?php echo $inkfirma_mir . ", " . $datumdos;?></b>
 			</div>
-			<div class="zaglavlje_fakture_levi">
+			<div class="zaglavlje_fakture_desni">
 				Kupac:<br>
 				<b><?php echo $kupac;?></b>
 				<br>
@@ -437,7 +265,7 @@ if (isset($_POST['broj_fak_stampa'])) {
 					});
 				});
 		</script>
-		<form method='post' id='obaveznaf_prtraga' class="print_hide">
+		<form method='post' id='obaveznaf_prtraga' class="print_hide" action="faktura.php">
 			<label>Trazi proizvod:</label>
 			<input type='hidden' name='broj_fak' value='<?php echo $brojfak;?>'/>
 			<select name='metode' size='1' class='polje_100'>
@@ -470,7 +298,10 @@ if (isset($_POST['broj_fak_stampa'])) {
 		
 		<button onClick='window.print()' type='button' class='dugme_plavo print_hide'>Stampaj</button>
 		<a href="promeni_partnera.php?brojfak=<?php echo $brojfak;?>" class="dugme_plavo_92plus4 print_hide">Promeni partnera ili datum</a>
-		<a href="otpremnica.php?broj_fak_stampa=<?php echo $brojfak;?>" class="dugme_plavo_92plus4 print_hide">Pregled Otpremnice</a>
+		<form  method="post" action="faktura.php">
+			<input type="hidden" name="broj_fak_stampa" value="<?php echo $brojfak; ?>"/>
+			<button type="submit" class="dugme_zeleno print_hide" id="dugme_novo_stanje_robe">Pregled Fakture</button>
+		</form>
 		<a href="../index.php" class="dugme_zeleno_92plus4 print_hide">Pocetna strana</a>
 		<div class="cf"></div>
 		<p class="screen_hide" style="font-size:12px;">
@@ -479,89 +310,18 @@ if (isset($_POST['broj_fak_stampa'])) {
 		</p>
 		<div id="potpis0">
 			<div class="potpis1">
-				<p>Fakturisao</p>
+				<p>Izdao</p>
 			</div>
 			<div class="potpis2">
-				<p>Robu primio</p>
+				<p>Primio</p>
 			</div>
 		</div>
 	</div>
 <?php
-	} ?>
-		
-<?php
-//Brisanje robe
-if (isset($_POST['broj_fak_brisi'])) {
-	$brojfak=$_POST['broj_fak_brisi'];
-	$id_dos=$_POST['id_dos'];
-
-	$prestanje_upit=mysql_query("SELECT * FROM izlaz WHERE id='$id_dos'");
-	$prestanje_red=mysql_fetch_array($prestanje_upit);
-	$prestanje=$prestanje_red['koli_dos'];
-	$sifrob=$prestanje_red['srob_dos'];
-
-	$robsta_upit=mysql_query("SELECT stanje FROM roba WHERE sifra='$sifrob'");
-	$robsta_red=mysql_fetch_array($robsta_upit);
-	$robsta=$robsta_red['stanje'];
-
-	mysql_query("DELETE FROM izlaz WHERE id='$id_dos' AND br_dos='$brojfak'");
-
-	$izmenastanja=$robsta+$prestanje;
-	mysql_query("UPDATE roba SET stanje = '$izmenastanja' WHERE sifra='$sifrob'");
-	?>
-	<div class="nosac_glavni_400">
-		<h2>Izbrisano.</h2>
-		<p>Stanje robe: <?php echo $izmenastanja;?></p>
-		<form method="post">
-			<input type="hidden" name="broj_fak_stampa" value="<?php echo $brojfak; ?>"/>
-			<button type="submit" class="dugme_zeleno">Dalje</button>
-		</form>
-		<div class="cf"></div>
-	</div>	
-<?php
-} ?>
-	
-<?php
-if(empty($_POST['broj_fak_brisi'])&& empty($_POST['partnersif'])&& empty($_POST['metode'])&& empty($_POST['search'])&& empty($_POST['broj_fak_pretraga'])&& empty($_POST['broj_fak_stampa'])) { ?>
-	<script type="text/javascript">
-	jQuery(document).ready(function() {
-		jQuery("#firma").AddIncSearch({
-			maxListSize: 4,
-			maxMultiMatch: 50,
-			warnMultiMatch: 'top {0} matches ...',
-			warnNoMatch: 'nema poklapanja...'
-		});
-		$("#obaveznaf").validity(function() {
-			$("#firma").require("Neophodno polje.");
-			$("#rokplacanja_in").require("Neophodno polje.").match("number","Mora biti broj.")
-		});
-		
-	});
-	</script>
-	<div class="nosac_glavni_400">
-		<form id="obaveznaf" method="post">
-			<label>Kupac:</label>
-			<select id='firma' name='partnersif' size='1' class='polje_100'>
-				<option value=''>Odaberi</option>
-					<?php
-					$upit = mysql_query("SELECT sif_kup,naziv_kup,ziro_rac FROM dob_kup");
-					while($red = mysql_fetch_array($upit)){
-						$naziv_kup=$red['naziv_kup'];
-						$sif_kup=$red['sif_kup'];
-						?>
-						<option value="<?php echo $sif_kup;?>"><?php echo $naziv_kup;?></option>
-					<?php } ?>
-			</select>
-			<label>Rok placanja:</label>
-			<input type="text" name="rok_placanja" class="polje_100_92plus4" id="rokplacanja_in"/></td>
-			<div class="cf"></div>
-			<button type="submit" class="dugme_zeleno">Unesi</button>
-		</form>
-		<form action="../index.php" method="post">
-			<button type="submit" class="dugme_crveno">Ponisti</button>
-		</form>
-		<div class="cf"></div>
-	</div>
-<?php } ?>
+}
+else {
+	echo "Greska!";
+}
+?>
 </body>
 </html>

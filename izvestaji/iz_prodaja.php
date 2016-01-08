@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <head>
+	<meta charset="utf-8">
 	<title>Izvestaj prodaje</title>
 	<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
 	<link rel="stylesheet" href="../include/jquery/css/jquery.ui.all.css">

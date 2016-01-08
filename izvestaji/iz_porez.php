@@ -84,6 +84,7 @@ function proracunOsnoviceIzPdva($porez_stopa,$iznos_poreza){
 ?>
 <!DOCTYPE html>
 <head>
+	<meta charset="utf-8">
 	<title>Izvestaj porez</title>
 	<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
 	<link rel="stylesheet" href="../include/jquery/css/jquery.ui.all.css">

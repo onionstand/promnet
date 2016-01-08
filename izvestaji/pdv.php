@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-<title>Porez na dodatu vrednost</title>
-<link rel="stylesheet" type="text/css" href="../include/css/pdv.css">
-<link rel="stylesheet" href="../include/jquery/css/jquery.ui.all.css">
-
-<script src="../include/jquery/jquery-1.6.2.min.js" type="text/javascript"></script>
-
-<script src="../include/jquery/jquery.ui.core.js"></script>
-<script src="../include/jquery/jquery.ui.widget.min.js"></script>
-<script src="../include/jquery/jquery.ui.datepicker.min.js"></script>
-<script src="../include/jquery/jquery.ui.datepicker-sr-SR.js"></script>
-
-<script>
-	$(function() {
-		$( "#biracdatuma" ).datepicker($.datepicker.regional[ "sr-SR" ]);
-		$( "#biracdatuma2" ).datepicker($.datepicker.regional[ "sr-SR" ]);
-	});
-</script>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta charset="utf-8">
+	<title>Porez na dodatu vrednost</title>
+	<link rel="stylesheet" type="text/css" href="../include/css/pdv.css">
+	<link rel="stylesheet" href="../include/jquery/css/jquery.ui.all.css">
+	
+	<script src="../include/jquery/jquery-1.6.2.min.js" type="text/javascript"></script>
+	
+	<script src="../include/jquery/jquery.ui.core.js"></script>
+	<script src="../include/jquery/jquery.ui.widget.min.js"></script>
+	<script src="../include/jquery/jquery.ui.datepicker.min.js"></script>
+	<script src="../include/jquery/jquery.ui.datepicker-sr-SR.js"></script>
+	
+	<script>
+		$(function() {
+			$( "#biracdatuma" ).datepicker($.datepicker.regional[ "sr-SR" ]);
+			$( "#biracdatuma2" ).datepicker($.datepicker.regional[ "sr-SR" ]);
+		});
+	</script>
 </head>
 <body>
 <?php require("../include/DbConnection.php");

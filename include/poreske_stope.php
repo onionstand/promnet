@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="css/stil2.css">
 		<title>Poreske stope</title>
 		<script type="text/javascript" src="jquery/jquery-1.6.2.min.js"></script>

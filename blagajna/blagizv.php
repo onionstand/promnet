@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
 	<link rel="stylesheet" type="text/css" href="../include/form/jquery.validity.css">
 	<link rel="stylesheet" type="text/css" href="../include/jquery/css/jquery.ui.all.css">

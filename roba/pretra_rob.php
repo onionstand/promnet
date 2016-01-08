@@ -54,6 +54,7 @@ function PretragaPoTerminu($ime_polja, $termin_pretrage,$query_tip){
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
 		<title>Roba</title>
 	</head>

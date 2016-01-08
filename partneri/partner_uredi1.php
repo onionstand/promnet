@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+		<meta charset="utf-8">
+		<meta http-equiv="content-type" content="text/html" />
 		<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
 		
 		<link rel="stylesheet" type="text/css" href="../include/footable/footable.core.css">

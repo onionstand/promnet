@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <head>
-<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
-<title>Potrazivanja</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
+	<title>Potrazivanja</title>
 </head>
 <body>
 <div class="nosac_sa_tabelom">

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
 	<script src="../include/jquery/jquery-1.6.2.min.js"></script>
 	<script type="text/javascript" src="../include/form/jquery.validity.js"></script>
