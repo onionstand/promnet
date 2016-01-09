@@ -1,4 +1,3 @@
-
 <?php
 require("../include/DbConnection.php");
 function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
@@ -62,7 +61,7 @@ if(isset($_POST['partnersif'])) { ?>
 		</script>
 		<?php
 		/*zvanje sifre*/  
-		$upit = "SELECT * FROM dob_kup WHERE sif_kup='$_POST[partnersif]'"; 
+		$upit = "SELECT * FROM dob_kup WHERE sif_kup=".$_POST['partnersif']; 
 		$result = mysql_query($upit) or die(mysql_error());
 		$red = mysql_fetch_array($result) or die(mysql_error());
 		$part=$red['sif_kup'];
@@ -71,11 +70,13 @@ if(isset($_POST['partnersif'])) { ?>
 		mysql_query("INSERT INTO dosta (datum_d,sifra_fir, rok)
 		VALUES
 		(CURDATE(),'$part','$rokpl')");
-		/*prikaz broja fak*/
+		
 		$brojfak=mysql_insert_id();
 		
-		/*datum*/
-		//$datfak = "SELECT date_format(datum_d , '%d.%m.%Y') as formatted_date FROM dosta WHERE broj_dost=$dosbr ";
+		include("../include/ConfigFirma.php");
+		$napomena=$inkfaktekst;
+		mysql_query("UPDATE dosta SET napomena = '$napomena'
+			WHERE broj_dost='$brojfak'");
 		?> 
 		<script type="text/javascript">
 			jQuery(document).ready(function() {
@@ -233,11 +234,12 @@ if (isset($_POST['broj_fak_stampa'])) {
 		$siffirme=$siffirme_red['sifra_fir'];
 	}
 
-	$datum_upit = mysql_query ("SELECT datum_d, date_format(datum_d, '%d. %m. %Y.') as formatted_date, rok FROM dosta WHERE broj_dost=$brojfak ");
+	$datum_upit = mysql_query ("SELECT datum_d, date_format(datum_d, '%d. %m. %Y.') as formatted_date, rok, napomena FROM dosta WHERE broj_dost=$brojfak ");
 	$datum_red= mysql_fetch_array ($datum_upit);
 	$datumdos=$datum_red['formatted_date'];
 	$datumzaporez= $datum_red['datum_d'];
 	$rokpl=$datum_red['rok'];
+	$napomena=$datum_red['napomena'];
 
 	$partner_upit = mysql_query("SELECT * FROM dob_kup WHERE sif_kup='$siffirme'");
 	while($partner_red = mysql_fetch_array($partner_upit))
@@ -276,7 +278,7 @@ if (isset($_POST['broj_fak_stampa'])) {
 			</div>
 		</div>
 		<p class="print_hide">
-			Broj fakture: <?php echo $brojfak;?><br>
+			Broj fakture: <?php echo $brojfak."/".$trengodina;?><br>
 			Kupac: <?php echo $kupac;?><br>
 			Datum: <?php echo $datumdos;?>
 		</p>
@@ -445,7 +447,7 @@ if (isset($_POST['broj_fak_stampa'])) {
 				<option value='sifra'>sifra robe</option>
 			</select>
 			<input type='text' name='search' class='polje_100_92plus4' id='fokusiraj' style='margin-top:0.3em;'>
-			<button type='submit' class='dugme_plavo'>Trazi</button>
+			<button type='submit' class='dugme_zeleno'>Trazi</button>
 		</form>
 		<div class="cf"></div>
 		<?php
@@ -470,12 +472,13 @@ if (isset($_POST['broj_fak_stampa'])) {
 		
 		<button onClick='window.print()' type='button' class='dugme_plavo print_hide'>Stampaj</button>
 		<a href="promeni_partnera.php?brojfak=<?php echo $brojfak;?>" class="dugme_plavo_92plus4 print_hide">Promeni partnera ili datum</a>
+		<a href="promeni_napomenu.php?brojfak=<?php echo $brojfak;?>" class="dugme_plavo_92plus4 print_hide">Izmeni napomenu</a>
 		<a href="otpremnica.php?broj_fak_stampa=<?php echo $brojfak;?>" class="dugme_plavo_92plus4 print_hide">Pregled Otpremnice</a>
-		<a href="../index.php" class="dugme_zeleno_92plus4 print_hide">Pocetna strana</a>
+		<a href="../index.php" class="dugme_crveno_92plus4 print_hide">Pocetna strana</a>
 		<div class="cf"></div>
-		<p class="screen_hide" style="font-size:12px;">
-			<?php include("../include/ConfigFirma.php");
-			echo $inkfaktekst;?>
+		<p style="font-size:12px;">
+			<?php 
+			echo $napomena;?>
 		</p>
 		<div id="potpis0">
 			<div class="potpis1">
@@ -522,7 +525,13 @@ if (isset($_POST['broj_fak_brisi'])) {
 } ?>
 	
 <?php
-if(empty($_POST['broj_fak_brisi'])&& empty($_POST['partnersif'])&& empty($_POST['metode'])&& empty($_POST['search'])&& empty($_POST['broj_fak_pretraga'])&& empty($_POST['broj_fak_stampa'])) { ?>
+if(empty($_POST['broj_fak_brisi'])&&
+	empty($_POST['partnersif'])&&
+	empty($_POST['metode'])&&
+	empty($_POST['search'])&&
+	empty($_POST['broj_fak_pretraga'])&&
+	empty($_POST['broj_fak_stampa'])) {
+	?>
 	<script type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery("#firma").AddIncSearch({

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
-	<title>Izvod</title>
+	<title>Promena partnera</title>
 
 	<link rel="stylesheet" href="../include/jquery/css/jquery.ui.all.css">
 	<script src="../include/jquery/jquery-1.6.2.min.js"></script>

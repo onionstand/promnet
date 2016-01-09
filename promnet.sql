@@ -102,14 +102,12 @@ CREATE TABLE IF NOT EXISTS `dosta` (
   `broj_dost` int(11) NOT NULL AUTO_INCREMENT,
   `datum_d` date NOT NULL,
   `sifra_fir` int(11) DEFAULT NULL,
-  `rabat` int(4) DEFAULT NULL,
-  `porez` int(4) DEFAULT NULL,
   `rok` varchar(3) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `izzad` decimal(12,2) DEFAULT NULL,
   `ispor` decimal(12,2) DEFAULT NULL,
   `odo_rab` decimal(12,2) DEFAULT NULL,
   `bruc` decimal(12,2) DEFAULT NULL,
-  `zav_tros` decimal(12,2) DEFAULT NULL,
+  `napomena` text NOT NULL,
   PRIMARY KEY (`broj_dost`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
