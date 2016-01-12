@@ -28,7 +28,7 @@
 		or die(mysql_error());
 	}
 	
-	if (isset($_POST['naziv_robe'])&& ($_POST['cena_robe'])&& ($_POST['porez'])&& ($_POST['jed_mere'])&& ($_POST['ruc'])&& ($_POST['kolicina']))
+	if (isset($_POST['naziv_robe'])&& ($_POST['cena_robe'])&& ($_POST['porez'])&& ($_POST['jed_mere'])&&  ($_POST['kolicina']))
 	{
 		$naziv_robe=$_POST['naziv_robe'];
 		$cena_robe=$_POST['cena_robe'];
@@ -39,6 +39,9 @@
 		mysql_query("INSERT INTO prenos_stan (naziv_robe, cena_robe, porez, jed_mere, ruc, kolicina) VALUES
 		('".$naziv_robe."', '".$cena_robe."', '".$porez."', '".$jed_mere."', '".$ruc."', '".$kolicina."') ")
 		or die(mysql_error());
+	}
+	else{
+		echo "<p>GRESKA! Nesto je pogresno uneseno.</p>";
 	}
 	
 	
