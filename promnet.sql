@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 23, 2014 at 07:20 PM
--- Server version: 5.6.17-log
--- PHP Version: 5.5.12
+-- Generation Time: Jan 13, 2016 at 10:12 AM
+-- Server version: 5.5.46-0ubuntu0.14.04.2
+-- PHP Version: 5.5.9-1ubuntu4.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `promnet`
+-- Database: `test`
 --
 
 -- --------------------------------------------------------
@@ -102,12 +102,14 @@ CREATE TABLE IF NOT EXISTS `dosta` (
   `broj_dost` int(11) NOT NULL AUTO_INCREMENT,
   `datum_d` date NOT NULL,
   `sifra_fir` int(11) DEFAULT NULL,
+  `rabat` int(4) DEFAULT NULL,
+  `porez` int(4) DEFAULT NULL,
   `rok` varchar(3) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `izzad` decimal(12,2) DEFAULT NULL,
   `ispor` decimal(12,2) DEFAULT NULL,
   `odo_rab` decimal(12,2) DEFAULT NULL,
   `bruc` decimal(12,2) DEFAULT NULL,
-  `napomena` text NOT NULL,
+  `zav_tros` decimal(12,2) DEFAULT NULL,
   PRIMARY KEY (`broj_dost`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -140,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `izlaz` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `br_dos` int(11) NOT NULL,
   `srob_dos` int(11) NOT NULL,
-  `koli_dos` int(11) DEFAULT NULL,
+  `koli_dos` decimal(12,2) DEFAULT NULL,
   `cena_d` decimal(12,2) DEFAULT NULL,
   `rab_dos` decimal(12,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -288,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `k_pism_tr` (
   `id_k` int(11) NOT NULL AUTO_INCREMENT,
   `broj_p` int(11) NOT NULL,
   `sif_rob_p` int(11) NOT NULL,
-  `kolic_p` int(11) DEFAULT NULL,
+  `kolic_p` decimal(12,2) DEFAULT NULL,
   `rabat_p` int(11) DEFAULT NULL,
   `id_u_i` int(11) NOT NULL,
   PRIMARY KEY (`id_k`)
@@ -317,7 +319,7 @@ CREATE TABLE IF NOT EXISTS `niv_robe` (
   `br_niv` int(11) NOT NULL,
   `srob` int(11) NOT NULL,
   `srob_niv` int(11) NOT NULL,
-  `koli_niv` int(11) DEFAULT NULL,
+  `koli_niv` decimal(12,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -433,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `prenos_stan` (
   `porez` decimal(10,0) DEFAULT NULL,
   `jed_mere` tinytext,
   `ruc` decimal(10,0) DEFAULT NULL,
-  `kolicina` int(11) DEFAULT NULL,
+  `kolicina` decimal(12,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -465,7 +467,7 @@ CREATE TABLE IF NOT EXISTS `profakrob` (
   `id_rob` int(11) NOT NULL AUTO_INCREMENT,
   `br_profak` int(11) NOT NULL,
   `naziv_robe` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `koli_profak` int(11) DEFAULT NULL,
+  `koli_profak` decimal(12,2) DEFAULT NULL,
   `jed_mere` tinytext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `cena_profak` decimal(12,5) DEFAULT NULL,
   `rab_dos` decimal(12,5) DEFAULT NULL,
@@ -485,13 +487,13 @@ CREATE TABLE IF NOT EXISTS `roba` (
   `naziv_robe` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `cena_robe` decimal(12,2) DEFAULT NULL,
   `porez` decimal(10,0) DEFAULT NULL,
-  `stanje` int(11) DEFAULT NULL,
+  `stanje` decimal(12,2) DEFAULT NULL,
   `jed_mere` tinytext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `ruc` decimal(10,2) DEFAULT NULL,
-  `kolicina` int(11) DEFAULT NULL,
-  `poc_stanje` int(11) DEFAULT NULL,
+  `kolicina` decimal(12,2) DEFAULT NULL,
+  `poc_stanje` decimal(12,2) DEFAULT NULL,
   PRIMARY KEY (`sifra`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000 ;
 
 -- --------------------------------------------------------
 
@@ -503,7 +505,7 @@ CREATE TABLE IF NOT EXISTS `ulaz` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `br_kal` int(11) NOT NULL,
   `srob_kal` int(11) DEFAULT NULL,
-  `kol_kalk` int(11) DEFAULT NULL,
+  `kol_kalk` decimal(12,2) DEFAULT NULL,
   `cena_k` decimal(12,2) DEFAULT NULL,
   `rab_kalk` decimal(12,2) DEFAULT NULL,
   PRIMARY KEY (`id`)

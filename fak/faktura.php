@@ -327,7 +327,7 @@ if (isset($_POST['broj_fak_stampa'])) {
 				<td style="text-align:center;"><?php echo $prikaz_roba_red['srob_dos'];?></td>
 				<td style="text-align:left;"><?php echo $prikaz_roba_red['naziv_robe'];?></td>
 				<td style="text-align:center;"><?php echo $prikaz_roba_red['jed_mere'];?></td>
-				<td><?php echo $prikaz_roba_red['koli_dos'];?></td>
+				<td><?php echo number_format($prikaz_roba_red['koli_dos'], 2,".",",");?></td>
 				<td><?php echo number_format($prikaz_roba_red['cena_d'], 2,".",",");?></td>
 				<td><?php echo number_format($prikaz_roba_red['ukupdos'], 2,".",",");?></td>
 				<?php
