@@ -234,8 +234,11 @@ if (isset($_POST['broj_fak_stampa'])) {
 		$siffirme=$siffirme_red['sifra_fir'];
 	}
 
-	$datum_upit = mysql_query ("SELECT datum_d, date_format(datum_d, '%d. %m. %Y.') as formatted_date, rok, napomena FROM dosta WHERE broj_dost=$brojfak ");
-	$datum_red= mysql_fetch_array ($datum_upit);
+	$datum_upit = mysql_query("SELECT datum_d, date_format(datum_d, '%d. %m. %Y.') as formatted_date, rok, napomena FROM dosta WHERE broj_dost=$brojfak ");
+	if($datum_upit === FALSE) {
+		die(mysql_error());
+	}
+	$datum_red= mysql_fetch_array($datum_upit);
 	$datumdos=$datum_red['formatted_date'];
 	$datumzaporez= $datum_red['datum_d'];
 	$rokpl=$datum_red['rok'];

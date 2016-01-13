@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2016 at 10:12 AM
+-- Generation Time: Jan 13, 2016 at 01:31 PM
 -- Server version: 5.5.46-0ubuntu0.14.04.2
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -90,7 +90,14 @@ CREATE TABLE IF NOT EXISTS `dob_kup` (
   `mat_br` varchar(12) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `stanje` decimal(12,2) DEFAULT NULL,
   PRIMARY KEY (`sif_kup`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `dob_kup`
+--
+
+INSERT INTO `dob_kup` (`sif_kup`, `naziv_kup`, `postbr`, `mesto_kup`, `ulica_kup`, `rab_ugo`, `ziro_rac`, `tel`, `pib`, `mat_br`, `stanje`) VALUES
+(1, 'Å UMSKA ÄŒORBA', '11000', 'BEOGRAD', 'BEOGRADSKA 1', 0, '', '', '100000000', '1000000', NULL);
 
 -- --------------------------------------------------------
 
@@ -102,16 +109,21 @@ CREATE TABLE IF NOT EXISTS `dosta` (
   `broj_dost` int(11) NOT NULL AUTO_INCREMENT,
   `datum_d` date NOT NULL,
   `sifra_fir` int(11) DEFAULT NULL,
-  `rabat` int(4) DEFAULT NULL,
-  `porez` int(4) DEFAULT NULL,
   `rok` varchar(3) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `izzad` decimal(12,2) DEFAULT NULL,
   `ispor` decimal(12,2) DEFAULT NULL,
   `odo_rab` decimal(12,2) DEFAULT NULL,
   `bruc` decimal(12,2) DEFAULT NULL,
-  `zav_tros` decimal(12,2) DEFAULT NULL,
+  `napomena` text NOT NULL,
   PRIMARY KEY (`broj_dost`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `dosta`
+--
+
+INSERT INTO `dosta` (`broj_dost`, `datum_d`, `sifra_fir`, `rok`, `izzad`, `ispor`, `odo_rab`, `bruc`, `napomena`) VALUES
+(1, '2016-01-08', 1, '15', '240.00', '40.00', '0.00', '0.00', '');
 
 -- --------------------------------------------------------
 
@@ -146,7 +158,14 @@ CREATE TABLE IF NOT EXISTS `izlaz` (
   `cena_d` decimal(12,2) DEFAULT NULL,
   `rab_dos` decimal(12,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `izlaz`
+--
+
+INSERT INTO `izlaz` (`id`, `br_dos`, `srob_dos`, `koli_dos`, `cena_d`, `rab_dos`) VALUES
+(2, 1, 10000, '2.00', '100.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -168,7 +187,16 @@ CREATE TABLE IF NOT EXISTS `kalk` (
   `izv` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `rok_pl` varchar(4) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`broj_kalk`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `kalk`
+--
+
+INSERT INTO `kalk` (`broj_kalk`, `datum`, `dostav`, `faktura`, `sif_firme`, `placanje_index`, `nabav_vre`, `pro_vre`, `ukal_porez`, `odora`, `izv`, `rok_pl`) VALUES
+(1, '2016-01-13', '1', '1', 1, NULL, '60.00', '62.50', '10.00', '0.00', '', '5'),
+(2, '2016-01-13', '6', '6', 1, NULL, '152.10', '900.00', '25.35', '10.00', '', '5'),
+(3, '2016-01-13', '012037', '012037', 1, NULL, '666.09', '730.29', '73.99', '6.16', '', '1');
 
 -- --------------------------------------------------------
 
