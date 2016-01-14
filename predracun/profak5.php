@@ -265,6 +265,7 @@ function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
 				<button type='submit' class='dugme_zeleno print_hide' id='dodaj_robu'>Dodaj robu</button>
 			</form>
 			<a href="avans_racun.php?broj_profak=<?php echo $brojfak;?>" class="dugme_plavo_92plus4 print_hide">Pregled Avansni račun</a>
+			<a href="promeni_partnera_prof.php?brojfak=<?php echo $brojfak;?>" class="dugme_plavo_92plus4 print_hide">Promeni partnera ili datum</a>
 			<a href="promeni_napomenu_prof.php?brojfak=<?php echo $brojfak;?>" class="dugme_plavo_92plus4 print_hide">Izmeni napomenu</a>
 			<form action="profak6.php" method="post">
 				<input type="hidden" name="broj_profak" value="<?php echo $brojfak; ?>"/>
