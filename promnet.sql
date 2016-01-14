@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2016 at 01:31 PM
+-- Generation Time: Jan 14, 2016 at 12:26 PM
 -- Server version: 5.5.46-0ubuntu0.14.04.2
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -482,6 +482,7 @@ CREATE TABLE IF NOT EXISTS `profak` (
   `ispor` decimal(12,2) DEFAULT NULL,
   `odo_rab` decimal(12,2) DEFAULT NULL,
   `bruc` decimal(12,2) DEFAULT NULL,
+  `napomena` text NOT NULL,
   PRIMARY KEY (`broj_prof`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

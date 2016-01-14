@@ -19,7 +19,6 @@
           <th>Datum</th>
           <th>Iznos</th>
           <th></th>
-          <th></th>
         </tr>
         <?php
         while($niz = mysql_fetch_array($izdost)){
@@ -33,12 +32,6 @@
               <form action="profak5.php" method="post">
                 <input type="hidden" name="broj_profak" value="<?php echo $niz['broj_prof'];?>"/>
                 <input type="image" src="../include/images/olovka.png" title="Ispravi" />
-              </form>
-            </td>
-            <td>
-              <form action="profak_brisi3.php" method="post">
-                <input type="hidden" name="broj_fak" value="<?php echo $niz['broj_prof'];?>"/>
-                <input type="image" src="../include/images/iks.png" title="Brisi" />
               </form>
             </td>
           </tr>

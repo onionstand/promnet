@@ -17,7 +17,7 @@
 			require("../include/DbConnection.php");
 
 			/*zvanje sifre*/  
-			$upit = "SELECT * FROM dob_kup WHERE sif_kup='$_POST[partnersif]'"; 
+			$upit = "SELECT * FROM dob_kup WHERE sif_kup=".$_POST['partnersif'];
 			$result = mysql_query($upit) or die(mysql_error());
 			$red = mysql_fetch_array($result) or die(mysql_error());
 			$part=$red['sif_kup'];
@@ -27,7 +27,14 @@
 			mysql_query("INSERT INTO profak (datum_prof, sifra_fir, rok)
 						VALUES
 						(CURDATE(),'$part','$rokpl')");
+						
 			$profbr = mysql_insert_id();
+			$brojfak = $profbr;
+			include("../include/ConfigFirma.php");
+			$napomena=$inkfaktekst;
+			$upit_napomena=mysql_query("UPDATE profak SET napomena = '$napomena'
+				WHERE broj_prof='$profbr'");
+			if (!$upit_napomena) {die(mysql_error());}
 			/*prikaz broja fak*/
 			echo "Broj profakture: " . $profbr . "<br>";
 

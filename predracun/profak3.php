@@ -107,6 +107,10 @@
 				<button type='submit' class='dugme_plavo'>Trazi</button>
 			</form>
 			<div class="cf"></div>
+			<form action="profak5.php" method="post">
+                <input type="hidden" name="broj_profak" value="<?php echo $brojprofak;?>"/>
+                <button type="submit" class="dugme_crveno">Ponisti</button>
+             </form>
 		</div>
 	</body>
 </html>
