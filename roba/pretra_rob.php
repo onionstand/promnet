@@ -42,6 +42,11 @@ function PretragaPoTerminu($ime_polja, $termin_pretrage,$query_tip){
 					<input type="image" src="../include/images/kartica.png" title="Pogledaj karticu"/>
 				</form>
 			</td>
+			<td><form action="promeni_ime_rob.php" method="post">
+					<input type="hidden" name="sifra_robe" value="<?php echo $niz['sifra'];?>"/>
+					<input type="image" src="../include/images/olovka.png" title="Promeni naziv"/>
+				</form>
+			</td>
 		</tr>
 	<?php
 	}
