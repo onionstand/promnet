@@ -49,10 +49,17 @@
 			echo "<p>Nova razlika u ceni je: " . $novaruc . "%</p>";
 			if ($porez!=$stari_porez) {echo "<h2>Porez nije jednak!</h2>";}
 			/*ruc*/  
-			mysql_query("UPDATE roba SET stanje = '$umanjeno_stanje' WHERE sifra = '$satra_sifra'");
-			mysql_query("UPDATE roba SET stanje = '$uvecano_stanje' WHERE sifra = '$sifra_robe'");
-			mysql_query("UPDATE roba SET ruc = '$novaruc' WHERE sifra = '$sifra_robe'");
-			mysql_query("INSERT INTO niv_robe (br_niv, srob, srob_niv, koli_niv, iznos_niv) VALUES ('$br_niv', '$satra_sifra', '$sifra_robe', '$niv_kol', '$iznos_nivelacije')");
+			$upit_roba = mysql_query("UPDATE roba SET stanje = '$umanjeno_stanje' WHERE sifra = '$satra_sifra'");
+			if (!$upit_roba) {die('Invalid query: ' . mysql_error());}
+			
+			$upit_roba2 = mysql_query("UPDATE roba SET stanje = '$uvecano_stanje' WHERE sifra = '$sifra_robe'");
+			if (!$upit_roba2) {die('Invalid query: ' . mysql_error());}
+			
+			$upit_roba3 = mysql_query("UPDATE roba SET ruc = '$novaruc' WHERE sifra = '$sifra_robe'");
+			if (!$upit_roba3) {die('Invalid query: ' . mysql_error());}
+			
+			$upit_roba4 = mysql_query("INSERT INTO niv_robe (br_niv, srob, srob_niv, koli_niv, iznos_niv) VALUES ('$br_niv', '$satra_sifra', '$sifra_robe', '$niv_kol', '$iznos_nivelacije')");
+			if (!$upit_roba4) {die('Invalid query: ' . mysql_error());}
 			?>
 			<form action="nivelacija4.php" method="post">
 				<input type="hidden" name="br_niv" value="<?php echo $br_niv; ?>"/>

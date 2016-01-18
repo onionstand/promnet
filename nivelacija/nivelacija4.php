@@ -48,12 +48,14 @@
         RIGHT JOIN roba ON niv_robe.srob=roba.sifra
         WHERE br_niv='$br_niv'
         ");
+        if (!$upit2) {die('Invalid query: ' . mysql_error());}
         $upit3 = mysql_query("
         SELECT niv_robe.srob, niv_robe.srob_niv, niv_robe.koli_niv, niv_robe.iznos_niv, roba.naziv_robe, roba.cena_robe
         FROM niv_robe
         RIGHT JOIN roba ON niv_robe.srob_niv=roba.sifra
         WHERE br_niv='$br_niv'
         ");
+        if (!$upit3) {die('Invalid query: ' . mysql_error());}
         $iznos_niv_zbir=0;
         $i=0;
         while($niz2 = mysql_fetch_array($upit2) and $niz3 = mysql_fetch_array($upit3))

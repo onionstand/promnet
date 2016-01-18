@@ -40,14 +40,16 @@
 
 			$ubacir="INSERT INTO roba (naziv_robe, cena_robe, porez, stanje, jed_mere, ruc)
 			VALUES
-			('$_POST[ime_rob]','$prod_cena', '$_POST[porez_pdv]', '$niv_kol', '$_POST[jed_mere]','$ruc')";
+			('".$_POST['ime_rob']."','".$prod_cena."', '".$_POST['porez_pdv']."', '".$niv_kol."', '".$_POST['jed_mere']."','".$ruc."')";
 			mysql_query($ubacir);
 			$sifrarobe3 = mysql_insert_id();
 			/*dodavanje robe*/
 
-			mysql_query("INSERT INTO niv_robe (br_niv, srob, srob_niv, koli_niv, iznos_niv) VALUES ('$br_niv', '$stara_sifra', '$sifrarobe3', '$niv_kol', '$iznos_nivelacije')");
+			$upit_nivrob = mysql_query("INSERT INTO niv_robe (br_niv, srob, srob_niv, koli_niv, iznos_niv) VALUES ('$br_niv', '$stara_sifra', '$sifrarobe3', '$niv_kol', '$iznos_nivelacije')");
+			if (!$upit_nivrob) {die('Invalid query: ' . mysql_error());}
 
-			mysql_query("UPDATE roba SET stanje = '$umanjeno_stanje' WHERE sifra='$stara_sifra'");
+			$upit_roba = mysql_query("UPDATE roba SET stanje = '$umanjeno_stanje' WHERE sifra='$stara_sifra'");
+			if (!$upit_roba) {die('Invalid query: ' . mysql_error());}
 
 			echo "<p>Roba je uneta.</p>";
 			echo '<form action="nivelacija4.php" method="post">

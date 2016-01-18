@@ -348,6 +348,7 @@ CREATE TABLE IF NOT EXISTS `niv_robe` (
   `srob` int(11) NOT NULL,
   `srob_niv` int(11) NOT NULL,
   `koli_niv` decimal(12,2) DEFAULT NULL,
+  `iznos_niv` decimal(12,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
