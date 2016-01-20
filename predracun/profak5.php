@@ -47,7 +47,7 @@ function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
 				$("#dodaj_robu").focus();
 			});
 		</script>
-		<title>Faktura</title>
+		<title>Predračun</title>
 	</head> 
 	<body>
 		<div class="nosac_sa_tabelom">

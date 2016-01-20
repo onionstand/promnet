@@ -59,12 +59,12 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 					<input type="image" src="../include/images/olovka.png" title="Ispravi" />
 				</form>
 			</td>
-			<!--<td>
-				<form method="post">
-					<input type="hidden" name="broj_fak" value="<?php echo $niz['broj_prof'];?>"/>
-					<input type="image" src="../include/images/iks.png" title="Brisi" />
+			<td>
+				<form method="post" action="kloniraj.php">
+					<input type="hidden" name="broj_profak" value="<?php echo $niz['broj_prof'];?>"/>
+					<input type="image" src="../include/images/olovka.png" title="Kloniraj" />
 				</form>
-			</td>-->
+			</td>
 		</tr>
 	<?php
 	}

@@ -14,12 +14,12 @@
 		if (!empty($_POST['napomena'])) {
 			$sql = 'UPDATE profak SET napomena = ? WHERE broj_prof = ?';
 			$stmt = $baza_pdo->prepare($sql);
-			$done = $stmt->execute(array($_POST['napomena'], $_POST['broj_fak_stampa']));
+			$done = $stmt->execute(array($_POST['napomena'], $_POST['broj_profak']));
 	  		if ($done) {
 	  			?>
 	  			<h2>Ispravljeno...</h2>
-	  			<form method="post" action="faktura.php">
-					<input type="hidden" name="broj_fak_stampa" value="<?php echo $_POST['broj_fak_stampa'];?>"/>
+	  			<form method="post" action="profak5.php">
+					<input type="hidden" name="broj_profak" value="<?php echo $_POST['broj_profak'];?>"/>
 					<button type="submit" class="dugme_crveno">Nazad</button>
 				</form>
 				<div class="cf"></div>
@@ -39,11 +39,11 @@
 				<textarea name="napomena" class="polje_100_92plus4" rows="12">
 					<?php echo $napomena;?>
 				</textarea>
-				<input type="hidden" name="broj_fak_stampa" value="<?php echo $brojfak;?>"/>
+				<input type="hidden" name="broj_profak" value="<?php echo $brojfak;?>"/>
 				<button type="submit" class="dugme_zeleno">Unesi</button>
 			</form>
-			<form method="post" action="faktura.php">
-				<input type="hidden" name="broj_fak_stampa" value="<?php echo $brojfak;?>"/>
+			<form method="post" action="profak5.php">
+				<input type="hidden" name="broj_profak" value="<?php echo $brojfak;?>"/>
 				<button type="submit" class="dugme_crveno">Nazad</button>
 			</form>
 			<div class="cf"></div>
