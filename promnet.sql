@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `bankaupis` (
   `izlaz_novca` decimal(12,2) DEFAULT NULL,
   `ziro_rac` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `banka` int(3) NOT NULL,
+  `svrha` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id_upl`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
