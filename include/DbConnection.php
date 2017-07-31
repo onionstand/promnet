@@ -6,5 +6,5 @@ if (!$con)
   die('Could not connect: ' . mysql_error());
   }
 
-mysql_select_db("promnet", $con);
+mysql_select_db("promnet-2017", $con);
 ?>

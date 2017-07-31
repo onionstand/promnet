@@ -94,7 +94,7 @@
 	?>
 		<tr>
 			<td class="cellev"></td>
-			<td colspan="3">Zbir: </td>
+			<td colspan="4">Zbir: </td>
 			<td><?php echo number_format($sum1, 2,'.',',');?></td>
 			<td><?php echo number_format($sum2, 2,'.',',');?></td>
 		</tr>

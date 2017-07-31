@@ -29,7 +29,7 @@
   </head> 
   <body>
     <div class="nosac_glavni_400">
-      <?php require("../include/DbConnection.php"); 
+      <?php require("../include/DbConnection.php");
       /*zvanje sifre kalk*/ 
       $sifra_kalk=$_POST['broj_kalkulaci'];
 
@@ -52,9 +52,9 @@
 
 
         /*ubacivanje u roba*/
-        $ubacir="INSERT INTO roba (naziv_robe, cena_robe, porez, stanje, jed_mere, ruc)
+        $ubacir="INSERT INTO roba (naziv_robe, cena_robe, porez, stanje, jed_mere, ruc, poc_stanje, usluga_opis)
         VALUES
-        ('$_POST[ime_rob]','$prod_cena', '$_POST[porez_pdv]', '$kolicina', '$_POST[jed_mere]','$ruc')";
+        ('$_POST[ime_rob]','$prod_cena', '$_POST[porez_pdv]', '$kolicina', '$_POST[jed_mere]','$ruc', '0', '$_POST[ime_rob]')";
         mysql_query($ubacir);
         $sifrarobe3 = mysql_insert_id();
 

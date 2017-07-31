@@ -6,13 +6,13 @@
 	<title>Promnet</title>
 	<script src="include/jquery/jquery-1.6.2.min.js" type="text/javascript"></script>
 	<script src="include/graph/grafjs.js" type="text/javascript"></script>
-	<?php 
+	<?php
 	require("include/graph/graf.php");
 	?>
 	<link rel="stylesheet" type="text/css" href="include/graph/grafcss.css">
-	<script>	
-			//podsetnik>
-			
+	<script>
+			//podsetnik
+
 			$(document).ready(function() {
 				$('#loadpodsetnik').hide();
 			});
@@ -22,7 +22,7 @@
 					var commentContainer = $(this).parent();
 					var id = $(this).attr("id");
 					var string = 'id='+ id ;
-						
+
 					$.ajax({
 						   type: "POST",
 						   url: "include/podsetnik_delete.php",
@@ -32,7 +32,7 @@
 								commentContainer.slideUp('slow', function() {$(this).remove();});
 								$('#loadpodsetnik').fadeOut();
 							}
-					   
+
 					 });
 
 					return false;
@@ -54,10 +54,13 @@
 		<div class="navi">
 			<h4>Izlaz</h4>
 			<ul>
-				<li><a href="fak/faktura.php">Nova dostavnica</a></li>
-				<li><a href="fak/faktura_stare.php">Stara dostavnica</a></li>
-				<li><a href="predracun/profak1.php">Predracun</a></li>
-				<li><a href="predracun/stara_profak.php">Stari predracun</a></li>
+				<li><a href="fak/faktura.php">Nova Faktura</a></li>
+				<li><a href="fak/faktura_stare.php">Stara Faktura</a></li>
+				<li><a href="predracun/profak1.php">Novi Predracun</a></li>
+				<li><a href="predracun/stara_profak.php">Stari Predracun</a></li>
+				<li><a href="ponuda/ponuda1.php?ponuda_nova=1">Nova Ponuda</a></li>
+				<li><a href="ponuda/ponuda_stara.php">Stara Ponuda</a></li>
+				<li><a href="avansni_rac/avans_stari.php">Avansni racuni</a></li>
 			</ul>
 		</div>
 
@@ -90,8 +93,14 @@
 					<li><a href="k_pisma/stara_k_p.php">Stara knjizna pis.</a></li>
 					</ul>
 				</li>
-				<li><a href="#">Knjizna pisma fin.</a></li>
-				<li><a href="roba/nova_roba/nova_roba1.php">Nova Roba</a></li>
+				<li><a href="k_pisma_fin/stara_k_pis_fin.php">Knjizna pisma fin.</a></li>
+				<li class="strelica_podmeni"><a href="#">Unos roba i usluga</a>
+					<ul>
+						<li><a href="roba/nova_roba/nova_roba1.php">Nova Roba</a></li>
+						<li><a href="roba/nova_roba/nova_usluga1.php">Nova Usluga</a></li>
+						<li><a href="roba/nova_roba/pregled_usluga.php">Pregled usluga</a></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 
@@ -112,10 +121,10 @@
 						<li><a href="blagajna/blagizv.php">Blagajna stara</a></li>
 					</ul>
 				</li>
-				<li class="strelica_podmeni"><a href="#">Usluge</a>
+				<li class="strelica_podmeni"><a href="#">Troskovi</a>
 					<ul>
-						<li><a href="blagajna/usluge1.php">Usluga nova</a></li>
-						<li><a href="blagajna/uslugeizv.php">Usluge stare</a></li>
+						<li><a href="blagajna/usluge1.php">Troskovi novi</a></li>
+						<li><a href="blagajna/uslugeizv.php">Troskovi stari</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -124,7 +133,12 @@
 		<div class="navi">
 			<h4>Izvestaji</h4>
 			<ul>
-				<li><a href="izvestaji/iz_nabavka.php">Nabavka</a></li>
+				<li class="strelica_podmeni"><a href="#">Nabavka</a>
+					<ul>
+						<li><a href="izvestaji/iz_nabavka.php">Po kalkulacijama</a></li>
+						<li><a href="izvestaji/iz_nabavka_grupisano.php">Po firmama</a></li>
+					</ul>
+				</li>
 				<li class="strelica_podmeni"><a href="#">Prodaja</a>
 					<ul>
 						<li><a href="izvestaji/iz_prodaja.php">Po racunima</a></li>
@@ -214,48 +228,19 @@
 						   <tbody>
 							  <tr>
 								 <th scope="row">Prodaja</th>
-								 <td><?php MesecnaProdaja(1);?></td>
-								 <td><?php MesecnaProdaja(2);?></td>
-								 <td><?php MesecnaProdaja(3);?></td>
-								 <td><?php MesecnaProdaja(4);?></td>
-								 <td><?php MesecnaProdaja(5);?></td>
-								 <td><?php MesecnaProdaja(6);?></td>
-								 <td><?php MesecnaProdaja(7);?></td>
-								 <td><?php MesecnaProdaja(8);?></td>
-								 <td><?php MesecnaProdaja(9);?></td>
-								 <td><?php MesecnaProdaja(10);?></td>
-								 <td><?php MesecnaProdaja(11);?></td>
-								 <td><?php MesecnaProdaja(12);?></td>
+								 <?php MesecnaProdaja();?>
 							  </tr>
 							  <tr>
 								 <th scope="row">Nabavka</th>
-								 <td><?php MesecnaNabavka(1);?></td>
-								 <td><?php MesecnaNabavka(2);?></td>
-								 <td><?php MesecnaNabavka(3);?></td>
-								 <td><?php MesecnaNabavka(4);?></td>
-								 <td><?php MesecnaNabavka(5);?></td>
-								 <td><?php MesecnaNabavka(6);?></td>
-								 <td><?php MesecnaNabavka(7);?></td>
-								 <td><?php MesecnaNabavka(8);?></td>
-								 <td><?php MesecnaNabavka(9);?></td>
-								 <td><?php MesecnaNabavka(10);?></td>
-								 <td><?php MesecnaNabavka(11);?></td>
-								 <td><?php MesecnaNabavka(12);?></td>
+								 <?php MesecnaNabavka();?>
+							  </tr>
+								<tr>
+								 <th scope="row">Prod-Nab</th>
+								 <?php MesecnaRazlika();?>
 							  </tr>
 							  <tr>
-								 <th scope="row">Razlika u ceni</th>
-								 <td><?php MesecnaRazlikaUCeni(1);?></td>
-								 <td><?php MesecnaRazlikaUCeni(2);?></td>
-								 <td><?php MesecnaRazlikaUCeni(3);?></td>
-								 <td><?php MesecnaRazlikaUCeni(4);?></td>
-								 <td><?php MesecnaRazlikaUCeni(5);?></td>
-								 <td><?php MesecnaRazlikaUCeni(6);?></td>
-								 <td><?php MesecnaRazlikaUCeni(7);?></td>
-								 <td><?php MesecnaRazlikaUCeni(8);?></td>
-								 <td><?php MesecnaRazlikaUCeni(9);?></td>
-								 <td><?php MesecnaRazlikaUCeni(10);?></td>
-								 <td><?php MesecnaRazlikaUCeni(11);?></td>
-								 <td><?php MesecnaRazlikaUCeni(12);?></td>
+								 <th scope="row">Razlika RUC</th>
+								 <?php MesecnaRazlikaUCeni();?>
 							  </tr>
 						   </tbody>
 						</table>
@@ -274,30 +259,30 @@
 							<td>Iznos</td>
 							<td>Valuta</td>
 						</tr>
-						<?php 
-					$upit_podsetnik = mysql_query("SELECT brojpod, partner, poziv_na_b, iznos, date_format(datum_za_plac, '%d. %m. %Y.')
-						AS datum_za_placf FROM pods_kalk
-						ORDER BY datum_za_plac ASC");
-					while($niz_podsetnik = mysql_fetch_array($upit_podsetnik))
-					{
-						$partner=$niz_podsetnik['partner'];
-						$poziv_na_b=$niz_podsetnik['poziv_na_b'];
-						$iznos=$niz_podsetnik['iznos'];
-						$datum_za_plac=$niz_podsetnik['datum_za_placf'];
-						$brojpod=$niz_podsetnik['brojpod'];
-						?>
-						<tr>
-							<td><?php echo $partner;?></td>
-							<td><?php echo $poziv_na_b;?></td>
-							<td><?php echo $iznos;?></td>
-							<td><?php echo $datum_za_plac;?></td>
-							<td id="<?php echo $brojpod;?>" class="podsetnik_brisi">
-								<a href="#" ><img src="include/images/mini8.png" alt="Brisi" /></a>
-							</td>
-						</tr>
 						<?php
-					}
-					?>
+
+						$upit_podsetnik = "SELECT brojpod, partner, poziv_na_b, iznos, date_format(datum_za_plac, '%d. %m. %Y.')
+							AS datum_za_placf FROM pods_kalk
+							ORDER BY datum_za_plac ASC";
+						foreach ($baza_pdo->query($upit_podsetnik) as $niz_podsetnik) { 
+							$partner=$niz_podsetnik['partner'];
+							$poziv_na_b=$niz_podsetnik['poziv_na_b'];
+							$iznos=$niz_podsetnik['iznos'];
+							$datum_za_plac=$niz_podsetnik['datum_za_placf'];
+							$brojpod=$niz_podsetnik['brojpod'];
+							?>
+							<tr>
+								<td><?php echo $partner;?></td>
+								<td><?php echo $poziv_na_b;?></td>
+								<td><?php echo $iznos;?></td>
+								<td><?php echo $datum_za_plac;?></td>
+								<td id="<?php echo $brojpod;?>" class="podsetnik_brisi">
+									<a href="#" ><img src="include/images/mini8.png" alt="Brisi" /></a>
+								</td>
+							</tr>
+							<?php
+						}
+						?>
 				</table>
 				</div>
 			</div>

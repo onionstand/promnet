@@ -27,7 +27,7 @@
       <table>
         <tr>
           <td colspan="5">Stara roba</td>
-          <td colspan="2">Nova roba</td>
+          <td colspan="3">Nova roba</td>
           <td></td>
         </tr>
         <tr>
@@ -37,6 +37,7 @@
           <td>Cena</td>
           <td>Kolicina</td>
           <td>Sifra</td>
+          <td>Novi naziv</td>
           <td>Cena</td>
           <td>Razlika</td>
         </tr>
@@ -48,14 +49,12 @@
         RIGHT JOIN roba ON niv_robe.srob=roba.sifra
         WHERE br_niv='$br_niv'
         ");
-        if (!$upit2) {die('Invalid query: ' . mysql_error());}
         $upit3 = mysql_query("
         SELECT niv_robe.srob, niv_robe.srob_niv, niv_robe.koli_niv, niv_robe.iznos_niv, roba.naziv_robe, roba.cena_robe
         FROM niv_robe
         RIGHT JOIN roba ON niv_robe.srob_niv=roba.sifra
         WHERE br_niv='$br_niv'
         ");
-        if (!$upit3) {die('Invalid query: ' . mysql_error());}
         $iznos_niv_zbir=0;
         $i=0;
         while($niz2 = mysql_fetch_array($upit2) and $niz3 = mysql_fetch_array($upit3))
@@ -71,6 +70,7 @@
             <td><?php echo $niz2['cena_robe'];?></td>
             <td><?php echo $niz2['koli_niv'];?></td>
             <td><?php echo $niz3['srob_niv'];?></td>
+            <td><?php echo $niz3['naziv_robe'];?></td>
             <td><?php echo $niz3['cena_robe'];?></td>
             <td><?php echo $niz3['iznos_niv'];?></td>
             <td class="print_hide">
@@ -85,6 +85,7 @@
       	}
         ?>
         <tr>
+          <td></td>
           <td></td>
           <td></td>
           <td></td>

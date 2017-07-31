@@ -2,8 +2,10 @@
 require("../include/DbConnection.php");
 function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	if ($query_tip==1){
-		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir,
-			date_format(dosta.datum_d, '%d. %m. %Y.') AS datumf, dosta.izzad, dob_kup.sif_kup, dob_kup.naziv_kup 
+		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir, dosta.racun_rucni,
+			date_format(dosta.datum_d, '%d. %m. %Y.') AS datumf, dosta.izzad, dosta.ispor,
+			date_format(dosta.racun_poslat, '%d. %m. %Y.') AS datum_rac_poslat,
+			dob_kup.sif_kup, dob_kup.naziv_kup 
 			FROM dosta
 			LEFT JOIN dob_kup ON dosta.sifra_fir=dob_kup.sif_kup
 			WHERE ".$ime_polja." LIKE '%".$termin_pretrage."%'
@@ -15,8 +17,12 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	}
 
 	if ($query_tip==2){
-		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir,
-			date_format(dosta.datum_d, '%d. %m. %Y.') AS datumf, dosta.izzad, dob_kup.sif_kup, dob_kup.naziv_kup 
+		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir, dosta.racun_rucni,
+			date_format(dosta.datum_d, '%d. %m. %Y.') AS datumf,
+			dosta.izzad,
+			dosta.ispor,
+			date_format(dosta.racun_poslat, '%d. %m. %Y.') AS datum_rac_poslat,
+			dob_kup.sif_kup, dob_kup.naziv_kup 
 			FROM dosta
 			LEFT JOIN dob_kup ON dosta.sifra_fir=dob_kup.sif_kup
 			WHERE ".$ime_polja."=".$termin_pretrage."
@@ -27,8 +33,13 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	}
 
 	if ($query_tip==3){
-		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir,
-			date_format(dosta.datum_d, '%d. %m. %Y.') AS datumf, dosta.izzad, dob_kup.sif_kup, dob_kup.naziv_kup 
+		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir, dosta.racun_rucni,
+			date_format(dosta.datum_d, '%d. %m. %Y.') AS datumf, 
+			dosta.izzad, 
+			dosta.ispor,
+			date_format(dosta.racun_poslat, '%d. %m. %Y.') AS datum_rac_poslat, 
+			dob_kup.sif_kup, 
+			dob_kup.naziv_kup 
 			FROM dosta
 			LEFT JOIN dob_kup ON dosta.sifra_fir=dob_kup.sif_kup
 			ORDER BY dosta.broj_dost");
@@ -38,10 +49,14 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	<div class="nosac_sa_tabelom">
 	<table>
 		<tr>
-			<th>Broj fak.</th>
+			<th>ID fak.</th>
+			<th>Br. fak.</th>
 			<th>Kupac</th>
 			<th>Datum</th>
 			<th>Iznos</th>
+			<th>Porez</th>
+			<th>Racun<br>poslat</th>
+			<th></th>
 			<th></th>
 		</tr>
 	<?php	
@@ -50,21 +65,29 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	?>
 		<tr>
 			<td><?php echo $niz['broj_dost'];?></td>
+			<td><?php echo $niz['racun_rucni'];?></td>
 			<td><?php echo $niz['naziv_kup'];?></td>
 			<td><?php echo $niz['datumf'];?></td>
 			<td><?php echo $niz['izzad'];?></td>
+			<td><?php echo $niz['ispor'];?></td>
+			<td><?php if ($niz['datum_rac_poslat']) {
+				echo $niz['datum_rac_poslat'];
+			}
+			else{ echo "<span class='crveno'>Nije!</span>";}
+			?>	
+			</td>
 			<td>
 				<form action="faktura.php" method="post">
 					<input type="hidden" name="broj_fak_stampa" value="<?php echo $niz['broj_dost'];?>"/>
 					<input type="image" src="../include/images/olovka.png" title="Ispravi" />
 				</form>
 			</td>
-			<!--<td>
-				<form method="post">
+			<td>
+				<form method="post" action="poslat_racun.php">
 					<input type="hidden" name="broj_fak" value="<?php echo $niz['broj_dost'];?>"/>
-					<input type="image" src="../include/images/iks.png" title="Brisi" />
+					<input type="image" src="../include/images/ikona_kalendar.png" title="Unesi datum slanja racuna" />
 				</form>
-			</td>-->
+			</td>
 		</tr>
 	<?php
 	}
@@ -96,7 +119,8 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 </head>
 <body>
 <?php 
-//brisanje fak	
+//brisanje fak
+/*
 if (isset($_POST['broj_fak'])){
 	$brojfak=$_POST['broj_fak'];
 	echo "<h2>Izbrisano.</h2>";
@@ -117,6 +141,7 @@ if (isset($_POST['broj_fak'])){
 	mysql_query("DELETE FROM izlaz WHERE br_dos='$brojfak'");
 	mysql_query("DELETE FROM dosta WHERE broj_dost='$brojfak'");
 	}
+*/
 //brisanje fak kraj
 	if (isset($_POST['naziv_partnera'])) {
 		PretragaPoTerminuFak("dob_kup.naziv_kup", $_POST['naziv_partnera'],1);

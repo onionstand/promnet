@@ -18,6 +18,7 @@
 					 ulica_kup = '$_POST[ulica_kup]',
 					 rab_ugo = '$_POST[rab_ugo]',
 					 ziro_rac  = '$_POST[ziro_rac]',
+					 ziro_rac2  = '$_POST[ziro_rac2]',
 					 tel = '$_POST[tel]',
 					 pib = '$_POST[pib]',
 					 mat_br = '$_POST[mat_br]'
@@ -50,6 +51,7 @@
 					<td><?php echo $partneri1["ulica_kup"];?></td>
 					<td><?php echo $partneri1["rab_ugo"];?></td>
 					<td><?php echo $partneri1["ziro_rac"];?></td>
+					<td><?php echo $partneri1["ziro_rac2"];?></td>
 					<td><?php echo $partneri1["tel"];?></td>
 					<td><?php echo $partneri1["pib"];?></td>
 					<td><?php echo $partneri1["mat_br"];?></td>

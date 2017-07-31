@@ -7,11 +7,17 @@
 	</head> 
 	<body>
 		<div class="nosac_glavni_400">
-			<?php require("../include/DbConnection.php"); 
+			<?php require("../include/DbConnectionPDO.php"); 
 			$brojfak=$_POST['broj_fak'];
 
-			mysql_query("DELETE FROM profakrob WHERE br_profak='$brojfak'");
-			mysql_query("DELETE FROM profak WHERE broj_prof='$brojfak'");
+			$sql = "DELETE FROM profakrob WHERE br_profak=?";
+			$stmt = $baza_pdo->prepare($sql);
+			$stmt->execute(array($brojfak));
+
+			$sql = "DELETE FROM profak WHERE broj_prof=?";
+			$stmt = $baza_pdo->prepare($sql);
+			$stmt->execute(array($brojfak));
+			
 			echo "<h2>Izbrisano.</h2>";
 			?>
 			<form action="../index.php" method="post">

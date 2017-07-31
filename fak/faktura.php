@@ -1,3 +1,4 @@
+
 <?php
 require("../include/DbConnection.php");
 function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
@@ -11,8 +12,8 @@ function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
 	SUM(izlaz.koli_dos*((izlaz.cena_d/100)*(100-izlaz.rab_dos))) AS osnovica_za_osnovicu,
 	roba.sifra,
 	roba.porez AS porez_za_osnovicu
-	FROM izlaz 
-	RIGHT JOIN roba ON izlaz.srob_dos=roba.sifra 
+	FROM izlaz
+	RIGHT JOIN roba ON izlaz.srob_dos=roba.sifra
 	WHERE br_dos='$brojfak'
 	AND roba.porez='$tarifa_osnovice'");
 	$row_pdv_na_osnovicu_10 = (mysql_fetch_array($pdv_na_osnovicu_10));
@@ -22,7 +23,7 @@ function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
 			<td colspan='4' style="border:none;">
 				<?php
 				$upit_za_procenat_osnovice=mysql_query("SELECT porez_procenat FROM poreske_stope
-							WHERE porez_datum = (SELECT MAX(porez_datum) 
+							WHERE porez_datum = (SELECT MAX(porez_datum)
 							FROM poreske_stope WHERE tarifa_stope = ". $row_pdv_na_osnovicu_10['porez_za_osnovicu'].")
 							AND tarifa_stope = ". $row_pdv_na_osnovicu_10['porez_za_osnovicu']."
 							AND porez_datum <= '$datumzaporez'");
@@ -33,7 +34,7 @@ function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
 				<?php echo number_format($row_pdv_na_osnovicu_10['ukupporez'], 2,".",",");?>
 			</td>
 		</tr>
-	<?php 
+	<?php
 	}
 }
 ?>
@@ -51,6 +52,7 @@ function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
 </head>
 <body>
 <?php
+
 //formiranje dost
 if(isset($_POST['partnersif'])) { ?>
 	<div class="nosac_glavni_400">
@@ -60,49 +62,61 @@ if(isset($_POST['partnersif'])) { ?>
 			});
 		</script>
 		<?php
-		/*zvanje sifre*/  
-		$upit = "SELECT * FROM dob_kup WHERE sif_kup=".$_POST['partnersif']; 
+		/*zvanje sifre*/
+		$upit = "SELECT * FROM dob_kup WHERE sif_kup=".$_POST['partnersif'];
 		$result = mysql_query($upit) or die(mysql_error());
 		$red = mysql_fetch_array($result) or die(mysql_error());
 		$part=$red['sif_kup'];
 		$rokpl=$_POST['rok_placanja'];
+		$broj_rac_rucni=$_POST['broj_rac_rucni'];
 		
-		mysql_query("INSERT INTO dosta (datum_d,sifra_fir, rok)
-		VALUES
-		(CURDATE(),'$part','$rokpl')");
+		$upit_br_rac = mysql_query("SELECT * FROM dosta WHERE racun_rucni= '$broj_rac_rucni'");
+		if(mysql_num_rows($upit_br_rac)== 0){
 		
-		$brojfak=mysql_insert_id();
-		
-		include("../include/ConfigFirma.php");
-		$napomena=$inkfaktekst;
-		mysql_query("UPDATE dosta SET napomena = '$napomena'
-			WHERE broj_dost='$brojfak'");
-		?> 
-		<script type="text/javascript">
-			jQuery(document).ready(function() {
-				$("#obaveznaf_prtraga").validity(function() {
-					$("#fokusiraj").require("Unesi tekst.");
+			mysql_query("INSERT INTO dosta (datum_d,sifra_fir, rok, uplaceni_avans, racun_rucni, datum_prom)
+			VALUES
+			(CURDATE(),'$part','$rokpl',0,'$broj_rac_rucni',CURDATE())");
+			$brojfak=mysql_insert_id();
+			echo $brojfak;
+			
+			$racun_rucni=$broj_rac_rucni;
+			include("../include/ConfigFirma.php");
+			$napomena=$inkfaktekst;
+			mysql_query("UPDATE dosta SET napomena = '$napomena'
+				WHERE broj_dost='$brojfak'");
+			?>
+			<script type="text/javascript">
+				jQuery(document).ready(function() {
+					$("#obaveznaf_prtraga").validity(function() {
+						$("#fokusiraj").require("Unesi tekst.");
+					});
+	
 				});
-				
-			});
-		</script>
-		<p>
-			Sifra kupca: <?php echo $part;?><br>
-			Partner: <?php echo $red['naziv_kup'];?><br>
-			Rok placanja: <?php echo $rokpl;?><br>
-			Broj fakture: <?php echo $brojfak;?>
-		</p>
-		<form method='post' id='obaveznaf_prtraga'>
-			<label>Trazi proizvod:</label>
-			<input type='hidden' name='broj_fak' value='<?php echo $brojfak;?>'/>
-			<select name='metode' size='1' class='polje_100'>
-				<option value='naziv_robe'>naziv robe</option>
-				<option value='sifra'>sifra robe</option>
-			</select>
-			<input type='text' name='search' class='polje_100_92plus4' id='fokusiraj' style="margin-top:0.3em;">
-			<button type='submit' class='dugme_zeleno'>Trazi</button>
-		</form>
-		<div class="cf"></div>
+			</script>
+			<p>
+				Sifra kupca: <?php echo $part;?><br>
+				Partner: <?php echo $red['naziv_kup'];?><br>
+				Rok placanja: <?php echo $rokpl;?><br>
+				Broj fakture: <?php echo $brojfak;?>
+			</p>
+			<form method='post' id='obaveznaf_prtraga'>
+				<label>Trazi proizvod:</label>
+				<input type='hidden' name='broj_fak' value='<?php echo $brojfak;?>'/>
+				<select name='metode' size='1' class='polje_100'>
+					<option value='naziv_robe'>naziv robe</option>
+					<option value='sifra'>sifra robe</option>
+				</select>
+				<input type='text' name='search' class='polje_100_92plus4' id='fokusiraj' style="margin-top:0.3em;">
+				<button type='submit' class='dugme_zeleno'>Trazi</button>
+			</form>
+			<div class="cf"></div>
+			<?php
+		}
+		else{?>
+			<h2>Vec postoji faktura sa tim brojem!</h2>
+			<a href="faktura.php" class="dugme_crveno_92plus4 print_hide">Povratak</a>
+		<?php } ?>
+		
 	</div>
 <?php
 } ?>
@@ -163,7 +177,7 @@ if (isset($_POST['metode'])&& ($_POST['search'])){
 				$("#obaveznaf_prtraga").validity(function() {
 					$("#fokusiraj").require("Unesi tekst.");
 				});
-				
+
 			});
 		</script>
 		<form method='post' id='obaveznaf_prtraga'>
@@ -177,11 +191,23 @@ if (isset($_POST['metode'])&& ($_POST['search'])){
 			<button type='submit' class='dugme_zeleno'>Trazi</button>
 		</form>
 		<div class="cf"></div>
+		<form method="post">
+			<input type="hidden" name="broj_fak_stampa" value="<?php echo $brojfak;?>"/>
+			<button type='submit' class='dugme_crveno'>Nazad</button>
+		</form>
+		<div class="cf"></div>
+		<a href="javascript: openwindow()" class="dugme_plavo_92plus4">Nova Roba</a>
+		<script>
+			function openwindow(){
+				window.open("../roba/nova_roba/nova_roba1.php", "_blank","location=1,status=1,scrollbars=1, width=500,height=700");
+			} 
+		</script>
+		<div class="cf"></div>
 	</div>
-<?php 
+<?php
 	} ?>
-	
-<?php 
+
+<?php
 if (isset($_POST['broj_fak_pretraga'])){
 	$brojfak=$_POST['broj_fak_pretraga'];
 	$sifrarob=$_POST['sifra_r'];
@@ -221,12 +247,12 @@ if (isset($_POST['broj_fak_pretraga'])){
 	</div>
 <?php
 	} ?>
-	
-		
+
+
 <?php
 //dokument za stampu
 if (isset($_POST['broj_fak_stampa'])) {
-	
+
 	$brojfak=$_POST['broj_fak_stampa'];
 
 	$siffirme_upit = mysql_query("SELECT sifra_fir FROM dosta WHERE broj_dost='$brojfak'");
@@ -234,15 +260,16 @@ if (isset($_POST['broj_fak_stampa'])) {
 		$siffirme=$siffirme_red['sifra_fir'];
 	}
 
-	$datum_upit = mysql_query("SELECT datum_d, date_format(datum_d, '%d. %m. %Y.') as formatted_date, rok, napomena FROM dosta WHERE broj_dost=$brojfak ");
-	if($datum_upit === FALSE) {
-		die(mysql_error());
-	}
-	$datum_red= mysql_fetch_array($datum_upit);
+	$datum_upit = mysql_query ("SELECT datum_d, date_format(datum_d, '%d. %m. %Y.') as formatted_date, rok, napomena, uplaceni_avans, racun_rucni, date_format(datum_prom, '%d. %m. %Y.') as form_datum_prom
+		FROM dosta WHERE broj_dost=$brojfak ");
+	$datum_red= mysql_fetch_array ($datum_upit);
 	$datumdos=$datum_red['formatted_date'];
+	$datum_promet=$datum_red['form_datum_prom'];
 	$datumzaporez= $datum_red['datum_d'];
 	$rokpl=$datum_red['rok'];
 	$napomena=$datum_red['napomena'];
+	$uplaceni_avans=$datum_red['uplaceni_avans'];
+	$racun_rucni=$datum_red['racun_rucni'];
 
 	$partner_upit = mysql_query("SELECT * FROM dob_kup WHERE sif_kup='$siffirme'");
 	while($partner_red = mysql_fetch_array($partner_upit))
@@ -263,39 +290,39 @@ if (isset($_POST['broj_fak_stampa'])) {
 			<?php echo $inkfirma;?>
 		</div>
 		<div class="nosac_zaglavlja_fakture screen_hide">
-			<div class="zaglavlje_fakture_desni">RAČUN-DOSTAVNICA BR. <b><?php echo $brojfak;?></b>
-				<br>Mesto i datum izdavanja računa: <b><?php echo $inkfirma_mir . ", " . $datumdos;?></b>
-				<br>Mesto i datum prometa robe: <b><?php echo $inkfirma_mir . ", " . $datumdos;?></b>
+			<div class="zaglavlje_fakture_levi"><span style="font-size: 15px;"><b>RAČUN-OTPREMNICA br. <?php echo $racun_rucni."/".$trengodina;?></b></span>
+				<br><br>Mesto izdavanja računa: <b><?php echo $inkfirma_mir;?></b>
+				<br>Datum izdavanja računa: <b><?php echo $datumdos;?></b>
+				<br>Mesto prometa: <b><?php echo $inkfirma_mir;?></b>
+				<br>Datum prometa: <b><?php echo $datum_promet;?></b>
 			</div>
-			<div class="zaglavlje_fakture_levi">
-				Kupac:<br>
-				<b><?php echo $kupac;?></b>
+			<div class="zaglavlje_fakture_desni">
+				<span style="font-size: 12px;display: inline-block; margin-bottom:6px;">Kupac:</span><br>
+				<b><span style="font-size: 16px;"><?php echo $kupac;?></span></b>
+				<br><?php echo $ulica_kup;?>
+				<br><?php echo $post_br ." ". $mesto_kup;?>
 				<br>
-				<b><?php echo $ulica_kup;?></b>
-				<br>
-				<b><?php echo $post_br ." ". $mesto_kup;?></b>
-				<br>
-				PIB <b><?php echo $pib;?></b>
-				<br>
-				MAT.BR. <b><?php echo $mat_br;?></b>
+				<?php if($pib){echo "PIB: ". $pib;}?>
 			</div>
 		</div>
 		<p class="print_hide">
 			Broj fakture: <?php echo $brojfak."/".$trengodina;?><br>
+			Broj rucni: <?php echo $racun_rucni."/".$trengodina;?><br>
 			Kupac: <?php echo $kupac;?><br>
-			Datum: <?php echo $datumdos;?>
+			Datum fakturisanja: <?php echo $datumdos;?> - 
+			Datum prometa: <?php echo $datum_promet;?>
 		</p>
 		<div class="cf"></div>
 		<table>
 			<tr>
-				<th style="font-size:9px;">R.Br.</th>
+				<th style="font-size:9px;">r.b.</th>
 				<th style="font-size:9px;">Šifra</th>
-				<th>Naziv robe</th>
+				<th>Naziv</th>
 				<th style="font-size:9px;">Jed.mere</th>
 				<th style="font-size:9px;">Količina</th>
-				<th style="font-size:9px;">Cena robe</th>
+				<th style="font-size:9px;">Cena</th>
 				<th>Iznos</th>
-				<?php 
+				<?php
 				$rabat_provera_postojanja_upit = mysql_query("SELECT SUM(koli_dos*(cena_d-(cena_d/100)*(100-rab_dos))) AS ukuprab FROM izlaz WHERE br_dos='$brojfak'");
 				$rabat_provera_postojanja_red = (mysql_fetch_array($rabat_provera_postojanja_upit));
 				if ($rabat_provera_postojanja_red['ukuprab'] != 0){
@@ -308,20 +335,20 @@ if (isset($_POST['broj_fak_stampa'])) {
 			$i=1;
 			$prikaz_roba_upit = mysql_query("SELECT izlaz.id, izlaz.br_dos, izlaz.srob_dos, izlaz.koli_dos, izlaz.cena_d, izlaz.rab_dos,
 									izlaz.cena_d*izlaz.koli_dos AS ukupdos, roba.sifra, roba.naziv_robe, roba.cena_robe,roba.porez,
-									
+
 									(SELECT porez_procenat FROM poreske_stope
 									WHERE porez_datum = (SELECT MAX(porez_datum) FROM poreske_stope WHERE tarifa_stope = roba.porez)
 									AND tarifa_stope = roba.porez
 									AND porez_datum <= '$datumzaporez') AS robaporez,
-									
+
 									(((((izlaz.cena_d/100)*(100-izlaz.rab_dos))/100)*(100+
-									
+
 									(SELECT porez_procenat FROM poreske_stope
 									WHERE porez_datum = (SELECT MAX(porez_datum) FROM poreske_stope WHERE tarifa_stope = roba.porez)
 									AND tarifa_stope = roba.porez
 									AND porez_datum <= '$datumzaporez')
-									
-									))*izlaz.koli_dos) AS ukupdospor, roba.jed_mere 
+
+									))*izlaz.koli_dos) AS ukupdospor, roba.jed_mere
 									FROM izlaz RIGHT JOIN roba ON izlaz.srob_dos=roba.sifra WHERE br_dos='$brojfak'");
 			while($prikaz_roba_red = mysql_fetch_array($prikaz_roba_upit)) {
 			?>
@@ -336,7 +363,7 @@ if (isset($_POST['broj_fak_stampa'])) {
 				<?php
 				if ($rabat_provera_postojanja_red['ukuprab'] != 0) { ?>
 					<td><?php echo number_format($prikaz_roba_red['rab_dos'], 0,"","");?>%</td>
-				<?php } ?> 
+				<?php } ?>
 				<td><?php echo $prikaz_roba_red['robaporez'];?>%</td>
 				<td class="print_hide">
 					<form method='post'>
@@ -345,12 +372,13 @@ if (isset($_POST['broj_fak_stampa'])) {
 						<input type='image' id='btnPrint' src='../include/images/iks.png' title='Ispravi'/>
 					</form>
 				</td>
-			</tr> 
-			<?php } 
+			</tr>
+			<?php }
+			//sa rabatom racun
 			if ($rabat_provera_postojanja_red['ukuprab'] != 0){ ?>
 			<tr>
-				<td rowspan='7' colspan='2' style="border:none;"></td>
-				<td colspan='4' style="border:none;">Zbir: </td>
+				<td rowspan='8' colspan='2' style="border:none;"></td>
+				<td colspan='4' style="border:none;">Vrednost: </td>
 				<td><?php $zbir_upit = mysql_query("SELECT SUM(cena_d*koli_dos) AS ukupiznul FROM izlaz WHERE br_dos='$brojfak'");
 					$zbir_red=(mysql_fetch_array($zbir_upit));
 					echo number_format($zbir_red['ukupiznul'], 2,".",",");?>
@@ -361,11 +389,11 @@ if (isset($_POST['broj_fak_stampa'])) {
 				<td><?php echo number_format($rabat_provera_postojanja_red['ukuprab'], 2,".",",");?></td>
 			</tr>
 			<tr>
-				<td colspan="4" style="border:none;">Zbir-rabat:</td>
+				<td colspan="4" style="border:none;">Vrednost-rabata:</td>
 				<td><?php echo number_format((($zbir_red['ukupiznul'])-($rabat_provera_postojanja_red['ukuprab'])), 2,".",",");?></td>
 			</tr>
 
-			<?php 
+			<?php
 			//osnovica 10
 			OsnovicaZaPdv(10,$datumzaporez,$brojfak);
 			//osnovica 20
@@ -380,7 +408,7 @@ if (isset($_POST['broj_fak_stampa'])) {
 									WHERE porez_datum = (SELECT MAX(porez_datum) FROM poreske_stope WHERE tarifa_stope = roba.porez)
 									AND tarifa_stope = roba.porez
 									AND porez_datum <= '$datumzaporez')
-					))-(izlaz.koli_dos*((izlaz.cena_d/100)*(100-izlaz.rab_dos)))) AS ukupporez, roba.sifra 
+					))-(izlaz.koli_dos*((izlaz.cena_d/100)*(100-izlaz.rab_dos)))) AS ukupporez, roba.sifra
 					FROM izlaz RIGHT JOIN roba ON izlaz.srob_dos=roba.sifra WHERE br_dos='$brojfak'");
 					$ukupan_pdv_red = (mysql_fetch_array($ukupan_pdv_upit));
 					echo number_format($ukupan_pdv_red['ukupporez'], 2,".",",");?>
@@ -390,21 +418,21 @@ if (isset($_POST['broj_fak_stampa'])) {
 				<td colspan='4' style="border:none;">Ukupna vrednost sa PDV-om:</td>
 				<td><b><?php echo number_format((($zbir_red['ukupiznul'])-($rabat_provera_postojanja_red['ukuprab']))+($ukupan_pdv_red['ukupporez']), 2,".",",");?></b></td>
 			</tr>
-			<?php 
-			} 
+			<?php
+			}
 
 			//Bez rabata racun
 			else { ?>
 			<tr>
 				<td rowspan='7' colspan='2' style="border:none;"></td>
-				<td colspan='4' style="border:none;">Zbir:</td>
+				<td colspan='4' style="border:none;">Vrednost:</td>
 				<td><?php $zbir_upit = mysql_query("SELECT SUM(cena_d*koli_dos) AS ukupiznul FROM izlaz WHERE br_dos='$brojfak'");
 					$zbir_red=(mysql_fetch_array($zbir_upit));
 					echo number_format($zbir_red['ukupiznul'], 2,".",",");?>
 				</td>
 			</tr>
 
-			<?php 
+			<?php
 			//osnovica 10
 			OsnovicaZaPdv(10,$datumzaporez,$brojfak);
 			//osnovica 20
@@ -421,7 +449,7 @@ if (isset($_POST['broj_fak_stampa'])) {
 									WHERE porez_datum = (SELECT MAX(porez_datum) FROM poreske_stope WHERE tarifa_stope = roba.porez)
 									AND tarifa_stope = roba.porez
 									AND porez_datum <= '$datumzaporez')
-					))-(izlaz.koli_dos*((izlaz.cena_d/100)*(100-izlaz.rab_dos)))) AS ukupporez, roba.sifra 
+					))-(izlaz.koli_dos*((izlaz.cena_d/100)*(100-izlaz.rab_dos)))) AS ukupporez, roba.sifra
 					FROM izlaz RIGHT JOIN roba ON izlaz.srob_dos=roba.sifra WHERE br_dos='$brojfak'");
 					$ukupan_pdv_red = (mysql_fetch_array($ukupan_pdv_upit));
 					echo number_format($ukupan_pdv_red['ukupporez'], 2,".",",");?>
@@ -431,8 +459,24 @@ if (isset($_POST['broj_fak_stampa'])) {
 				<td colspan='4' style="border:none;">Ukupna vrednost sa PDV-om:</td>
 				<td><b><?php echo number_format((($zbir_red['ukupiznul'])-($rabat_provera_postojanja_red['ukuprab']))+($ukupan_pdv_red['ukupporez']), 2,".",",");?></b></td>
 			</tr>
-			<?php } ?>
-		</table> 
+			<?php
+			}
+			if ($uplaceni_avans!= 0){ ?>
+
+				<tr>
+					<td colspan='4' style="border:none;">Avansno uplaćeno:</td>
+					<td><?php echo number_format($uplaceni_avans, 2,".",",");?></td>
+				</tr>
+				<tr>
+					<td colspan='4' style="border:none;">ZA UPLATU:</td>
+					<td><b><?php echo number_format((
+					((($zbir_red['ukupiznul'])-($rabat_provera_postojanja_red['ukuprab']))+($ukupan_pdv_red['ukupporez']))-
+					$uplaceni_avans), 2,".",",");?></b></td>
+				</tr>
+			<?php
+			}
+			?>
+		</table>
 		<div class="cf"></div>
 		<script type="text/javascript">
 				jQuery(document).ready(function() {
@@ -453,6 +497,7 @@ if (isset($_POST['broj_fak_stampa'])) {
 			<button type='submit' class='dugme_zeleno'>Trazi</button>
 		</form>
 		<div class="cf"></div>
+		
 		<?php
 		//Obnova razlika u ceni
 		$izzad=number_format((($zbir_red['ukupiznul'])-($rabat_provera_postojanja_red['ukuprab']))+($ukupan_pdv_red['ukupporez']), 2,".",",");
@@ -461,7 +506,7 @@ if (isset($_POST['broj_fak_stampa'])) {
 		$ispor_bez_form_br=$ukupan_pdv_red['ukupporez'];
 		$odo_rab=number_format($rabat_provera_postojanja_red['ukuprab'], 2,".",",");
 		$odo_rab_bez_form_br=$rabat_provera_postojanja_red['ukuprab'];
-		$bruc_upit = mysql_query("SELECT izlaz.br_dos, izlaz.srob_dos, 
+		$bruc_upit = mysql_query("SELECT izlaz.br_dos, izlaz.srob_dos,
 									SUM(((izlaz.cena_d/100)*roba.ruc)*izlaz.koli_dos) AS bruc,
 									roba.sifra FROM izlaz RIGHT JOIN roba ON izlaz.srob_dos=roba.sifra
 									WHERE br_dos='$brojfak'");
@@ -472,29 +517,49 @@ if (isset($_POST['broj_fak_stampa'])) {
 					SET izzad='$izzad_bez_form_br', ispor='$ispor_bez_form_br', odo_rab='$odo_rab_bez_form_br', bruc='$bruc_bez_formatiranja_broja'
 					WHERE broj_dost=$brojfak");
 		?>
-		
-		<button onClick='window.print()' type='button' class='dugme_plavo print_hide'>Stampaj</button>
-		<a href="promeni_partnera.php?brojfak=<?php echo $brojfak;?>" class="dugme_plavo_92plus4 print_hide">Promeni partnera ili datum</a>
-		<a href="promeni_napomenu.php?brojfak=<?php echo $brojfak;?>" class="dugme_plavo_92plus4 print_hide">Izmeni napomenu</a>
-		<a href="otpremnica.php?broj_fak_stampa=<?php echo $brojfak;?>" class="dugme_plavo_92plus4 print_hide">Pregled Otpremnice</a>
-		<a href="../index.php" class="dugme_crveno_92plus4 print_hide">Pocetna strana</a>
+
+		<a href="javascript: openwindow()" class="dugme_plavo_pola print_hide">Nova Roba</a>
+		<button onClick='window.print()' type='button' class='dugme_plavo_pola margin_left_2per print_hide'>Stampaj</button>
+		<a href="promeni_partnera.php?brojfak=<?php echo $brojfak;?>" class="dugme_plavo_fak print_hide">Promeni partnera ili datum</a>
+		<a href="promeni_napomenu.php?brojfak=<?php echo $brojfak;?>" class="dugme_plavo_fak margin_left_right_2per print_hide">Izmeni napomenu</a>
+		<a href="uplaceni_avans.php?brojfak=<?php echo $brojfak;?>" class="dugme_plavo_fak print_hide">Uredi uplaceni avans</a>
 		<div class="cf"></div>
+		<a href="otpremnica.php?broj_fak_stampa=<?php echo $brojfak;?>" class="dugme_plavo_fak print_hide">Pregled Otpremnice</a>
+		<a href="faktura_roba.php?broj_fak_stampa=<?php echo $brojfak;?>" class="dugme_plavo_fak margin_left_right_2per print_hide">Pregled Racun bez otpre.</a>
+		<a href="faktura_usluga.php?broj_fak_stampa=<?php echo $brojfak;?>" class="dugme_plavo_fak print_hide">Pregled Racun usluga sa opisom</a>
+		<div class="cf"></div>
+		<a href="../index.php" class="dugme_crveno_pola print_hide">Pocetna strana</a>
+		<form method="post" action="faktura_stare.php">
+			<input type="hidden" type="text" name="sve_fakture" value="1"/>
+			<button type="submit" class="dugme_crveno_pola margin_left_2per print_hide">Nazad na stare fakture</button>
+		</form>
+		<div class="cf"></div>
+		<script>
+			function openwindow(){
+				window.open("../roba/nova_roba/nova_roba1.php", "_blank","location=1,status=1,scrollbars=1, width=500,height=700");
+			} 
+		</script>
 		<p style="font-size:12px;">
-			<?php 
+			<?php
 			echo $napomena;?>
 		</p>
 		<div id="potpis0">
 			<div class="potpis1">
-				<p>Fakturisao</p>
+				<p>Izdao i Fakturisao</p>
 			</div>
 			<div class="potpis2">
-				<p>Robu primio</p>
+				<p>
+					Robu primio<br>
+					Br. L.K.<br>
+					Reg. broj.
+				</p>
 			</div>
+
 		</div>
 	</div>
 <?php
 	} ?>
-		
+
 <?php
 //Brisanje robe
 if (isset($_POST['broj_fak_brisi'])) {
@@ -523,10 +588,10 @@ if (isset($_POST['broj_fak_brisi'])) {
 			<button type="submit" class="dugme_zeleno">Dalje</button>
 		</form>
 		<div class="cf"></div>
-	</div>	
+	</div>
 <?php
 } ?>
-	
+
 <?php
 if(empty($_POST['broj_fak_brisi'])&&
 	empty($_POST['partnersif'])&&
@@ -540,14 +605,15 @@ if(empty($_POST['broj_fak_brisi'])&&
 		jQuery("#firma").AddIncSearch({
 			maxListSize: 4,
 			maxMultiMatch: 50,
+			selectBoxHeight: 400,
 			warnMultiMatch: 'top {0} matches ...',
 			warnNoMatch: 'nema poklapanja...'
 		});
 		$("#obaveznaf").validity(function() {
-			$("#firma").require("Neophodno polje.");
+			$("#firma, #broj_rac_rucni").require("Neophodno polje.");
 			$("#rokplacanja_in").require("Neophodno polje.").match("number","Mora biti broj.")
 		});
-		
+
 	});
 	</script>
 	<div class="nosac_glavni_400">
@@ -565,10 +631,24 @@ if(empty($_POST['broj_fak_brisi'])&&
 					<?php } ?>
 			</select>
 			<label>Rok placanja:</label>
-			<input type="text" name="rok_placanja" class="polje_100_92plus4" id="rokplacanja_in"/></td>
+			<input type="text" name="rok_placanja" class="polje_100_92plus4" id="rokplacanja_in"/>
+			<label>Broj racuna:</label>
+			<?php $upit_max_broj_rac_rucni = mysql_query(" SELECT MAX(racun_rucni) AS max_racun_r FROM dosta;");
+			$red_max_b_r_r = mysql_fetch_array($upit_max_broj_rac_rucni);
+			$max_broj_r_r=$red_max_b_r_r['max_racun_r']+1;
+			?>
+			<input type="text" name="broj_rac_rucni" value="<?php echo $max_broj_r_r;?>" class="polje_100_92plus4" id="broj_rac_rucni"/>
 			<div class="cf"></div>
 			<button type="submit" class="dugme_zeleno">Unesi</button>
 		</form>
+		<div class="cf"></div>
+		<a href="javascript: windowNoviKupac()" class="dugme_plavo_92plus4 print_hide">Novi Partner</a>
+		<script>
+			function windowNoviKupac(){
+				window.open("../partneri/partner_novi1.html", "_blank","location=1,status=1,scrollbars=1, width=500,height=700");
+			} 
+		</script>
+		<div class="cf"></div>
 		<form action="../index.php" method="post">
 			<button type="submit" class="dugme_crveno">Ponisti</button>
 		</form>

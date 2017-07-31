@@ -39,7 +39,7 @@ table{border-collapse:collapse;border-spacing:0}
 td,th{padding:0}
 
 p{margin: 1em 0 1em 0;}
-body {padding:0; color:#414141; background-color: #F5F5F5; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 16px;}
+body {padding:0; color:#414141; background-color: #F5F5F5; font-family:Arial, Helvetica, sans-serif; font-size: 16px;}
 h2{font-size:1.5em;margin:.50em 0; text-align: center;;}
 
 th {border: 1px solid #E0E0E0; text-align: center; padding: 0.2em; font-weight:bold;}
@@ -53,24 +53,36 @@ label{margin: 0.6em 0 0.2em 0; display: block;}
 .sirina100{width:100%;}
 
 .polje_100 {width: 100%;padding: 0.5em 4%; border: 1px solid #D2D2D2; color: #A3A09E;}
+.polje_100_select {width: 100%;padding: 0.4em 4%; border: 1px solid #D2D2D2; color: #A3A09E;}
 .polje_100_92plus4 {width: 92%;padding: 0.5em 4%; border: 1px solid #D2D2D2; color: #A3A09E;}
 .polje_100_92plus4:hover, .polje_100:hover {box-shadow: 0.1rem 0.1rem 0.238rem rgba(0, 0, 0, 0.15) inset; outline: 0 none;}
 
+.polje_20{width: 18%;padding: 0.5em 1% 0.5em 1%; float: left; margin-bottom: 1em;}
+
 .dugme_zeleno,.dugme_crveno,.dugme_plavo {width: 100%; padding: 0.5em 4%; border: none; margin: 1em 0 0 0; color: #ffffff; display: block; }
-.dugme_zeleno_92plus4, .dugme_crveno_92plus4, .dugme_plavo_92plus4 {width: 92%; padding: 0.5em 4%; border: none; margin: 1em 0 0 0; color: #ffffff; display: block; text-align: center; }
+.dugme_zeleno_92plus4, .dugme_crveno_92plus4, .dugme_plavo_92plus4 {width: 92%; padding: 0.5em 4%; border: none; margin: 1em 0 0 0; color: #ffffff; display: block; text-align: center;}
 .dugme_zeleno:hover,.dugme_crveno:hover,.dugme_plavo:hover,.dugme_zeleno_92plus4:hover, .dugme_crveno_92plus4:hover, .dugme_plavo_92plus4:hover{background-color: #B1A599;}
 .dugme_zeleno, .dugme_zeleno_92plus4 {background-color: #4DAF7C;}
-.dugme_crveno, .dugme_crveno_92plus4 {background-color: #E96F48;}
-.dugme_plavo, .dugme_plavo_92plus4 {background-color: #5F90B0;}
+.dugme_crveno, .dugme_crveno_92plus4, .dugme_crveno_fak, .dugme_crveno_pola {background-color: #E96F48;}
+.dugme_plavo, .dugme_plavo_92plus4, .dugme_plavo_fak, .dugme_plavo_pola {background-color: #5F90B0;}
+
+.dugme_plavo_fak, .dugme_crveno_fak {width: 32%; padding: 0.5em 0%; border: none; margin: 1em 0 0 0; color: #ffffff; display: block; text-align: center; float:left;
+-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+.margin_left_right_2per{margin-left:2%; margin-right:2%;}
+.dugme_plavo_fak:hover, .dugme_crveno_fak:hover, .dugme_plavo_pola:hover, .dugme_crveno_pola:hover {background-color: #B1A599;}
+
+.dugme_plavo_pola, .dugme_crveno_pola {width: 49%; padding: 0.5em 0%; border: none; margin: 1em 0 0 0; color: #ffffff; display: block; text-align: center; float:left;
+-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+.margin_left_2per{margin-left:2%;}
 
 .nosac_zaglavlja_fakture {width:100%; height:auto; float:left; clear:both; padding-top: 3px;}
-.zaglavlje_fakture_desni{float:right; padding:10px 5px 10px 5px; width:45%;}
-.zaglavlje_fakture_levi{float:left; padding:10px 15px 10px 15px; width:45%;}
+.zaglavlje_fakture_desni{float:right; padding:30px 5px 20px 20px; width:40%;}
+.zaglavlje_fakture_levi{float:left; padding:30px 15px 20px 15px; width:50%;}
 /*.podnozje_fakture_tekst{float:left;clear:both; padding:10px 5px 10px 5px; width:auto; font-size: 11px; color: #414141;}*/
 
 
-.memorandum{width:100%; float:left; clear:both; border-bottom:3px solid #E0E0E0; font-size: 12px; color: #414141; padding:0px 0px 10px 0px;}
-.memorandum_logo{height:60px; float:left;display:block;}
+.memorandum{width:100%; float:left; clear:both; border-bottom:3px solid #E0E0E0; font-size: 12px; color: #414141; padding:0px 0px 24px 0px;}
+.memorandum_logo{height:80px; float:left;display:block;}
 .memorandum_tekst{float:right; text-align: right; margin:0; display:block; line-height: 19px;}
 
 @media only screen and (max-width: 700px) {
@@ -78,15 +90,18 @@ label{margin: 0.6em 0 0.2em 0; display: block;}
 }
 
 @media print {
-	.nosac_sa_tabelom, .nosac_glavni_400{ margin:0 auto; padding:0; height:auto; color: #414141; background-color:none;}
+	.nosac_sa_tabelom, .nosac_glavni_400{ margin:0 auto; padding:0; height:auto; color: #000000; background-color:none;}
 	.td_za_brisanje, .print_hide{display: none;}
 	th,td{font-size: 12px;}
 	.polje_100_92plus4 {width: 92%;padding: 0; border: 1px solid #D2D2D2; color: #A3A09E;}
 	#potpis0{ float:left; clear:both; width:100%;}
-	.potpis1{ font-size: 13px; color: #414141; float:left; padding-bottom:25px; border-bottom:1px solid #414141; width:120px; text-align:center;}
-	.potpis2{ font-size: 13px; color: #414141; float:right; padding-bottom:25px; border-bottom:1px solid #414141; width:120px; text-align:center;}
+	.potpis1{ font-size: 12px; color: #000000; float:left; padding-bottom:25px; border-top:1px solid #414141; width:210px; text-align:left; margin-top:2rem; }
+	.potpis1 p{margin:0;}
+	.potpis2{ font-size: 12px; color: #000000; float:right; padding-bottom:25px; border-top:1px solid #414141; width:210px; text-align:left; margin-top:2rem;}
+	.potpis2 p{margin:0;}
 	table{width: 100%;}
-	.zaglavlje_fakture_desni,.zaglavlje_fakture_levi{font-size: 11px;}
+	.zaglavlje_fakture_desni{font-size: 15px; margin-bottom: 20px;}
+	.zaglavlje_fakture_levi{font-size: 11px;}
 }
 
 @media screen{
@@ -94,6 +109,29 @@ label{margin: 0.6em 0 0.2em 0; display: block;}
 	.nosac_glavni_400 {padding:2em; margin:2em auto; max-width: 400px; border: 1px solid #E5E5E5; background-color:#ffffff; box-shadow:0 1px 2px rgba(0, 0, 0, 0.05);}
 	.nosac_sa_tabelom{padding:2em; margin:2em auto; max-width:860px; border: 1px solid #E5E5E5; background-color:#ffffff; box-shadow:0 1px 2px rgba(0, 0, 0, 0.05);}
 	#potpis0{display: none;}
-	.potpis1{display: none;}
-	.potpis2{display: none;}
 }
+
+.crveno{color: red;}
+
+/* ##############addIncSearch#########*/
+.addIncSearch:focus{ -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none); outline: 0;}
+.AddIncSearchChooser{ background: #fff; border: 1px solid #bbb;
+ -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
+ -webkit-box-shadow: 0 9px 30px 0 rgba(0,0,0,0.2);
+ -moz-box-shadow: 0 9px 30px 0 rgba(0,0,0,0.2);
+ box-shadow: 0 9px 30px 0 rgba(0,0,0,0.2);
+    /*borderColor:  $select_tag.css('border-color') || '#000',*/
+    /*borderStyle: 'solid',*/
+    /*borderWidth: '1px',*/
+    /*padding: '2px',*/
+    /*backgroundColor:  $select_tag.css('background-color'),*/
+    /*cursor: 'pointer',*/
+    /*MozUserSelect: 'none',*/
+    /*WebkitUserSelect: 'none',*/
+    /*userSelect: 'none'*/
+}
+.AddIncSearchChooser div{padding:2px 7px; font-weight: normal; border-bottom:1px solid #dadfe0; text-align: left}
+.AddIncSearchChooser div:nth-child(even){background:#f6f6f6;}
+.AddIncSearchChooser div span{font-weight: bold;}
+.AddIncSearchChooser div.xHiLite{background:#fcf5dd;}
+/* ##############addIncSearch#########*/

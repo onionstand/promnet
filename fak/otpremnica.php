@@ -61,11 +61,13 @@ if (isset($_GET['broj_fak_stampa'])) {
 		$siffirme=$siffirme_red['sifra_fir'];
 	}
 
-	$datum_upit = mysql_query ("SELECT datum_d, date_format(datum_d, '%d. %m. %Y.') as formatted_date, rok FROM dosta WHERE broj_dost=$brojfak ");
+	$datum_upit = mysql_query ("SELECT datum_d, date_format(datum_d, '%d. %m. %Y.') as formatted_date, rok, napomena, uplaceni_avans, racun_rucni FROM dosta WHERE broj_dost=$brojfak ");
 	$datum_red= mysql_fetch_array ($datum_upit);
 	$datumdos=$datum_red['formatted_date'];
 	$datumzaporez= $datum_red['datum_d'];
 	$rokpl=$datum_red['rok'];
+	$racun_rucni=$datum_red['racun_rucni'];
+	$napomena=$datum_red['napomena'];
 
 	$partner_upit = mysql_query("SELECT * FROM dob_kup WHERE sif_kup='$siffirme'");
 	while($partner_red = mysql_fetch_array($partner_upit))
@@ -86,21 +88,19 @@ if (isset($_GET['broj_fak_stampa'])) {
 			<?php echo $inkfirma;?>
 		</div>
 		<div class="nosac_zaglavlja_fakture screen_hide">
-			<div class="zaglavlje_fakture_levi">OTPREMNICA BR. <b><?php echo $brojfak;?></b>
-				<br>Mesto i datum izdavanja računa: <b><?php echo $inkfirma_mir . ", " . $datumdos;?></b>
-				<br>Mesto i datum prometa robe: <b><?php echo $inkfirma_mir . ", " . $datumdos;?></b>
+			<div class="zaglavlje_fakture_levi"><span style="font-size: 15px;"><b>OTPREMNICA br. <?php echo $racun_rucni."/".$trengodina;?></b></span>
+				<br><br>Mesto izdavanja otpremnice: <b><?php echo $inkfirma_mir;?></b>
+				<br>Datum izdavanja otpremnice: <b><?php echo $datumdos;?></b>
+				<br>Mesto prometa: <b><?php echo $inkfirma_mir;?></b>
+				<br>Datum prometa: <b><?php echo $datumdos;?></b>
 			</div>
 			<div class="zaglavlje_fakture_desni">
-				Kupac:<br>
-				<b><?php echo $kupac;?></b>
+				<span style="font-size: 12px;display: inline-block; margin-bottom:6px;">Kupac:</span><br>
+				<b><span style="font-size: 16px;"><?php echo $kupac;?></span></b>
+				<br><?php echo $ulica_kup;?>
+				<br><?php echo $post_br ." ". $mesto_kup;?>
 				<br>
-				<b><?php echo $ulica_kup;?></b>
-				<br>
-				<b><?php echo $post_br ." ". $mesto_kup;?></b>
-				<br>
-				PIB <b><?php echo $pib;?></b>
-				<br>
-				MAT.BR. <b><?php echo $mat_br;?></b>
+				PIB <?php echo $pib;?>
 			</div>
 		</div>
 		<p class="print_hide">
@@ -111,21 +111,11 @@ if (isset($_GET['broj_fak_stampa'])) {
 		<div class="cf"></div>
 		<table>
 			<tr>
-				<th style="font-size:9px;">R.Br.</th>
+				<th style="font-size:9px;">r.b.</th>
 				<th style="font-size:9px;">Šifra</th>
-				<th>Naziv robe</th>
+				<th>Naziv</th>
 				<th style="font-size:9px;">Jed.mere</th>
 				<th style="font-size:9px;">Količina</th>
-				<th style="font-size:9px;">Cena robe</th>
-				<th>Iznos</th>
-				<?php 
-				$rabat_provera_postojanja_upit = mysql_query("SELECT SUM(koli_dos*(cena_d-(cena_d/100)*(100-rab_dos))) AS ukuprab FROM izlaz WHERE br_dos='$brojfak'");
-				$rabat_provera_postojanja_red = (mysql_fetch_array($rabat_provera_postojanja_upit));
-				if ($rabat_provera_postojanja_red['ukuprab'] != 0){
-					echo "<th>Rabat</th>";
-				}
-				?>
-				<th>PDV</th>
 			</tr>
 			<?php
 			$i=1;
@@ -154,13 +144,7 @@ if (isset($_GET['broj_fak_stampa'])) {
 				<td style="text-align:left;"><?php echo $prikaz_roba_red['naziv_robe'];?></td>
 				<td style="text-align:center;"><?php echo $prikaz_roba_red['jed_mere'];?></td>
 				<td><?php echo $prikaz_roba_red['koli_dos'];?></td>
-				<td><?php echo number_format($prikaz_roba_red['cena_d'], 2,".",",");?></td>
-				<td><?php echo number_format($prikaz_roba_red['ukupdos'], 2,".",",");?></td>
-				<?php
-				if ($rabat_provera_postojanja_red['ukuprab'] != 0) { ?>
-					<td><?php echo number_format($prikaz_roba_red['rab_dos'], 0,"","");?>%</td>
-				<?php } ?> 
-				<td><?php echo $prikaz_roba_red['robaporez'];?>%</td>
+				
 				<td class="print_hide">
 					<form method='post'>
 						<input type='hidden' name='broj_fak_brisi' value='<?php echo $brojfak;?>'/>
@@ -170,91 +154,7 @@ if (isset($_GET['broj_fak_stampa'])) {
 				</td>
 			</tr> 
 			<?php } 
-			if ($rabat_provera_postojanja_red['ukuprab'] != 0){ ?>
-			<tr>
-				<td rowspan='7' colspan='2' style="border:none;"></td>
-				<td colspan='4' style="border:none;">Zbir: </td>
-				<td><?php $zbir_upit = mysql_query("SELECT SUM(cena_d*koli_dos) AS ukupiznul FROM izlaz WHERE br_dos='$brojfak'");
-					$zbir_red=(mysql_fetch_array($zbir_upit));
-					echo number_format($zbir_red['ukupiznul'], 2,".",",");?>
-				</td>
-			</tr>
-			<tr>
-				<td colspan='4' style="border:none;">Iznos odobrenog rabata:</td>
-				<td><?php echo number_format($rabat_provera_postojanja_red['ukuprab'], 2,".",",");?></td>
-			</tr>
-			<tr>
-				<td colspan="4" style="border:none;">Zbir-rabat:</td>
-				<td><?php echo number_format((($zbir_red['ukupiznul'])-($rabat_provera_postojanja_red['ukuprab'])), 2,".",",");?></td>
-			</tr>
-
-			<?php 
-			//osnovica 10
-			OsnovicaZaPdv(10,$datumzaporez,$brojfak);
-			//osnovica 20
-			OsnovicaZaPdv(20,$datumzaporez,$brojfak);
 			?>
-
-			<tr>
-				<td colspan='4' style="border:none;">Ukupan PDV:</td>
-				<td>
-					<?php $ukupan_pdv_upit = mysql_query("SELECT izlaz.br_dos, izlaz.srob_dos, SUM(((izlaz.koli_dos*((izlaz.cena_d/100)*(100-izlaz.rab_dos))/100)*(100+
-					(SELECT porez_procenat FROM poreske_stope
-									WHERE porez_datum = (SELECT MAX(porez_datum) FROM poreske_stope WHERE tarifa_stope = roba.porez)
-									AND tarifa_stope = roba.porez
-									AND porez_datum <= '$datumzaporez')
-					))-(izlaz.koli_dos*((izlaz.cena_d/100)*(100-izlaz.rab_dos)))) AS ukupporez, roba.sifra 
-					FROM izlaz RIGHT JOIN roba ON izlaz.srob_dos=roba.sifra WHERE br_dos='$brojfak'");
-					$ukupan_pdv_red = (mysql_fetch_array($ukupan_pdv_upit));
-					echo number_format($ukupan_pdv_red['ukupporez'], 2,".",",");?>
-				</td>
-			</tr>
-			<tr>
-				<td colspan='4' style="border:none;">Ukupna vrednost sa PDV-om:</td>
-				<td><b><?php echo number_format((($zbir_red['ukupiznul'])-($rabat_provera_postojanja_red['ukuprab']))+($ukupan_pdv_red['ukupporez']), 2,".",",");?></b></td>
-			</tr>
-			<?php 
-			} 
-
-			//Bez rabata racun
-			else { ?>
-			<tr>
-				<td rowspan='7' colspan='2' style="border:none;"></td>
-				<td colspan='4' style="border:none;">Zbir:</td>
-				<td><?php $zbir_upit = mysql_query("SELECT SUM(cena_d*koli_dos) AS ukupiznul FROM izlaz WHERE br_dos='$brojfak'");
-					$zbir_red=(mysql_fetch_array($zbir_upit));
-					echo number_format($zbir_red['ukupiznul'], 2,".",",");?>
-				</td>
-			</tr>
-
-			<?php 
-			//osnovica 10
-			OsnovicaZaPdv(10,$datumzaporez,$brojfak);
-			//osnovica 20
-			OsnovicaZaPdv(20,$datumzaporez,$brojfak);
-			?>
-
-			<tr>
-				<td colspan='4' style="border:none;">Ukupan PDV:</td>
-				<td>
-					<?php $ukupan_pdv_upit = mysql_query("SELECT izlaz.br_dos, izlaz.srob_dos, SUM(((izlaz.koli_dos*
-					((izlaz.cena_d/100)*(100-izlaz.rab_dos))
-					/100)*(100+
-					(SELECT porez_procenat FROM poreske_stope
-									WHERE porez_datum = (SELECT MAX(porez_datum) FROM poreske_stope WHERE tarifa_stope = roba.porez)
-									AND tarifa_stope = roba.porez
-									AND porez_datum <= '$datumzaporez')
-					))-(izlaz.koli_dos*((izlaz.cena_d/100)*(100-izlaz.rab_dos)))) AS ukupporez, roba.sifra 
-					FROM izlaz RIGHT JOIN roba ON izlaz.srob_dos=roba.sifra WHERE br_dos='$brojfak'");
-					$ukupan_pdv_red = (mysql_fetch_array($ukupan_pdv_upit));
-					echo number_format($ukupan_pdv_red['ukupporez'], 2,".",",");?>
-				</td>
-			</tr>
-			<tr>
-				<td colspan='4' style="border:none;">Ukupna vrednost sa PDV-om:</td>
-				<td><b><?php echo number_format((($zbir_red['ukupiznul'])-($rabat_provera_postojanja_red['ukuprab']))+($ukupan_pdv_red['ukupporez']), 2,".",",");?></b></td>
-			</tr>
-			<?php } ?>
 		</table> 
 		<div class="cf"></div>
 		<script type="text/javascript">
@@ -305,16 +205,21 @@ if (isset($_GET['broj_fak_stampa'])) {
 		<a href="../index.php" class="dugme_zeleno_92plus4 print_hide">Pocetna strana</a>
 		<div class="cf"></div>
 		<p class="screen_hide" style="font-size:12px;">
-			<?php include("../include/ConfigFirma.php");
-			echo $inkfaktekst;?>
+			<?php //include("../include/ConfigFirma.php");
+			echo $napomena;?>
 		</p>
 		<div id="potpis0">
 			<div class="potpis1">
-				<p>Izdao</p>
+				<p>Izdao i Fakturisao</p>
 			</div>
 			<div class="potpis2">
-				<p>Primio</p>
+				<p>
+					Robu primio<br>
+					Br. L.K.<br>
+					Reg. broj.
+				</p>
 			</div>
+			
 		</div>
 	</div>
 <?php

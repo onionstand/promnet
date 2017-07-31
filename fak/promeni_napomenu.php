@@ -10,7 +10,7 @@
 		<?php
 		require("../include/DbConnectionPDO.php");
 
-		
+
 		if (!empty($_POST['napomena'])) {
 			$sql = 'UPDATE dosta SET napomena = ? WHERE broj_dost = ?';
 			$stmt = $baza_pdo->prepare($sql);
@@ -28,7 +28,7 @@
 		}
 		else{
 			$brojfak=$_GET['brojfak'];
-			
+
 			$sql = "SELECT napomena FROM dosta WHERE broj_dost = $brojfak";
 			$result = $baza_pdo->query($sql);
 			$row = $result->fetch();
@@ -36,9 +36,7 @@
 			?>
 			<form method="post">
 				<label>Napomena:</label>
-				<textarea name="napomena" class="polje_100_92plus4" rows="12">
-					<?php echo $napomena;?>
-				</textarea>
+				<textarea name="napomena" class="polje_100_92plus4" rows="12"><?php echo $napomena;?></textarea>
 				<input type="hidden" name="broj_fak_stampa" value="<?php echo $brojfak;?>"/>
 				<button type="submit" class="dugme_zeleno">Unesi</button>
 			</form>

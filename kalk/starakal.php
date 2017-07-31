@@ -2,7 +2,7 @@
 function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 
 	if ($query_tip==1){
-		$upit = mysql_query("SELECT kalk.broj_kalk, kalk.sif_firme, date_format(kalk.datum, '%d. %m. %Y.') AS datumf, dob_kup.sif_kup, dob_kup.naziv_kup
+		$upit = mysql_query("SELECT kalk.broj_kalk, kalk.rok_pl, kalk.sif_firme, kalk.faktura, kalk.nabav_vre, date_format(kalk.datum, '%d. %m. %Y.') AS datumf, dob_kup.sif_kup, dob_kup.naziv_kup
 			FROM kalk 
 			LEFT JOIN dob_kup ON kalk.sif_firme=dob_kup.sif_kup
 			WHERE ".$ime_polja." LIKE '%".$termin_pretrage."%'
@@ -10,11 +10,11 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 		if (!$upit) {
     		echo "<h2>Nema rezultata...</h2>";
 		}
-		//if (!$upit) {die(mysql_error());}
+		//if (!$upit) {die(mysql_error());} nabav_vre
 	}
 
 	if ($query_tip==2){
-		$upit = mysql_query("SELECT kalk.broj_kalk, kalk.sif_firme, date_format(kalk.datum, '%d. %m. %Y.') AS datumf, dob_kup.sif_kup, dob_kup.naziv_kup
+		$upit = mysql_query("SELECT kalk.broj_kalk, kalk.rok_pl, kalk.sif_firme, kalk.faktura, kalk.nabav_vre, date_format(kalk.datum, '%d. %m. %Y.') AS datumf, dob_kup.sif_kup, dob_kup.naziv_kup
 			FROM kalk 
 			LEFT JOIN dob_kup ON kalk.sif_firme=dob_kup.sif_kup
 			WHERE ".$ime_polja."=".$termin_pretrage." ORDER BY kalk.broj_kalk");
@@ -24,7 +24,7 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	}
 
 	if ($query_tip==3){
-		$upit = mysql_query("SELECT kalk.broj_kalk, kalk.sif_firme, date_format(kalk.datum, '%d. %m. %Y.') AS datumf, dob_kup.sif_kup, dob_kup.naziv_kup
+		$upit = mysql_query("SELECT kalk.broj_kalk, kalk.rok_pl, kalk.sif_firme, kalk.faktura, kalk.nabav_vre, date_format(kalk.datum, '%d. %m. %Y.') AS datumf, dob_kup.sif_kup, dob_kup.naziv_kup
 			FROM kalk 
 			LEFT JOIN dob_kup ON kalk.sif_firme=dob_kup.sif_kup
 			ORDER BY kalk.broj_kalk");
@@ -34,18 +34,25 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	<table>
 		<tr>
 			<th>Broj kalk.</th>
+			<th>Broj rac.</th>
 			<th>Dobavljac</th>
 			<th>Datum</th>
+			<th>Placanje</th>
+			<th>Iznos</th>
 			<th></th>
-	</tr>
+		</tr>
 	<?php
 	while($niz = mysql_fetch_array($upit))
 	{
 	?>
 		<tr>
 			<td><?php echo $niz['broj_kalk'];?></td>
+			<td><?php echo $niz['faktura'];?></td>
 			<td><?php echo $niz['naziv_kup'];?></td>
 			<td><?php echo $niz['datumf'];?></td>
+			<?php $datum_za_pla=date("d.m.Y",strtotime ("+$niz[rok_pl] day"));?>
+			<td><?php echo $datum_za_pla;?></td>
+			<td><?php echo $niz['nabav_vre'];?></td>
 			<td>
 				<form action="kalk_nov6.php" method="post">
 					<input type="hidden" name="broj_kalkulaci" value="<?php echo $niz['broj_kalk'];?>"/>

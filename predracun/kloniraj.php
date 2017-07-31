@@ -5,6 +5,7 @@ $upit_profakrob = 'SELECT * FROM profakrob WHERE br_profak = :broj_profak';
 $stmt = $baza_pdo->prepare($upit_profakrob);
 $stmt->bindParam(':broj_profak', $_POST['broj_profak'], PDO::PARAM_STR);
 $stmt->bindColumn('naziv_robe', $naziv_robe);
+$stmt->bindColumn('sifra_robe', $sifra_robe);
 $stmt->bindColumn('koli_profak', $koli_profak);
 $stmt->bindColumn('jed_mere', $jed_mere);
 $stmt->bindColumn('cena_profak', $cena_profak);
@@ -27,9 +28,14 @@ if ($ima_stavki) {
     $stmt_profak->bindColumn('napomena', $napomena);
     $stmt_profak->execute();
     $stmt_profak->fetch();
+
+    $upit_brofak_rucni = "SELECT MAX(brofak_rucni) AS brofak_rucni_max FROM profak";
+    $result_brofak_rucni = $baza_pdo->query($upit_brofak_rucni);
+    $red_brofak_rucni = $result_brofak_rucni->fetch();
+    $poslednji_rucni_racun=$red_brofak_rucni['brofak_rucni_max']+1;
     
-    $upit_profak_ins = 'INSERT INTO profak (datum_prof, sifra_fir, rok, izzad, ispor, odo_rab, bruc, napomena)
-			  VALUES (:datum_prof, :sifra_fir, :rok, :izzad, :ispor, :odo_rab, :bruc, :napomena)';
+    $upit_profak_ins = 'INSERT INTO profak (datum_prof, sifra_fir, rok, izzad, ispor, odo_rab, bruc, napomena, brofak_rucni)
+			  VALUES (:datum_prof, :sifra_fir, :rok, :izzad, :ispor, :odo_rab, :bruc, :napomena, :brofak_rucni)';
 	$stmt_profak_ins = $baza_pdo->prepare($upit_profak_ins);
 	$stmt_profak_ins->bindParam(':datum_prof', $datum_prof, PDO::PARAM_STR);
     $stmt_profak_ins->bindParam(':sifra_fir', $sifra_fir, PDO::PARAM_STR);
@@ -39,19 +45,21 @@ if ($ima_stavki) {
     $stmt_profak_ins->bindParam(':odo_rab', $odo_rab, PDO::PARAM_STR);
     $stmt_profak_ins->bindParam(':bruc', $bruc, PDO::PARAM_STR);
     $stmt_profak_ins->bindParam(':napomena', $napomena, PDO::PARAM_STR);
+    $stmt_profak_ins->bindParam(':brofak_rucni', $poslednji_rucni_racun, PDO::PARAM_INT);
 	$stmt_profak_ins->execute();
 	
 	$broj_nove_prof = $baza_pdo->lastInsertId();
     
     
     
-    $upit_profakrob_ins = 'INSERT INTO profakrob (br_profak, naziv_robe, koli_profak, jed_mere, cena_profak, rab_dos, porez)
-        VALUES (:br_profak, :naziv_robe, :koli_profak, :jed_mere, :cena_profak, :rab_dos, :porez)';
+    $upit_profakrob_ins = 'INSERT INTO profakrob (br_profak, naziv_robe, sifra_robe, koli_profak, jed_mere, cena_profak, rab_dos, porez)
+        VALUES (:br_profak, :naziv_robe, :sifra_robe, :koli_profak, :jed_mere, :cena_profak, :rab_dos, :porez)';
 	$stmt_profakrob_ins = $baza_pdo->prepare($upit_profakrob_ins);
     
     while ($stmt->fetch()) {
         $stmt_profakrob_ins->bindParam(':br_profak', $broj_nove_prof, PDO::PARAM_STR);
         $stmt_profakrob_ins->bindParam(':naziv_robe', $naziv_robe, PDO::PARAM_STR);
+        $stmt_profakrob_ins->bindParam(':sifra_robe', $sifra_robe, PDO::PARAM_STR);
         $stmt_profakrob_ins->bindParam(':koli_profak', $koli_profak, PDO::PARAM_STR);
         $stmt_profakrob_ins->bindParam(':jed_mere', $jed_mere, PDO::PARAM_STR);
         $stmt_profakrob_ins->bindParam(':cena_profak', $cena_profak, PDO::PARAM_STR);

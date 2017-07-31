@@ -31,6 +31,8 @@
 				<input type='text' name='rab_ugo' class='polje_100_92plus4' value='<?php echo $parred["rab_ugo"];?>'/>
 				<label>Ziro racun:</label>
 				<input type='text' name='ziro_rac' class='polje_100_92plus4' value='<?php echo $parred["ziro_rac"];?>'/>
+				<label>Ziro racun 2:</label>
+				<input type='text' name='ziro_rac2' class='polje_100_92plus4' value='<?php echo $parred["ziro_rac2"];?>'/>
 				<label>Telefon:</label>
 				<input type='text' name='tel' class='polje_100_92plus4' value='<?php echo $parred["tel"];?>'/>
 				<label>PIB:</label>

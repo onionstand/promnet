@@ -34,6 +34,7 @@
 .bar.fig0 {left: 0;}
 .bar.fig1 {left: 25%;}
 .bar.fig2 {left: 50%;}
+.bar.fig3 {left: 75%;}
 .bar span {background: #fefefe;	border-radius: 3px;	left: -8px;	display: none; margin: 0; position: relative;
 	text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0; width: 90px; z-index: 20; -webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 1px 4px;
 	box-shadow: rgba(0, 0, 0, 0.6) 0 1px 4px;}
@@ -44,3 +45,4 @@
 .fig0 {background: #747474;}
 .fig1 {background: #65c2e8;}
 .fig2 {background: #eea151;}
+.fig3 {background: #5CA1AA;}

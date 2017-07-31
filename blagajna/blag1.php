@@ -58,6 +58,7 @@
 			 $("#konto").AddIncSearch({
 				maxListSize: 4,
 				maxMultiMatch: 80,
+				selectBoxHeight: 400,
 				warnMultiMatch: 'prvih {0} poklapanja ...',
 				warnNoMatch: 'nema poklapanja...'
 			});

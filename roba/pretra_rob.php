@@ -18,11 +18,13 @@ function PretragaPoTerminu($ime_polja, $termin_pretrage,$query_tip){
 	}
 
 	?>
-	<table>
+	<table class="sortable">
 			<tr>
 				<th>Sifra</th>
+				<th>Sifra knjig.</th>
 				<th>Naziv robe</th>
 				<th>Cena</th>
+				<th>J.mere</th>
 				<th>Porez</th>
 				<th>Stanje</th>
 				<th>RUC</th>
@@ -32,8 +34,10 @@ function PretragaPoTerminu($ime_polja, $termin_pretrage,$query_tip){
 	?>
 		<tr>
 			<td><?php echo $niz['sifra'];?></td>
+			<td><?php echo $niz['sifra_knjig'];?></td>
 			<td><?php echo $niz['naziv_robe'];?></td>
 			<td><?php echo $niz['cena_robe'];?></td>
+			<td><?php echo $niz['jed_mere'];?></td>
 			<td><?php echo $niz['porez'];?></td>
 			<td><?php echo $niz['stanje'];?></td>
 			<td><?php echo $niz['ruc'];?></td>
@@ -61,6 +65,7 @@ function PretragaPoTerminu($ime_polja, $termin_pretrage,$query_tip){
 	<head>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
+		<script src="../include/sorttable.js"></script>
 		<title>Roba</title>
 	</head>
 	<body>

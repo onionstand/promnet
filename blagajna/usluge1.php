@@ -32,6 +32,7 @@
 			jQuery("#konto").AddIncSearch({
 				maxListSize: 4,
 				maxMultiMatch: 50,
+				selectBoxHeight: 400,
 				warnMultiMatch: 'top {0} matches ...',
 				warnNoMatch: 'nema poklapanja...'
 			});

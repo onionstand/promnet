@@ -19,7 +19,7 @@
 			$( "#biracdatuma" ).datepicker($.datepicker.regional[ "sr-SR" ]);
 			
 			$("#validity_form").validity(function() {
-	                    $("#biracdatuma","#firma")
+	                    $("#biracdatuma","#firma","#broj_rac_rucni")
 	                        .require()
 	                    });
 		});
@@ -39,17 +39,27 @@
 <body>
 	<div class="nosac_glavni_400">
 		<?php
-		require("../include/DbConnection.php");
+		require("../include/DbConnectionPDO.php");
 
 		if (isset($_GET['brojfak'])){
 			$brojfak=$_GET['brojfak'];
-			$upitdosta = mysql_query("SELECT profak.datum_prof, profak.sifra_fir, dob_kup.naziv_kup FROM profak
+
+
+			$upitdosta = "SELECT profak.datum_prof, profak.sifra_fir, profak.brofak_rucni, dob_kup.naziv_kup FROM profak
 									LEFT JOIN dob_kup ON profak.sifra_fir=dob_kup.sif_kup
-									WHERE broj_prof=".$brojfak);
-			$nizdosta= mysql_fetch_array($upitdosta);
-			$ime_partnera=$nizdosta['naziv_kup'];
-			$sifra_partnera=$nizdosta['sifra_fir'];
-			$datum_prometa=date("d-m-Y",(strtotime($nizdosta['datum_prof'])));
+									WHERE broj_prof=:broj_prof";
+			$stmt = $baza_pdo->prepare($upitdosta);
+			$stmt->bindParam(':broj_prof', $brojfak, PDO::PARAM_INT);
+			
+			$stmt->bindColumn('naziv_kup', $ime_partnera);
+			$stmt->bindColumn('sifra_fir', $sifra_partnera);
+			$stmt->bindColumn('brofak_rucni', $racun_rucni);
+			$stmt->bindColumn('datum_prof', $datum_prof);
+			$stmt->execute();
+			$stmt->fetch();
+
+
+			$datum_prometa=date("d-m-Y",(strtotime($datum_prof)));
 			?>
 			<form method="post" id="validity_form">
 				<label>Datum</label>
@@ -58,16 +68,17 @@
 				<select id='firma' name='partnersif' size='1' class='polje_100'>
 					<option value='<?php echo $sifra_partnera;?>'><?php echo $ime_partnera;?></option>
 						<?php
-						$upit = mysql_query("SELECT sif_kup,naziv_kup,ziro_rac FROM dob_kup");
-						while($red = mysql_fetch_array($upit))
-							{
-								$naziv_kup=$red['naziv_kup'];
-								$sif_kup=$red['sif_kup'];
-								?>
-								<option value='<?php echo $sif_kup;?>'><?php echo $naziv_kup;?></option>
-								<?php 
-							} ?>
+						$upit = "SELECT sif_kup,naziv_kup,ziro_rac FROM dob_kup";
+						foreach ($baza_pdo->query($upit) as $red) {
+							$naziv_kup=$red['naziv_kup'];
+							$sif_kup=$red['sif_kup'];
+							?>
+							<option value='<?php echo $sif_kup;?>'><?php echo $naziv_kup;?></option>
+							<?php
+						} ?>
 				</select>
+				<label>Broj predracuna:</label>
+				<input type="text" name="broj_rac_rucni" class="polje_100_92plus4" id="broj_rac_rucni" value="<?php echo $racun_rucni;?>"/>
 				<input type="hidden" name="brojfak" value="<?php echo $brojfak;?>"/>
 				<button type="submit" class="dugme_zeleno">Unesi</button>
 			</form>
@@ -78,14 +89,44 @@
 			<div class="cf"></div>
 			<?php
 		}
-		if (isset($_POST['brojfak'])&& ($_POST['partnersif'])&& ($_POST['datum'])){
-			$datum_prometa_za_bazu=date("Y-m-d",(strtotime($_POST['datum'])));
-			mysql_query("UPDATE profak SET sifra_fir=".$_POST['partnersif'].", datum_prof='".$datum_prometa_za_bazu."' WHERE broj_prof=".$_POST['brojfak']) or die(mysql_error());
+		if (isset($_POST['brojfak'])&& ($_POST['partnersif'])&& ($_POST['datum'])&& ($_POST['broj_rac_rucni'])){
 			
-			?>
-			<h2>Ispravljeno...</h2>
-			<div class="cf"></div>
-			<?php
+			$upit_br_rac = "SELECT * FROM profak WHERE brofak_rucni= :brofak_rucni AND broj_prof != :broj_prof";
+			$stmt_upit_br_rac = $baza_pdo->prepare($upit_br_rac);
+			$stmt_upit_br_rac->bindParam(':brofak_rucni', $_POST['broj_rac_rucni'], PDO::PARAM_INT);
+			$stmt_upit_br_rac->bindParam(':broj_prof', $_POST['brojfak'], PDO::PARAM_INT);
+			$stmt_upit_br_rac->execute();
+
+			$numRows = $stmt_upit_br_rac->rowCount();
+			if($numRows== 0){
+				$datum_prometa_za_bazu=date("Y-m-d",(strtotime($_POST['datum'])));
+
+				$upit_profak_unos = "UPDATE profak SET sifra_fir=:sifra_fir, datum_prof=:datum_prof, brofak_rucni=:brofak_rucni WHERE broj_prof=:broj_prof";
+				$stmt_profak_unos = $baza_pdo->prepare($upit_profak_unos);
+
+				$stmt_profak_unos->bindParam(':sifra_fir', $_POST['partnersif'], PDO::PARAM_STR);
+				$stmt_profak_unos->bindParam(':datum_prof', $datum_prometa_za_bazu, PDO::PARAM_STR);
+				$stmt_profak_unos->bindParam(':brofak_rucni', $_POST['broj_rac_rucni'], PDO::PARAM_STR);
+				$stmt_profak_unos->bindParam(':broj_prof', $_POST['brojfak'], PDO::PARAM_INT);
+				$stmt_profak_unos->execute() or die(print_r($stmt_profak_unos->errorInfo(), true));
+				
+				?>
+				<h2>Ispravljeno!</h2>
+				<p>Ispravljen br. predracuna : <?php echo $_POST['broj_rac_rucni'];?><br>
+				Ispravljen datum: <?php echo $datum_prometa_za_bazu;?><br>
+				Ispravljen Partner: <?php echo $_POST['partnersif'];?>
+				</p>
+				<div class="cf"></div>
+				<?php
+			}
+			else {
+				?>
+				<h2>Broj racuna vec postoji.</h2>
+				<div class="cf"></div>
+				<?php
+			}
+
+			
 		}
 		?>
 	</div>

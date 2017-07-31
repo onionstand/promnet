@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <head>
-	<meta charset="utf-8">
 	<title>Izvestaj prodaje</title>
 	<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
 	<link rel="stylesheet" href="../include/jquery/css/jquery.ui.all.css">
@@ -30,7 +29,8 @@ if (isset($_POST['datumod'])&& ($_POST['datumdo']))
 				<th>Naziv<br />dobavljaca</th>
 				<th>Broj<br />kalk.</th>
 				<th>Datum</th>
-				<th>Nabavna<br />vrednost</th>
+				<th>Nabavna<br />vrednost bez PDV</th>
+				<th>Nabavna<br />vrednost sa PDV</th>
 				<th>Ukalkul.<br />RUC</th>
 				<th>Prodajna<br />vrednost</th>
 				<th>Akontacija poreza</th>
@@ -60,6 +60,7 @@ if (isset($_POST['datumod'])&& ($_POST['datumdo']))
 					<td><?php echo $niz['broj_kalk'];?></td>
 					<td><?php echo $niz['datum_formatiran'];?></td>
 					<td><?php echo number_format(($niz['nabav_vre']-$niz['ukal_porez']), 2,".",",");?></td>
+					<td><?php echo number_format($niz['nabav_vre'], 2,".",",");?></td>
 					<td><?php echo number_format($razlika_u_ceni, 2,".",",");?></td>
 					<td><?php echo number_format($niz['pro_vre'], 2,".",",");?></td>
 					<td><?php echo number_format($niz['ukal_porez'], 2,".",",");?></td>
@@ -81,6 +82,7 @@ if (isset($_POST['datumod'])&& ($_POST['datumdo']))
 					<td></td>
 					<td></td>
 					<td><?php echo number_format(($sum_nabav_vre-$sum_ukal_porez), 2,".",",");?></td>
+					<td><?php echo number_format(($sum_nabav_vre), 2,".",",");?></td>
 					<td><?php echo number_format($sum_razlika_u_ceni, 2,".",",");?></td>
 					<td><?php echo number_format($sum_pro_vre, 2,".",",");?></td>
 					<td><?php echo number_format($sum_ukal_porez, 2,".",",");?></td>

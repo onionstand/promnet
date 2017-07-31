@@ -29,7 +29,7 @@
 				  $siffirme=$sifra_firme_red['sif_firme'];
 				  }
 
-				$datum_kalk_upit = mysql_query ("SELECT datum,faktura, date_format(datum, '%d. %m. %Y.') as formatted_date FROM kalk WHERE broj_kalk=$brojkalku ");
+				$datum_kalk_upit = mysql_query ("SELECT datum,faktura, rok_pl, date_format(datum, '%d. %m. %Y.') as formatted_date FROM kalk WHERE broj_kalk=$brojkalku ");
 				$datum_kalk_red= mysql_fetch_array ($datum_kalk_upit);
 				  
 				$datumzaporez= $datum_kalk_red['datum'];
@@ -39,12 +39,13 @@
 				while($naziv_partnera_red = mysql_fetch_array($naziv_partnera_upit)){
 				  	$dobavljac=$naziv_partnera_red['naziv_kup'];
 				}
-
+				$datum_za_pla=date("d.m.Y",strtotime ("$datum_kalk_red[datum]+$datum_kalk_red[rok_pl] day"));
 				?>
 				<div class="zaglavlje_fakture_levi">
 					<p>
 						Broj kalkulacije: <b><?php echo $brojkalku;?></b><br>
 						Datum: <b><?php echo $datum_kalk_red['formatted_date'];?></b><br>
+						Placanje: <b><?php echo $datum_za_pla;?></b><br>
 						Dobavljac: <b><?php echo $dobavljac;?></b><br>
 						Broj dokumenta: <b><?php echo $datum_kalk_red['faktura'];?></b>
 					</p>
@@ -53,6 +54,7 @@
 			<p class="print_hide">
 				Broj kalkulacije: <b><?php echo $brojkalku;?></b><br>
 				Datum: <b><?php echo $datum_kalk_red['formatted_date'];?></b><br>
+				Placanje: <b><?php echo $datum_za_pla;?></b><br>
 				Dobavljac: <b><?php echo $dobavljac;?></b><br>
 				Broj dokumenta: <b><?php echo $datum_kalk_red['faktura'];?></b>
 			</p>
@@ -62,6 +64,7 @@
 					<th>Sifra</th>
 					<th>Naziv robe</th>
 					<th>Kol.</th>
+					<th>J.M.</th>
 					<th>Fak.cena</th>
 					<th>Iznos f.c.</th>
 					<th>Pro.cena</th>
@@ -71,7 +74,7 @@
 				</tr>
 				<?php
 				$stavke_kalk_upit = mysql_query("SELECT ulaz.id, ulaz.br_kal, ulaz.srob_kal, ulaz.kol_kalk, ulaz.cena_k, ulaz.rab_kalk,
-				ulaz.cena_k*ulaz.kol_kalk AS ukupkal, (ulaz.kol_kalk*roba.cena_robe) AS ukupfak, roba.sifra, roba.naziv_robe, roba.cena_robe, roba.porez 
+				ulaz.cena_k*ulaz.kol_kalk AS ukupkal, (ulaz.kol_kalk*roba.cena_robe) AS ukupfak, roba.sifra, roba.naziv_robe, roba.cena_robe, roba.porez , roba.jed_mere
 				FROM ulaz RIGHT JOIN roba ON ulaz.srob_kal=roba.sifra 
 				WHERE br_kal='$brojkalku'");
 				while($stavke_kalk_red = mysql_fetch_array($stavke_kalk_upit)) { ?>
@@ -79,10 +82,11 @@
 					<td><?php echo $stavke_kalk_red['srob_kal'];?></td>
 					<td><?php echo $stavke_kalk_red['naziv_robe'];?></td>
 					<td><?php echo $stavke_kalk_red['kol_kalk'];?></td>
+					<td><?php echo $stavke_kalk_red['jed_mere'];?></td>
 					<td><?php echo $stavke_kalk_red['cena_k'];?></td>
-					<td><?php echo $stavke_kalk_red['ukupkal'];?></td>
+					<td><?php echo number_format(($stavke_kalk_red['ukupkal']), 2,".","");?></td>
 					<td><?php echo $stavke_kalk_red['cena_robe'];?></td>
-					<td><?php echo $stavke_kalk_red['ukupfak'];?></td>
+					<td><?php echo number_format(($stavke_kalk_red['ukupfak']), 2,".","");?></td>
 					<td><?php echo $stavke_kalk_red['rab_kalk'];?></td>
 					<td><?php 
 						$poreskastopasifra= $stavke_kalk_red['porez'];
@@ -105,10 +109,10 @@
 				<?php } ?>
 				<tr>
 					<td rowspan="7" style="border-left:none;border-bottom:none;"></td>
-					<td colspan="3">Zbir:</td>
+					<td colspan="4">Zbir:</td>
 					<td><?php $zbir_upit = mysql_query("SELECT SUM(cena_k*kol_kalk) AS ukupiznul FROM ulaz WHERE br_kal='$brojkalku'");
 						$zbir_red=(mysql_fetch_array($zbir_upit));
-						echo $zbir_red['ukupiznul'];?>
+						echo number_format(($zbir_red['ukupiznul']), 2,".","");?>
 					</td>
 					<td></td>
 					<td><?php $zbir_pc = mysql_query("SELECT ulaz.br_kal,
@@ -121,22 +125,23 @@
 					</td>
 					<td></td>
 					<td></td>
+					<td></td>
 				</tr>
 				<tr>
-					<td colspan="3">Odobren rabat:</td>
+					<td colspan="4">Odobren rabat:</td>
 					<td><?php $odobren_rabat_upit = mysql_query("SELECT SUM(kol_kalk*(cena_k-(cena_k/100)*(100-rab_kalk))) AS ukuprab
 							FROM ulaz WHERE br_kal='$brojkalku'");
 						$odobren_rabat_red = (mysql_fetch_array($odobren_rabat_upit));
 						echo number_format($odobren_rabat_red['ukuprab'], 2,".","");?>
 					</td>
-					<td colspan="4" rowspan="6" style="border-right:none; border-bottom:none;"></td>
+					<td colspan="5" rowspan="6" style="border-right:none; border-bottom:none;"></td>
 				</tr>
 				<tr>
-					<td colspan="3">Nabavna vrednost robe:</td>
+					<td colspan="4">Nabavna vrednost robe:</td>
 					<td><?php echo number_format((($zbir_red['ukupiznul'])-($odobren_rabat_red['ukuprab'])), 2,".","");?></td>
 				</tr>
 				<tr>
-					<td colspan="3">Uracunat PDV od dobavljaca:</td>
+					<td colspan="4">Uracunat PDV od dobavljaca:</td>
 					<td>
 						<?php $pdv_od_obavljaca_upit = 
 						mysql_query("SELECT ulaz.br_kal, ulaz.srob_kal, 
@@ -156,7 +161,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3">Nabavna vrednost sa PDV-om:</td>
+					<td colspan="4">Nabavna vrednost sa PDV-om:</td>
 					<td>
 						<?php $nabavna_vrednost_sa_pdv=
 							number_format((($zbir_red['ukupiznul'])-
@@ -166,11 +171,11 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3">Prodajna vrednost bez PDV-a:</td>
-					<td><?php echo $zbir_pc_red['ukupfakz'];?></td>
+					<td colspan="4">Prodajna vrednost bez PDV-a:</td>
+					<td><?php echo number_format($zbir_pc_red['ukupfakz'], 2,".","");?></td>
 				</tr>
 				<tr>
-					<td colspan="3">Razlika u ceni:</td>
+					<td colspan="4">Razlika u ceni:</td>
 					<td>
 						<?php echo number_format(($zbir_pc_red['ukupfakz'])-
 							(($zbir_red['ukupiznul'])-
@@ -184,6 +189,7 @@
 				<input type="hidden" name="broj_kalkulaci" value="<?php echo $brojkalku; ?>"/>
 				<button type='submit' class='dugme_zeleno print_hide'>Nova roba</button>
 			</form>
+			<a href="promeni_partnera.php?brojkalku=<?php echo $brojkalku;?>" class="dugme_plavo_92plus4 print_hide">Promeni partnera ili datum</a>
 			<form action="kalk_nov7.php" method="post">
 				<input type="hidden" name="broj_kalkulaci" value="<?php echo $brojkalku; ?>"/>
 				<input type="hidden" name="nab_vr" value="<?php echo $nabavna_vrednost_sa_pdv; ?>"/>

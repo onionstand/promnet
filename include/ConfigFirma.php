@@ -1,33 +1,40 @@
-<?php
-//Unesi podatke
 
+<?php
+//Ukucati podesavanja
+
+//podaci
 $inkfirma="
-<img alt='Test' class='memorandum_logo' src='../include/images/logo.png'>
+<img alt='LOGO' class='memorandum_logo' src='../include/images/logo.png'>
 <p class='memorandum_tekst'>
-	<b>TEST <small>d.o.o.</small></b> | 11000 Beograd | Pere Perića 22 | <small>Telefon:</small> 011/316-03-91<br />
-	<small>E-mail:</small> test@test.com | <small>Web adress:</small> www.test.com<br />
-	<small>PIB:</small> 999999999 | <small>MB:</small> 99999999 | <small>Žiro račun:</small> <b>999-9999-99</b>
+	<b>TEST <small>DOO</small></b> | Pere Perica 22 | 11000 Beograd<br />
+	<small>Tel:</small> 011/111-111 | 011/111-111<br />
+	test@test.com | www.test.com<br />
+	<small>PIB:</small> 999999999 | <small>MB:</small> 99999999 | <small>TR:</small> <b>999-9999-99</b>
 </p>";
 //mesto izdavanja racuna
 $inkfirma_mir="Beograd";
 
-$inkfirmamin="<b>ENEF centar d.o.o.</b>";
-$trengodina="2016";
+$inkfirmamin="<b>Test d.o.o.</b>";
+$trengodina="2017";
 
 
-if (isset($brojfak)){
-	$inkfaktekst="Prilikom uplate OBAVEZNO se pozvati na broj <b>".$brojfak."/".$trengodina."</b>
-	<br>Napomena o poreskom oslobođenju: nema.<br>";
+if (isset($brojfak)){$inkfaktekst="Napomena o poreskom oslobođenju: NEMA.
+
+<br>
+";
 				
 	if (isset($rokpl)){
 		if ($rokpl>0){
-			$inkfaktekst.="Plaćanje u roku od ". $rokpl ." dana.<br>";
+			$inkfaktekst.="Plaćanje u roku od ". $rokpl ." dana.<br>
+			";
 		}
 		else{
 			$inkfaktekst.="Plaćanje avansno.<br>";
 		}
 	}
+
+$inkfaktekst.="Uplatu izvršiti na račun 99-9999999-99 sa pozivom na broj <b>".$racun_rucni."/".$trengodina."</b><br><br><br>";
 		
-	$inkfaktekst.="Kamatna stopa predviđena zakonom. U slučaju spora nadležan sud u Beogradu.<br>Reklamacije prihvatamo u roku od 8 dana.";
+	//$inkfaktekst.="Reklamacije prihvatamo u roku od 8 dana.";
 }
 ?>

@@ -1,10 +1,6 @@
-
 <?php
 //za PDV prijavu
-//Opstina
-$org_jedinica="ЗВЕЗДАРА";
-//Pib
-$pib="000000000";
-//Adresa
-$naziv_adresa="Тест д.о.о. <br /> Пере Перића 22 <br /> Београд";
+$org_jedinica="Beograd";
+$pib="999999999";
+$naziv_adresa="TEST <br /> Pere Perica 22<br /> Београд";
 ?>

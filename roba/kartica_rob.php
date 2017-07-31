@@ -68,7 +68,23 @@
 	{
 		?>
 		<tr>
-			<td><?php echo $niz['a5'];?></td>
+			<td>
+				<?php
+					if ($niz['a5']=="Kalkulacija") { ?>
+					 	<form action="../kalk/kalk_nov6.php" method="post" target="_blank">
+							<input type="hidden" name="broj_kalkulaci" value="<?php echo $niz['a1'];?>"/>
+							<input type="submit" title="<?php echo $niz['a5'];?>" value="<?php echo $niz['a5'];?>"/>
+						</form>
+					 <?php }
+					 elseif ($niz['a5']=="Faktura") { ?>
+					 	<form action="../fak/faktura.php" method="post" target="_blank">
+							<input type="hidden" name="broj_fak_stampa" value="<?php echo $niz['a1'];?>"/>
+							<input type="submit" title="<?php echo $niz['a5'];?>" value="<?php echo $niz['a5'];?>"/>
+						</form>
+					 <?php }
+					 else echo $niz['a5'];
+				?>
+			</td>
 			<td><?php echo $niz['a1'];?></td>
 			<td><?php echo $niz['a2'];?></td>
 			<td><?php echo $niz['a3'];?></td>
