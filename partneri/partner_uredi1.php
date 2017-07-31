@@ -27,6 +27,7 @@
 							<th data-hide="phone">Ulica</th>
 							<th data-hide="phone,tablet">Ugo. rabat</th>
 							<th data-hide="phone,tablet">Ziro racun</th>
+							<th data-hide="phone,tablet">Ziro racun 2</th>
 							<th data-hide="phone,tablet">Telefon</th>
 							<th data-hide="phone,tablet">PIB</th>
 							<th data-hide="phone,tablet">Maticni br.</th>
@@ -48,6 +49,7 @@
 						<td><?php echo $partneri1["ulica_kup"];?></td>
 						<td><?php echo $partneri1["rab_ugo"];?></td>
 						<td><?php echo $partneri1["ziro_rac"];?></td>
+						<td><?php echo $partneri1["ziro_rac2"];?></td>
 						<td><?php echo $partneri1["tel"];?></td>
 						<td><?php echo $partneri1["pib"];?></td>
 						<td><?php echo $partneri1["mat_br"];?></td>

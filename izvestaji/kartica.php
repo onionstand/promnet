@@ -89,6 +89,14 @@ $stanje_part=$niz3['stanje'];
 		SELECT broj_k AS a1,'PIS F' AS a2,dat_k AS a3,0 AS a4, iznos_f AS a5, 'X' AS a6
 		FROM k_pism_r 
 		WHERE sif_firme='$sif_kup' AND kod_p=2
+		UNION ALL
+		SELECT id AS a1, 'FIN KP' AS a2, datum AS a3,zbir AS a4, 0 AS a5, propratni_dok AS a6
+		FROM k_pism_fin 
+		WHERE id_firme='$sif_kup' AND duguje_potr=1
+		UNION ALL
+		SELECT id AS a1, 'FIN KP' AS a2, datum AS a3, 0 AS a4, zbir AS a5, propratni_dok AS a6
+		FROM k_pism_fin 
+		WHERE id_firme='$sif_kup' AND duguje_potr=2
 		ORDER BY a3 
 		");
 
@@ -122,6 +130,8 @@ $stanje_part=$niz3['stanje'];
 			<td><?php echo number_format($saldo, 2,".",",");?></td>
 		</tr>
 	</table>
+
+	<?php //echo mysql_error();?>
 <div class="cf"></div>
 <a href="kartica0.php" class="dugme_crveno_92plus4 print_hide">Nazad</a>
 <a href="../index.php" class="dugme_zeleno_92plus4 print_hide">Pocetna strana</a>
