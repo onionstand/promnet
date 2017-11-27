@@ -1,6 +1,6 @@
 <?php
 
-$dsn = 'mysql:host=localhost;dbname=promnet-2017';
+$dsn = 'mysql:host=localhost;dbname=promnet';
 $user = 'root';
 $password = '';
 

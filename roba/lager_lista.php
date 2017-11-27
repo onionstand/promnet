@@ -17,7 +17,7 @@
 					<th>Stanje</th>
 				</tr>
 				<?php require("../include/DbConnection.php");
-				$upit = mysql_query("SELECT * FROM roba WHERE stanje>=1 ORDER BY naziv_robe ");
+				$upit = mysql_query("SELECT * FROM roba WHERE stanje!=0 ORDER BY naziv_robe ");
 				while($niz = mysql_fetch_array($upit))
 					{
 					echo "<tr>";

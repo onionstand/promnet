@@ -65,15 +65,13 @@ function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
 			$siffirme=$sifrafirme_red['sifra_fir'];
 
 
-			$datkal_upit = "SELECT datum_prof, date_format(datum_prof, '%d. %m. %Y.') as formatted_date, rok, napomena, brofak_rucni FROM profak WHERE broj_prof=$brojfak ";
+			$datkal_upit = "SELECT broj_prof, datum_prof, date_format(datum_prof, '%d. %m. %Y.') as formatted_date, rok, napomena FROM profak WHERE broj_prof=$brojfak ";
 			$datkal_result = $baza_pdo->query($datkal_upit);
 			$datkal_red = $datkal_result->fetch();
 			$datumdos=$datkal_red['formatted_date'];
 			$datumzaporez= $datkal_red['datum_prof'];
 			$rokpl=$datkal_red['rok'];
 			$napomena=$datkal_red['napomena'];
-			$brofak_rucni=$datkal_red['brofak_rucni'];
-			$racun_rucni="PF".$datkal_red['brofak_rucni'];
 
 			$dob_kup_upit = "SELECT * FROM dob_kup WHERE sif_kup='$siffirme'";
 			foreach ($baza_pdo->query($dob_kup_upit) as $dob_kup_red) {
@@ -84,7 +82,6 @@ function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
 				$pib=$dob_kup_red['pib'];
 				$mat_br=$dob_kup_red['mat_br'];
 			}
-
 			include("../include/ConfigFirma.php");
 			?>
 			<div class="memorandum screen_hide">
@@ -92,23 +89,22 @@ function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
 			</div>
 		
 			<div class="nosac_zaglavlja_fakture screen_hide">
-				<div class="zaglavlje_fakture_levi"><span style="font-size: 15px;"><b>PREDRAČUN BR. <?php echo $brofak_rucni."/".$trengodina;?></b></span>
-					<br><br>Mesto izdavanja predračuna: <b><?php echo $inkfirma_mir;?></b>
-					<br>Datum izdavanja predračuna: <b><?php echo $datumdos;?></b>
-				</div>
-				<div class="zaglavlje_fakture_desni">
-					<span style="font-size: 12px;display: inline-block; margin-bottom:6px;">Kupac:</span><br>
-					<b><span style="font-size: 16px;"><?php echo $kupac;?></span></b>
+				<div class="zaglavlje_fakture_levi">
+					<span style="display: inline-block; margin-bottom:6px;">Kupac:</span><br>
+					<b><span style="font-size: 11px;"><?php echo $kupac;?></span></b>
 					<br><?php echo $ulica_kup;?>
 					<br><?php echo $post_br ." ". $mesto_kup;?>
-					<br>
-					PIB <?php echo $pib;?>
+					<br>PIB <?php echo $pib;?>
+					<br>MB <?php echo $mat_br;?>
+				</div>
+				<div class="zaglavlje_fakture_desni"><span style="font-size: 11px; display: inline-block; margin-bottom:6px;"><b>PREDRAČUN BR. <?php echo $brojfak."/".$trengodina;?></b></span>
+					<br>Mesto izdavanja predračuna: <b><?php echo $inkfirma_mir;?></b>
+					<br>Datum izdavanja predračuna: <b><?php echo $datumdos;?></b>
 				</div>
 			</div>
 			
 			<p class="print_hide">
 				Broj profakture: <?php echo $brojfak;?><br>
-				Broj rucni: <?php echo $brofak_rucni;?><br>
 				Kupac: <?php echo $kupac;?><br>
 				Datum: <?php echo $datumdos;?>
 			</p>
@@ -293,8 +289,10 @@ function OsnovicaZaPdv($tarifa_osnovice,$datumzaporez,$brojfak){
 			</form>
 			<button onClick='window.print()' type='button' class='dugme_plavo print_hide'>Stampaj</button>
 			<div class="cf"></div>
-			<p class="screen_hide" style="font-size:12px;">
-				<?php echo $napomena;?>
+			<p class="screen_hide" style="font-size:11px;">
+				<?php 
+				echo $napomena;
+				?>
 			</p>
 			<div id="potpis0">
 				<div class="potpis1">

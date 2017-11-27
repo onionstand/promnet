@@ -76,7 +76,14 @@ require("../include/DbConnectionPDO.php");
 								</tr>
 							</thead>
 							<tbody>
-							<?php while ($stmt->fetch()) { ?>
+							<?php
+							$duguje_zbir=0;
+							$potraz_zbir=0;
+							while ($stmt->fetch()) { 
+								$duguje_zbir+=$duguje;
+								$potraz_zbir+=$potraz;
+
+								?>
 								<tr>
 									<td><?php echo $id_glknjiga; ?></td>
 									<td><?php echo $sifradok; ?></td>
@@ -90,6 +97,20 @@ require("../include/DbConnectionPDO.php");
 									<td><?php echo $prokont; ?></td>
 								</tr>
 							<?php } ?>
+							</tbody>
+						</table>
+						<table>
+							<thead>
+								<tr>
+									<th>Zbir duguje:</th>
+									<th>Zbir potrazuje:</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><?php echo number_format($duguje_zbir, 2,".",",");?></td>
+									<td><?php echo number_format($potraz_zbir, 2,".",",");?></td>
+								</tr>
 							</tbody>
 						</table>
 					<?php }

@@ -12,13 +12,20 @@ require("../include/DbConnectionPDO.php");?>
 			<table>
 				<tr>
 					<th>Konto</th>
+					<th>Naziv konta</th>
 					<th>Opis</th>
 					<th>Duguje</th>
 					<th>Potrazuje</th>
 					<th>Razlika</th>
 				</tr>
-				<?php $upit_prikaz_gl_k = 'SELECT brkonta, opis, SUM(duguje) AS sum_duguje, SUM(potraz) AS sum_potraz 
-											FROM glknjiga GROUP BY brkonta';
+				<?php $upit_prikaz_gl_k = 'SELECT glknjiga.brkonta,
+											glknjiga.opis,
+											SUM(glknjiga.duguje) AS sum_duguje,
+											SUM(glknjiga.potraz) AS sum_potraz,
+											konto.naziv_kont 
+											FROM glknjiga
+											LEFT JOIN konto ON glknjiga.brkonta=konto.broj_kont
+											GROUP BY brkonta';
 				$zbir_sum_duguje=0;
 				$zbir_sum_potraz=0;
 				foreach ($baza_pdo->query($upit_prikaz_gl_k) as $red_gl_k) {
@@ -27,6 +34,7 @@ require("../include/DbConnectionPDO.php");?>
 					?>
 					<tr>
 						<td><?php echo $red_gl_k['brkonta']; ?></td>
+						<td><?php echo $red_gl_k['naziv_kont']; ?></td>
 						<td><?php echo $red_gl_k['opis']; ?></td>
 						<td><?php echo number_format($red_gl_k['sum_duguje'], 2,".",","); ?></td>
 						<td><?php echo number_format($red_gl_k['sum_potraz'], 2,".",","); ?></td>
@@ -36,6 +44,7 @@ require("../include/DbConnectionPDO.php");?>
 				}
 				?>
 				<tr>
+					<td></td>
 					<td></td>
 					<td>Zbir: </td>
 					<td><?php echo number_format($zbir_sum_duguje, 2,".",","); ?></td>

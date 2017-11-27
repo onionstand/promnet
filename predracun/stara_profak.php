@@ -3,7 +3,7 @@ require("../include/DbConnectionPDO.php");
 function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	global $baza_pdo;
 	if ($query_tip==1){
-		$upit = "SELECT profak.broj_prof, profak.sifra_fir, profak.brofak_rucni,
+		$upit = "SELECT profak.broj_prof, profak.sifra_fir,
 			date_format(profak.datum_prof, '%d. %m. %Y.') AS datumf, profak.izzad, dob_kup.sif_kup, dob_kup.naziv_kup 
 			FROM profak
 			LEFT JOIN dob_kup ON profak.sifra_fir=dob_kup.sif_kup
@@ -16,7 +16,7 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	}
 
 	if ($query_tip==2){
-		$upit = "SELECT profak.broj_prof, profak.sifra_fir, profak.brofak_rucni,
+		$upit = "SELECT profak.broj_prof, profak.sifra_fir,
 			date_format(profak.datum_prof, '%d. %m. %Y.') AS datumf, profak.izzad, dob_kup.sif_kup, dob_kup.naziv_kup 
 			FROM profak
 			LEFT JOIN dob_kup ON profak.sifra_fir=dob_kup.sif_kup
@@ -28,7 +28,7 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	}
 
 	if ($query_tip==3){
-		$upit = "SELECT profak.broj_prof, profak.sifra_fir, profak.brofak_rucni,
+		$upit = "SELECT profak.broj_prof, profak.sifra_fir,
 			date_format(profak.datum_prof, '%d. %m. %Y.') AS datumf, profak.izzad, dob_kup.sif_kup, dob_kup.naziv_kup 
 			FROM profak
 			LEFT JOIN dob_kup ON profak.sifra_fir=dob_kup.sif_kup
@@ -40,7 +40,6 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	<table>
 		<tr>
 			<th>ID fak.</th>
-			<th>Br. fak.</th>
 			<th>Kupac</th>
 			<th>Datum</th>
 			<th>Iznos</th>
@@ -52,7 +51,6 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	?>
 		<tr>
 			<td><?php echo $niz['broj_prof'];?></td>
-			<td><?php echo $niz['brofak_rucni'];?></td>
 			<td><?php echo $niz['naziv_kup'];?></td>
 			<td><?php echo $niz['datumf'];?></td>
 			<td><?php echo $niz['izzad'];?></td>

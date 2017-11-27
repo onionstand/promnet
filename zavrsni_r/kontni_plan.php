@@ -4,6 +4,21 @@
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 		<title>Pregled Plata</title>
 		<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
+		<script type="text/javascript" src="../include/jquery/jquery-1.6.2.min.js"></script>
+		<script type="text/javascript" src="../include/form/jquery.validity.js"></script>
+		<link rel="stylesheet" type="text/css" href="../include/form/jquery.validity.css">
+		<script type="text/javascript">
+		 jQuery(document).ready(function() {
+
+			$("#form_konto_novi").validity(function() {
+		                    $("#broj_kont")
+		                        .require("Popuni polje.");
+							$("#naziv_kont")
+								.require("Popuni polje.");
+								
+		                });
+			});
+		</script>
 	</head>
 	<body>
 		<div class="nosac_sa_tabelom">

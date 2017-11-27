@@ -68,56 +68,44 @@ if(isset($_POST['partnersif'])) { ?>
 		$red = mysql_fetch_array($result) or die(mysql_error());
 		$part=$red['sif_kup'];
 		$rokpl=$_POST['rok_placanja'];
-		$broj_rac_rucni=$_POST['broj_rac_rucni'];
 		
-		$upit_br_rac = mysql_query("SELECT * FROM dosta WHERE racun_rucni= '$broj_rac_rucni'");
-		if(mysql_num_rows($upit_br_rac)== 0){
-		
-			mysql_query("INSERT INTO dosta (datum_d,sifra_fir, rok, uplaceni_avans, racun_rucni, datum_prom)
-			VALUES
-			(CURDATE(),'$part','$rokpl',0,'$broj_rac_rucni',CURDATE())");
-			$brojfak=mysql_insert_id();
-			echo $brojfak;
-			
-			$racun_rucni=$broj_rac_rucni;
-			include("../include/ConfigFirma.php");
-			$napomena=$inkfaktekst;
-			mysql_query("UPDATE dosta SET napomena = '$napomena'
-				WHERE broj_dost='$brojfak'");
-			?>
-			<script type="text/javascript">
-				jQuery(document).ready(function() {
-					$("#obaveznaf_prtraga").validity(function() {
-						$("#fokusiraj").require("Unesi tekst.");
-					});
-	
+		mysql_query("INSERT INTO dosta (datum_d,sifra_fir, rok, uplaceni_avans, datum_prom)
+		VALUES
+		(CURDATE(),'$part','$rokpl',0,CURDATE())");
+		$brojfak=mysql_insert_id();
+		//echo $brojfak;
+		$vrsta_dok="F";
+		include("../include/ConfigFirma.php");
+		$napomena=$inkfaktekst;
+		mysql_query("UPDATE dosta SET napomena = '$napomena'
+			WHERE broj_dost='$brojfak'");
+		?>
+		<script type="text/javascript">
+			jQuery(document).ready(function() {
+				$("#obaveznaf_prtraga").validity(function() {
+					$("#fokusiraj").require("Unesi tekst.");
 				});
-			</script>
-			<p>
-				Sifra kupca: <?php echo $part;?><br>
-				Partner: <?php echo $red['naziv_kup'];?><br>
-				Rok placanja: <?php echo $rokpl;?><br>
-				Broj fakture: <?php echo $brojfak;?>
-			</p>
-			<form method='post' id='obaveznaf_prtraga'>
-				<label>Trazi proizvod:</label>
-				<input type='hidden' name='broj_fak' value='<?php echo $brojfak;?>'/>
-				<select name='metode' size='1' class='polje_100'>
-					<option value='naziv_robe'>naziv robe</option>
-					<option value='sifra'>sifra robe</option>
-				</select>
-				<input type='text' name='search' class='polje_100_92plus4' id='fokusiraj' style="margin-top:0.3em;">
-				<button type='submit' class='dugme_zeleno'>Trazi</button>
-			</form>
+			});
+		</script>
+		<p>
+			Sifra kupca: <?php echo $part;?><br>
+			Partner: <?php echo $red['naziv_kup'];?><br>
+			Rok placanja: <?php echo $rokpl;?><br>
+			Broj fakture: <?php echo $brojfak;?>
+		</p>
+		<form method='post' id='obaveznaf_prtraga'>
+			<label>Trazi proizvod:</label>
+			<input type='hidden' name='broj_fak' value='<?php echo $brojfak;?>'/>
+			<select name='metode' size='1' class='polje_100'>
+				<option value='naziv_robe'>naziv robe</option>
+				<option value='sifra'>sifra robe</option>
+			</select>
+			<input type='text' name='search' class='polje_100_92plus4' id='fokusiraj' style="margin-top:0.3em;">
+			<button type='submit' class='dugme_zeleno'>Trazi</button>
+		</form>
 			<div class="cf"></div>
-			<?php
-		}
-		else{?>
-			<h2>Vec postoji faktura sa tim brojem!</h2>
-			<a href="faktura.php" class="dugme_crveno_92plus4 print_hide">Povratak</a>
-		<?php } ?>
-		
-	</div>
+			
+		</div>
 <?php
 } ?>
 
@@ -260,7 +248,7 @@ if (isset($_POST['broj_fak_stampa'])) {
 		$siffirme=$siffirme_red['sifra_fir'];
 	}
 
-	$datum_upit = mysql_query ("SELECT datum_d, date_format(datum_d, '%d. %m. %Y.') as formatted_date, rok, napomena, uplaceni_avans, racun_rucni, date_format(datum_prom, '%d. %m. %Y.') as form_datum_prom
+	$datum_upit = mysql_query ("SELECT datum_d, date_format(datum_d, '%d. %m. %Y.') as formatted_date, rok, napomena, uplaceni_avans, date_format(datum_prom, '%d. %m. %Y.') as form_datum_prom
 		FROM dosta WHERE broj_dost=$brojfak ");
 	$datum_red= mysql_fetch_array ($datum_upit);
 	$datumdos=$datum_red['formatted_date'];
@@ -269,7 +257,7 @@ if (isset($_POST['broj_fak_stampa'])) {
 	$rokpl=$datum_red['rok'];
 	$napomena=$datum_red['napomena'];
 	$uplaceni_avans=$datum_red['uplaceni_avans'];
-	$racun_rucni=$datum_red['racun_rucni'];
+	//$racun_rucni=$datum_red['racun_rucni'];
 
 	$partner_upit = mysql_query("SELECT * FROM dob_kup WHERE sif_kup='$siffirme'");
 	while($partner_red = mysql_fetch_array($partner_upit))
@@ -290,24 +278,21 @@ if (isset($_POST['broj_fak_stampa'])) {
 			<?php echo $inkfirma;?>
 		</div>
 		<div class="nosac_zaglavlja_fakture screen_hide">
-			<div class="zaglavlje_fakture_levi"><span style="font-size: 15px;"><b>RAČUN-OTPREMNICA br. <?php echo $racun_rucni."/".$trengodina;?></b></span>
-				<br><br>Mesto izdavanja računa: <b><?php echo $inkfirma_mir;?></b>
-				<br>Datum izdavanja računa: <b><?php echo $datumdos;?></b>
-				<br>Mesto prometa: <b><?php echo $inkfirma_mir;?></b>
-				<br>Datum prometa: <b><?php echo $datum_promet;?></b>
+			<div class="zaglavlje_fakture_levi">
+				<span style="display: inline-block; margin-bottom:6px;">Kupac:</span><br>
+				<span style="font-size: 11px;"><b><?php echo $kupac;?></b></span><br>
+				<?php echo $ulica_kup;?><br>
+				<?php echo $post_br ." ". $mesto_kup;?><br>
+				<?php if($pib){echo 'PIB: '. $pib.'<br>';}?>
+				<?php if($mat_br){echo 'MAT.BR: '. $mat_br.'<br>';}?>
 			</div>
-			<div class="zaglavlje_fakture_desni">
-				<span style="font-size: 12px;display: inline-block; margin-bottom:6px;">Kupac:</span><br>
-				<b><span style="font-size: 16px;"><?php echo $kupac;?></span></b>
-				<br><?php echo $ulica_kup;?>
-				<br><?php echo $post_br ." ". $mesto_kup;?>
-				<br>
-				<?php if($pib){echo "PIB: ". $pib;}?>
+			<div class="zaglavlje_fakture_desni"><span style="font-size: 11px; display: inline-block; margin-bottom:6px;"><b>RAČUN-DOSTAVNICA BR. <?php echo $brojfak."/".$trengodina;?></b></span>
+				<br>Mesto i datum izdavanja računa: <?php echo $inkfirma_mir . ", " . $datumdos;?>
+				<br>Mesto i datum prometa robe: <?php echo $inkfirma_mir . ", " . $datumdos;?>
 			</div>
 		</div>
 		<p class="print_hide">
 			Broj fakture: <?php echo $brojfak."/".$trengodina;?><br>
-			Broj rucni: <?php echo $racun_rucni."/".$trengodina;?><br>
 			Kupac: <?php echo $kupac;?><br>
 			Datum fakturisanja: <?php echo $datumdos;?> - 
 			Datum prometa: <?php echo $datum_promet;?>
@@ -357,7 +342,7 @@ if (isset($_POST['broj_fak_stampa'])) {
 				<td style="text-align:center;"><?php echo $prikaz_roba_red['srob_dos'];?></td>
 				<td style="text-align:left;"><?php echo $prikaz_roba_red['naziv_robe'];?></td>
 				<td style="text-align:center;"><?php echo $prikaz_roba_red['jed_mere'];?></td>
-				<td><?php echo number_format($prikaz_roba_red['koli_dos'], 2,".",",");?></td>
+				<td><?php echo number_format($prikaz_roba_red['koli_dos'], 2,".",",")+0;?></td>
 				<td><?php echo number_format($prikaz_roba_red['cena_d'], 2,".",",");?></td>
 				<td><?php echo number_format($prikaz_roba_red['ukupdos'], 2,".",",");?></td>
 				<?php
@@ -539,9 +524,8 @@ if (isset($_POST['broj_fak_stampa'])) {
 				window.open("../roba/nova_roba/nova_roba1.php", "_blank","location=1,status=1,scrollbars=1, width=500,height=700");
 			} 
 		</script>
-		<p style="font-size:12px;">
-			<?php
-			echo $napomena;?>
+		<p style="font-size:11px;">
+			<?php echo $napomena;?>
 		</p>
 		<div id="potpis0">
 			<div class="potpis1">
@@ -551,7 +535,6 @@ if (isset($_POST['broj_fak_stampa'])) {
 				<p>
 					Robu primio<br>
 					Br. L.K.<br>
-					Reg. broj.
 				</p>
 			</div>
 
@@ -610,7 +593,7 @@ if(empty($_POST['broj_fak_brisi'])&&
 			warnNoMatch: 'nema poklapanja...'
 		});
 		$("#obaveznaf").validity(function() {
-			$("#firma, #broj_rac_rucni").require("Neophodno polje.");
+			$("#firma").require("Neophodno polje.");
 			$("#rokplacanja_in").require("Neophodno polje.").match("number","Mora biti broj.")
 		});
 
@@ -632,13 +615,7 @@ if(empty($_POST['broj_fak_brisi'])&&
 			</select>
 			<label>Rok placanja:</label>
 			<input type="text" name="rok_placanja" class="polje_100_92plus4" id="rokplacanja_in"/>
-			<label>Broj racuna:</label>
-			<?php $upit_max_broj_rac_rucni = mysql_query(" SELECT MAX(racun_rucni) AS max_racun_r FROM dosta;");
-			$red_max_b_r_r = mysql_fetch_array($upit_max_broj_rac_rucni);
-			$max_broj_r_r=$red_max_b_r_r['max_racun_r']+1;
-			?>
-			<input type="text" name="broj_rac_rucni" value="<?php echo $max_broj_r_r;?>" class="polje_100_92plus4" id="broj_rac_rucni"/>
-			<div class="cf"></div>
+			
 			<button type="submit" class="dugme_zeleno">Unesi</button>
 		</form>
 		<div class="cf"></div>

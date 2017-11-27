@@ -11,13 +11,14 @@
 	require("../include/DbConnection.php");
 	require("../include/ConfigFirma.php");
 	$idbank=$_POST['id_banke'];
-	$datum=$_POST['datum'];
+	//$datum=$_POST['datum'];
 
 	$broj_izvoda=$_POST['broj_izvoda'];
 
-	$upit2 = mysql_query("SELECT date_format(datum_izv, '%d. %m. %Y.') as formatted_date FROM bankaupis WHERE br_izvoda='$broj_izvoda' AND banka='$idbank'");
+	$upit2 = mysql_query("SELECT date_format(datum_izv, '%d. %m. %Y.') as formatted_date, datum_izv FROM bankaupis WHERE br_izvoda='$broj_izvoda' AND banka='$idbank'");
 	$niz2 = mysql_fetch_array($upit2);
 	$datum_izvoda=$niz2['formatted_date'];
+	$datum=$niz2['datum_izv'];
 
 	$ps = mysql_query("SELECT * FROM banke WHERE id_banke='$idbank'");
 	$psniz = mysql_fetch_array($ps);

@@ -54,6 +54,7 @@
 
         if ($OK) {?>
         	<p>Roba "<?php echo $ime_rob;?>" je uneta</p><br>
+          <script type="text/javascript">window.close();</script>
         <?php
         }
         else {

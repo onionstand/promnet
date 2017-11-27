@@ -34,7 +34,7 @@
 
 		if (isset($_POST['broj_fak'])){
 			$brojfak=$_POST['broj_fak'];
-			$upitdosta = mysql_query("SELECT dosta.datum_d, dosta.sifra_fir, dosta.racun_rucni, dosta.datum_prom, dosta.racun_poslat, dob_kup.naziv_kup FROM dosta
+			$upitdosta = mysql_query("SELECT dosta.datum_d, dosta.sifra_fir, dosta.datum_prom, dosta.racun_poslat, dob_kup.naziv_kup FROM dosta
 									LEFT JOIN dob_kup ON dosta.sifra_fir=dob_kup.sif_kup
 									WHERE broj_dost=".$brojfak);
 			$nizdosta= mysql_fetch_array($upitdosta);
@@ -44,7 +44,6 @@
 				$racun_poslat=date("d-m-Y",(strtotime($nizdosta['racun_poslat'])));
 			}
 			
-			$racun_rucni=$nizdosta['racun_rucni'];
 			?>
 			<form method="post" id="validity_form">
 				<label>Datum slanja racuna: </label>

@@ -20,7 +20,7 @@
 			$( "#biracdatuma_prom" ).datepicker($.datepicker.regional[ "sr-SR" ]);
 			
 			$("#validity_form").validity(function() {
-	                    $("#biracdatuma","#firma","#broj_rac_rucni","#biracdatuma_prom")
+	                    $("#biracdatuma","#firma","#biracdatuma_prom")
 	                        .require()
 	                    });
 		});
@@ -45,7 +45,7 @@
 
 		if (isset($_GET['brojfak'])){
 			$brojfak=$_GET['brojfak'];
-			$upitdosta = mysql_query("SELECT dosta.datum_d, dosta.sifra_fir, dosta.racun_rucni, dosta.datum_prom, dob_kup.naziv_kup FROM dosta
+			$upitdosta = mysql_query("SELECT dosta.datum_d, dosta.sifra_fir, dosta.datum_prom, dob_kup.naziv_kup FROM dosta
 									LEFT JOIN dob_kup ON dosta.sifra_fir=dob_kup.sif_kup
 									WHERE broj_dost=".$brojfak);
 			$nizdosta= mysql_fetch_array($upitdosta);
@@ -53,7 +53,6 @@
 			$sifra_partnera=$nizdosta['sifra_fir'];
 			$datum_fakt=date("d-m-Y",(strtotime($nizdosta['datum_d'])));
 			$datum_prometa=date("d-m-Y",(strtotime($nizdosta['datum_prom'])));
-			$racun_rucni=$nizdosta['racun_rucni'];
 			?>
 			<form method="post" id="validity_form">
 				<label>Datum fakturisanja</label>
@@ -74,8 +73,6 @@
 								<?php 
 							} ?>
 				</select>
-				<label>Broj racuna:</label>
-				<input type="text" name="broj_rac_rucni" class="polje_100_92plus4" id="broj_rac_rucni" value="<?php echo $racun_rucni;?>"/>
 				
 				<input type="hidden" name="brojfak" value="<?php echo $brojfak;?>"/>
 				<button type="submit" class="dugme_zeleno">Unesi</button>
@@ -87,34 +84,24 @@
 			<div class="cf"></div>
 			<?php
 		}
-		if (isset($_POST['brojfak']) && ($_POST['partnersif']) && ($_POST['datum_fak']) && ($_POST['datum_prom']) && ($_POST['broj_rac_rucni'])){
+		if (isset($_POST['brojfak']) && ($_POST['partnersif']) && ($_POST['datum_fak']) && ($_POST['datum_prom'])){
 			
-			$upit_br_rac = mysql_query("SELECT * FROM dosta WHERE racun_rucni= '".$_POST['broj_rac_rucni']."' AND broj_dost != '".$_POST['brojfak']."'");
-			if(mysql_num_rows($upit_br_rac)== 0){
-				$datum_fak_baz=date("Y-m-d",(strtotime($_POST['datum_fak'])));
-				$datum_prom_baz=date("Y-m-d",(strtotime($_POST['datum_prom'])));
-				
-				mysql_query("UPDATE dosta SET 
-					sifra_fir=".$_POST['partnersif'].", datum_d='".$datum_fak_baz."', racun_rucni='".$_POST['broj_rac_rucni']."', datum_prom='".$datum_prom_baz."'
-					WHERE broj_dost=".$_POST['brojfak']) or die(mysql_error());
-				
-				?>
-				<h2>Ispravljeno!</h2>
-				<p>Ispravljen br. racuna : <?php echo $_POST['broj_rac_rucni'];?><br>
-				Ispravljen datum fakturisanja: <?php echo $datum_fak_baz;?><br>
-				Ispravljen datum prometa: <?php echo $datum_prom_baz;?><br>
-				Ispravljen Partner: <?php echo $_POST['partnersif'];?>
-				</p>
-				<div class="cf"></div>
-				<?php
-			}
-			else {
-				?>
-				<h2>Broj racuna vec postoji.</h2>
-				<div class="cf"></div>
-				<?php
-			}
+			$datum_fak_baz=date("Y-m-d",(strtotime($_POST['datum_fak'])));
+			$datum_prom_baz=date("Y-m-d",(strtotime($_POST['datum_prom'])));
 			
+			mysql_query("UPDATE dosta SET 
+				sifra_fir=".$_POST['partnersif'].", datum_d='".$datum_fak_baz."', datum_prom='".$datum_prom_baz."'
+				WHERE broj_dost=".$_POST['brojfak']) or die(mysql_error());
+			
+			?>
+			<h2>Ispravljeno!</h2>
+			<p>
+			Ispravljen datum fakturisanja: <?php echo $datum_fak_baz;?><br>
+			Ispravljen datum prometa: <?php echo $datum_prom_baz;?><br>
+			Ispravljen Partner: <?php echo $_POST['partnersif'];?>
+			</p>
+			<div class="cf"></div>
+			<?php
 		
 		}
 		?>

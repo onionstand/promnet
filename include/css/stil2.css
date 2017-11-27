@@ -39,11 +39,11 @@ table{border-collapse:collapse;border-spacing:0}
 td,th{padding:0}
 
 p{margin: 1em 0 1em 0;}
-body {padding:0; color:#414141; background-color: #F5F5F5; font-family:Arial, Helvetica, sans-serif; font-size: 16px;}
+body {padding:0; color:#414141; background-color: #F5F5F5; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size: 16px;}
 h2{font-size:1.5em;margin:.50em 0; text-align: center;;}
 
-th {border: 1px solid #E0E0E0; text-align: center; padding: 0.2em; font-weight:bold;}
-td {border: 1px solid #E0E0E0; padding: 0.2em; text-align: right;}
+th {border: 1px solid #999999; text-align: center; padding: 0.2em; font-weight:bold;}
+td {border: 1px solid #999999; padding: 0.2em; text-align: right;}
 
 .cf:before, .cf:after {content:"";display:table}
 .cf:after {clear:both}
@@ -76,13 +76,13 @@ label{margin: 0.6em 0 0.2em 0; display: block;}
 .margin_left_2per{margin-left:2%;}
 
 .nosac_zaglavlja_fakture {width:100%; height:auto; float:left; clear:both; padding-top: 3px;}
-.zaglavlje_fakture_desni{float:right; padding:30px 5px 20px 20px; width:40%;}
-.zaglavlje_fakture_levi{float:left; padding:30px 15px 20px 15px; width:50%;}
+.zaglavlje_fakture_desni{float:right; padding:10px 5px 20px 20px; width:45%;}
+.zaglavlje_fakture_levi{float:left; padding:10px 15px 20px 15px; width:45%;}
 /*.podnozje_fakture_tekst{float:left;clear:both; padding:10px 5px 10px 5px; width:auto; font-size: 11px; color: #414141;}*/
 
 
-.memorandum{width:100%; float:left; clear:both; border-bottom:3px solid #E0E0E0; font-size: 12px; color: #414141; padding:0px 0px 24px 0px;}
-.memorandum_logo{height:80px; float:left;display:block;}
+.memorandum{width:100%; float:left; clear:both; border-bottom:3px solid #999999; font-size: 12px; color: #414141; padding:0px 0px 10px 0px;}
+.memorandum_logo{height:60px; float:left;display:block;}
 .memorandum_tekst{float:right; text-align: right; margin:0; display:block; line-height: 19px;}
 
 @media only screen and (max-width: 700px) {
@@ -90,18 +90,17 @@ label{margin: 0.6em 0 0.2em 0; display: block;}
 }
 
 @media print {
-	.nosac_sa_tabelom, .nosac_glavni_400{ margin:0 auto; padding:0; height:auto; color: #000000; background-color:none;}
+	.nosac_sa_tabelom, .nosac_glavni_400{ margin:0 auto; padding:0; height:auto; color: #414141; background-color:none;}
 	.td_za_brisanje, .print_hide{display: none;}
 	th,td{font-size: 12px;}
 	.polje_100_92plus4 {width: 92%;padding: 0; border: 1px solid #D2D2D2; color: #A3A09E;}
 	#potpis0{ float:left; clear:both; width:100%;}
-	.potpis1{ font-size: 12px; color: #000000; float:left; padding-bottom:25px; border-top:1px solid #414141; width:210px; text-align:left; margin-top:2rem; }
+	.potpis1{ font-size: 11px; color: #414141; float:left; padding-bottom:25px; border-top:1px solid #414141; width:210px; text-align:left; margin-top:2rem; }
 	.potpis1 p{margin:0;}
-	.potpis2{ font-size: 12px; color: #000000; float:right; padding-bottom:25px; border-top:1px solid #414141; width:210px; text-align:left; margin-top:2rem;}
+	.potpis2{ font-size: 11px; color: #414141; float:right; padding-bottom:25px; border-top:1px solid #414141; width:210px; text-align:left; margin-top:2rem;}
 	.potpis2 p{margin:0;}
 	table{width: 100%;}
-	.zaglavlje_fakture_desni{font-size: 15px; margin-bottom: 20px;}
-	.zaglavlje_fakture_levi{font-size: 11px;}
+	.zaglavlje_fakture_desni,.zaglavlje_fakture_levi{font-size: 10px;}
 }
 
 @media screen{

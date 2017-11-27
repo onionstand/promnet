@@ -65,36 +65,36 @@ $stanje_part=$niz3['stanje'];
 
 		$saldo=$stanje_part;
 		$upit=mysql_query(
-		"SELECT bankaupis.br_izvoda AS a1, 'UPL' AS a2, bankaupis.datum_izv AS a3, bankaupis.izlaz_novca AS a4, bankaupis.ulaz_novca AS a5, bankaupis.broj_dok AS a6
+		"SELECT bankaupis.br_izvoda AS a1, 'UPL' AS a2, bankaupis.datum_izv AS a3, bankaupis.izlaz_novca AS a4, bankaupis.ulaz_novca AS a5, bankaupis.broj_dok AS a6, bankaupis.banka AS a7
 		FROM bankaupis
 		RIGHT JOIN banke ON bankaupis.banka=banke.id_banke 
 		WHERE sifra_par ='$sif_kup'
 		UNION ALL
-		SELECT broj_dost AS a1,'DOS' AS a2,datum_d AS a3,izzad AS a4, 0 AS a5, 'X' AS a6 
+		SELECT broj_dost AS a1,'DOS' AS a2,datum_d AS a3,izzad AS a4, 0 AS a5, 'X' AS a6 , 'X' AS a7
 		FROM dosta 
 		WHERE sifra_fir='$sif_kup'
 		UNION ALL
-		SELECT broj_kalk AS a1,'KAL' AS a2,datum AS a3,0 AS a4, nabav_vre AS a5, faktura AS a6 
+		SELECT broj_kalk AS a1,'KAL' AS a2,datum AS a3,0 AS a4, nabav_vre AS a5, faktura AS a6, 'X' AS a7
 		FROM kalk 
 		WHERE sif_firme='$sif_kup'
 		UNION ALL
-		SELECT br_usluge AS a1,'USL' AS a2,datum AS a3,0 AS a4, iznosus AS a5, br_dok_us AS a6
+		SELECT br_usluge AS a1,'USL' AS a2,datum AS a3,0 AS a4, iznosus AS a5, br_dok_us AS a6, 'X' AS a7
 		FROM usluge 
 		WHERE sifusluge='$sif_kup'
 		UNION ALL
-		SELECT broj_k AS a1,'PIS K' AS a2,dat_k AS a3,iznos_k AS a4, 0 AS a5, 'X' AS a6
+		SELECT broj_k AS a1,'PIS_K' AS a2,dat_k AS a3,iznos_k AS a4, 0 AS a5, 'X' AS a6, 'X' AS a7
 		FROM k_pism_r 
 		WHERE sif_firme='$sif_kup' AND kod_p=1
 		UNION ALL
-		SELECT broj_k AS a1,'PIS F' AS a2,dat_k AS a3,0 AS a4, iznos_f AS a5, 'X' AS a6
+		SELECT broj_k AS a1,'PIS_F' AS a2,dat_k AS a3,0 AS a4, iznos_f AS a5, 'X' AS a6, 'X' AS a7
 		FROM k_pism_r 
 		WHERE sif_firme='$sif_kup' AND kod_p=2
 		UNION ALL
-		SELECT id AS a1, 'FIN KP' AS a2, datum AS a3,zbir AS a4, 0 AS a5, propratni_dok AS a6
+		SELECT id AS a1, 'FIN_KP' AS a2, datum AS a3,zbir AS a4, 0 AS a5, propratni_dok AS a6, 'X' AS a7
 		FROM k_pism_fin 
 		WHERE id_firme='$sif_kup' AND duguje_potr=1
 		UNION ALL
-		SELECT id AS a1, 'FIN KP' AS a2, datum AS a3, 0 AS a4, zbir AS a5, propratni_dok AS a6
+		SELECT id AS a1, 'FIN_KP' AS a2, datum AS a3, 0 AS a4, zbir AS a5, propratni_dok AS a6, 'X' AS a7
 		FROM k_pism_fin 
 		WHERE id_firme='$sif_kup' AND duguje_potr=2
 		ORDER BY a3 
@@ -112,7 +112,62 @@ $stanje_part=$niz3['stanje'];
 
 			echo "<tr>";
 			echo "<td>" . $niz['a1'] . "</td>";
-			echo "<td>" . $niz['a2'] . "</td>";
+
+			switch ($niz['a2']) {
+				case "UPL":
+					?>
+					<td>
+						<form class="print_hide" action="../banka/izvod5.php" method="post">
+							<input type="hidden" name="broj_izvoda" value="<?php echo $niz['a1'];?>"/>
+							<input type="hidden" name="id_banke" value="<?php echo $niz['a7'];?>"/>
+							<input type="submit" value="UPL">
+						</form>
+						<span class="screen_hide">UPL</span>
+					</td>
+					<?php
+					break;
+
+				case "DOS":
+					?>
+					<td>
+						<form class="print_hide" action="../fak/faktura.php" method="post">
+							<input type="hidden" name="broj_fak_stampa" value="<?php echo $niz['a1'];?>"/>
+							<input type="submit" value="DOS">
+						</form>
+						<span class="screen_hide">DOS</span>
+					</td>
+					<?php
+					break;
+				
+				case "KAL":
+					?>
+					<td>
+						<form class="print_hide" action="../kalk/kalk_nov6.php" method="post">
+							<input type="hidden" name="broj_kalkulaci" value="<?php echo $niz['a1'];?>"/>
+							<input type="submit" value="KAL">
+						</form>
+						<span class="screen_hide">KAL</span>
+					</td>
+					<?php
+					break;
+
+				case "USL":
+					echo "<td>USL</td>";
+					break;
+				case "PIS_K":
+					echo "<td>PIS_K</td>";
+					break;
+				case "PIS_F":
+					echo "<td>PIS_F</td>";
+					break;
+				case "FIN_KP":
+					echo "<td>FIN_KP</td>";
+					break;
+				default:
+				echo "<td>----</td>";
+}
+
+
 			echo "<td>" .$datum_formatiran . "</td>";
 			echo "<td>" . number_format($niz['a4'], 2,".",",") . "</td>";
 			echo "<td>" . number_format($niz['a5'], 2,".",",") . "</td>";

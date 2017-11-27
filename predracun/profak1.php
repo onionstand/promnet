@@ -18,7 +18,7 @@
 			        warnNoMatch: 'nema poklapanja...'
 		    	});
 			$("#obaveznaf").validity(function() {
-				$("#firma, #broj_rac_rucni")
+				$("#firma")
 		        .require("Polje je neophodno...");
 		        $("#rok_placanja")
 		        .require("Polje je neophodno...")
@@ -47,15 +47,7 @@
 			</select>
 			<label>Rok placanja:</label>
 			<input type="text" name="rok_placanja" class="polje_100_92plus4" id="rok_placanja"/>
-			<label>Broj predracuna:</label>
-			<?php
-
-			$upit_max_broj_rac_rucni = "SELECT MAX(brofak_rucni) AS max_racun_r FROM profak;";
-			$upit_max_broj_rac_rucni_obrada = $baza_pdo->query($upit_max_broj_rac_rucni);
-			$red_max_b_r_r = $upit_max_broj_rac_rucni_obrada->fetch();
-			$max_broj_r_r=$red_max_b_r_r['max_racun_r']+1;
-			?>
-			<input type="text" name="brofak_rucni" value="<?php echo $max_broj_r_r;?>" class="polje_100_92plus4" id="broj_rac_rucni"/>
+			
 			<button type="submit" class="dugme_zeleno">Unesi</button>
 			</form>
 			<div class="cf"></div>

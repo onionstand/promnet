@@ -61,7 +61,7 @@ if (isset($_GET['broj_fak_stampa'])) {
 		$siffirme=$siffirme_red['sifra_fir'];
 	}
 
-	$datum_upit = mysql_query ("SELECT datum_d, date_format(datum_d, '%d. %m. %Y.') as formatted_date, rok, napomena, uplaceni_avans, racun_rucni, date_format(datum_prom, '%d. %m. %Y.') as form_datum_prom
+	$datum_upit = mysql_query ("SELECT datum_d, date_format(datum_d, '%d. %m. %Y.') as formatted_date, rok, napomena, uplaceni_avans, date_format(datum_prom, '%d. %m. %Y.') as form_datum_prom
 		FROM dosta WHERE broj_dost=$brojfak ");
 	$datum_red= mysql_fetch_array ($datum_upit);
 	$datumdos=$datum_red['formatted_date'];
@@ -70,7 +70,6 @@ if (isset($_GET['broj_fak_stampa'])) {
 	$rokpl=$datum_red['rok'];
 	$napomena=$datum_red['napomena'];
 	$uplaceni_avans=$datum_red['uplaceni_avans'];
-	$racun_rucni=$datum_red['racun_rucni'];
 
 	$partner_upit = mysql_query("SELECT * FROM dob_kup WHERE sif_kup='$siffirme'");
 	while($partner_red = mysql_fetch_array($partner_upit))
@@ -91,7 +90,7 @@ if (isset($_GET['broj_fak_stampa'])) {
 			<?php echo $inkfirma;?>
 		</div>
 		<div class="nosac_zaglavlja_fakture screen_hide">
-			<div class="zaglavlje_fakture_levi"><span style="font-size: 15px;"><b>RAČUN br. <?php echo $racun_rucni."/".$trengodina;?></b></span>
+			<div class="zaglavlje_fakture_levi"><span style="font-size: 15px;"><b>RAČUN br. <?php echo $brojfak."/".$trengodina;?></b></span>
 				<br><br>Mesto izdavanja računa: <b><?php echo $inkfirma_mir;?></b>
 				<br>Datum izdavanja računa: <b><?php echo $datumdos;?></b>
 				<br>Mesto prometa: <b><?php echo $inkfirma_mir;?></b>
@@ -108,7 +107,6 @@ if (isset($_GET['broj_fak_stampa'])) {
 		</div>
 		<p class="print_hide">
 			Broj fakture: <?php echo $brojfak;?><br>
-			Broj rucni: <?php echo $racun_rucni."/".$trengodina;?><br>
 			Kupac: <?php echo $kupac;?><br>
 			Datum: <?php echo $datumdos;?>
 		</p>

@@ -18,23 +18,25 @@ $inkfirmamin="<b>Test d.o.o.</b>";
 $trengodina="2017";
 
 
-if (isset($brojfak)){$inkfaktekst="Napomena o poreskom oslobođenju: NEMA.
-
-<br>
-";
+if (isset($brojfak)){$inkfaktekst='Napomena o poreskom oslobođenju: NEMA.<br>';
 				
-	if (isset($rokpl)){
-		if ($rokpl>0){
-			$inkfaktekst.="Plaćanje u roku od ". $rokpl ." dana.<br>
-			";
-		}
-		else{
-			$inkfaktekst.="Plaćanje avansno.<br>";
-		}
+if (isset($rokpl)){
+	if ($rokpl>0){
+		$inkfaktekst.='Plaćanje u roku od '. $rokpl .' dana.<br>';
 	}
+	else{
+		$inkfaktekst.='Plaćanje avansno.<br>';
+	}
+}
+if (isset($vrsta_dok)){
+	$inkfaktekst.='Uplatu izvršiti na račun <b>999-9999-99</b> sa pozivom na broj <b>'.$vrsta_dok.'/'.$brojfak.'/'.$trengodina.'</b><br>';
+}
+else{
+	$inkfaktekst.='Uplatu izvršiti na račun <b>999-9999-99</b> sa pozivom na broj <b>'.$brojfak.'/'.$trengodina.'</b><br>';
+}
 
-$inkfaktekst.="Uplatu izvršiti na račun 99-9999999-99 sa pozivom na broj <b>".$racun_rucni."/".$trengodina."</b><br><br><br>";
+$inkfaktekst.='Kamatna stopa predviđena zakonom. U slučaju spora nadležan sud u Beogradu.<br>
+	Reklamacije prihvatamo u roku od 8 dana.';
 		
-	//$inkfaktekst.="Reklamacije prihvatamo u roku od 8 dana.";
 }
 ?>
