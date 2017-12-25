@@ -2,7 +2,7 @@
 require("../include/DbConnection.php");
 function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	if ($query_tip==1){
-		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir,
+		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir, dosta.racun_rucni,
 			date_format(dosta.datum_d, '%d. %m. %Y.') AS datumf, dosta.izzad, dosta.ispor,
 			date_format(dosta.racun_poslat, '%d. %m. %Y.') AS datum_rac_poslat,
 			dob_kup.sif_kup, dob_kup.naziv_kup 
@@ -17,7 +17,7 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	}
 
 	if ($query_tip==2){
-		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir,
+		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir, dosta.racun_rucni,
 			date_format(dosta.datum_d, '%d. %m. %Y.') AS datumf,
 			dosta.izzad,
 			dosta.ispor,
@@ -33,7 +33,7 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	}
 
 	if ($query_tip==3){
-		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir,
+		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir, dosta.racun_rucni,
 			date_format(dosta.datum_d, '%d. %m. %Y.') AS datumf, 
 			dosta.izzad, 
 			dosta.ispor,
@@ -49,6 +49,7 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	<div class="nosac_sa_tabelom">
 	<table>
 		<tr>
+			<th>ID fak.</th>
 			<th>Br. fak.</th>
 			<th>Kupac</th>
 			<th>Datum</th>
@@ -58,12 +59,17 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 			<th></th>
 			<th></th>
 		</tr>
-	<?php	
+	<?php
+	$zbir_izzad=0;
+	$zbir_ispor=0;
 	while($niz = mysql_fetch_array($upit))
 	{
+		$zbir_izzad=$zbir_izzad + $niz['izzad'];
+		$zbir_ispor=$zbir_ispor + $niz['ispor'];
 	?>
 		<tr>
 			<td><?php echo $niz['broj_dost'];?></td>
+			<td><?php echo $niz['racun_rucni'];?></td>
 			<td><?php echo $niz['naziv_kup'];?></td>
 			<td><?php echo $niz['datumf'];?></td>
 			<td><?php echo $niz['izzad'];?></td>
@@ -90,6 +96,17 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	<?php
 	}
 	?>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>Zbir:</td>
+		<td><b><?php echo $zbir_izzad;?></b></td>
+		<td><b><?php echo $zbir_ispor;?></b></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
 	</table>
 	</div>
 	<?php
