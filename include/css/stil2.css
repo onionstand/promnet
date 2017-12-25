@@ -19,7 +19,7 @@ sub{bottom:-.25em}
 img{border:0}
 svg:not(:root){overflow:hidden}
 figure{margin:1em 40px}
-hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0; margin: 1rem 0 1rem 0; color: #D2D2D2;}
+hr{display: block; height: 1px; border: 0; border-top: 1px solid #D2D2D2; margin: 1em 0; padding: 0;}
 pre{overflow:auto}
 code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}
 button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}
