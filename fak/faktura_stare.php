@@ -2,7 +2,7 @@
 require("../include/DbConnection.php");
 function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	if ($query_tip==1){
-		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir, dosta.racun_rucni,
+		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir,
 			date_format(dosta.datum_d, '%d. %m. %Y.') AS datumf, dosta.izzad, dosta.ispor,
 			date_format(dosta.racun_poslat, '%d. %m. %Y.') AS datum_rac_poslat,
 			dob_kup.sif_kup, dob_kup.naziv_kup 
@@ -17,7 +17,7 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	}
 
 	if ($query_tip==2){
-		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir, dosta.racun_rucni,
+		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir,
 			date_format(dosta.datum_d, '%d. %m. %Y.') AS datumf,
 			dosta.izzad,
 			dosta.ispor,
@@ -33,7 +33,7 @@ function PretragaPoTerminuFak($ime_polja, $termin_pretrage,$query_tip){
 	}
 
 	if ($query_tip==3){
-		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir, dosta.racun_rucni,
+		$upit = mysql_query("SELECT dosta.broj_dost, dosta.sifra_fir,
 			date_format(dosta.datum_d, '%d. %m. %Y.') AS datumf, 
 			dosta.izzad, 
 			dosta.ispor,
