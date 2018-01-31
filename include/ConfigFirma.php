@@ -15,8 +15,8 @@ $inkfirma="
 $inkfirma_mir="Beograd";
 
 $inkfirmamin="<b>Test d.o.o.</b>";
-$trengodina="2017";
-
+//$trengodina="2018";
+$trengodina=date("Y");
 
 if (isset($brojfak)){$inkfaktekst='Napomena o poreskom oslobođenju: NEMA.<br>';
 				
