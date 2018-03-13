@@ -1,12 +1,22 @@
 <!DOCTYPE html>
+<html>
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../include/css/stil2.css">
+
+	<!-- Export Table -->
+	<link rel="stylesheet" type="text/css" href="../include/table_export/tableexport.css">
+	<script type="text/javascript" src="../include/table_export/FileSaver.min.js"></script>
+	<script type="text/javascript" src="../include/table_export/tableexport.min.js"></script>
+	
+
 	<title>Analiticka kartica</title>
 </head>
 <body>
 <div class="nosac_sa_tabelom">
-<?php require("../include/DbConnection.php");require("../include/ConfigFirma.php");$sif_kup=$_POST['partnersif'];
+<?php require("../include/DbConnection.php");
+require("../include/ConfigFirma.php");
+$sif_kup=$_POST['partnersif'];
 
 $upit3 = mysql_query("SELECT * FROM dob_kup WHERE sif_kup='$sif_kup' ");
 $niz3= mysql_fetch_array($upit3);
@@ -22,7 +32,7 @@ $stanje_part=$niz3['stanje'];
 		<?php echo $niz3['ulica_kup'];?><br/>
 	</p>
 <div class="cf"></div>
-	<table>
+	<table id="default-table">
 		<tr>
 			<th>Br. dok.</th>
 			<th>Vrsta</th>
@@ -193,4 +203,22 @@ $stanje_part=$niz3['stanje'];
 <button class="dugme_plavo print_hide" onClick='window.print()' type='button'>Stampa</button>
 <div class="cf"></div>
 </div>
+
+<script>
+	    var DefaultTable = document.getElementById('default-table');
+	    new TableExport(DefaultTable, {
+	        headers: true,                              // (Boolean), display table headers (th or td elements) in the <thead>, (default: true)
+	        footers: true,                              // (Boolean), display table footers (th or td elements) in the <tfoot>, (default: false)
+	        formats: ['csv', 'txt'],            // (String[]), filetype(s) for the export, (default: ['xlsx', 'csv', 'txt'])
+	        filename: 'kartica',                             // (id, String), filename for the downloaded file, (default: 'id')
+	        bootstrap: false,                           // (Boolean), style buttons using bootstrap, (default: false)
+	        position: 'top',                         // (top, bottom), position of the caption element relative to table, (default: 'bottom')
+	        ignoreRows: null,                           // (Number, Number[]), row indices to exclude from the exported file(s) (default: null)
+	        ignoreCols: null,                           // (Number, Number[]), column indices to exclude from the exported file(s) (default: null)
+	        ignoreCSS: '.tableexport-ignore',           // (selector, selector[]), selector(s) to exclude cells from the exported file(s) (default: '.tableexport-ignore')
+	        emptyCSS: '.tableexport-empty',             // (selector, selector[]), selector(s) to replace cells with an empty string in the exported file(s) (default: '.tableexport-empty')
+	        trimWhitespace: true                        // (Boolean), remove all leading/trailing newlines, spaces, and tabs from cell text in the exported file(s) (default: true)
+	    });
+	</script>
 </body>
+</html>
